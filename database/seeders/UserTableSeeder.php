@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
             'cargo_id' => '1',
             'cedula' => '20391877',
             'name' => 'Juan Jose',
-            'username' => 'juanjosexd',
+            'username' => 'juansoto',
             'slug' => 'juan-jose',
             'last_name' => ' Soto Peña',
             'email' => 'juanjosexdd7@gmail.com',

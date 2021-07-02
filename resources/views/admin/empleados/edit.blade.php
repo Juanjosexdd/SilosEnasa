@@ -17,7 +17,7 @@
         <div class="card-body" style="overflow-y: auto">
             {!! Form::model($empleado, ['route' => ['admin.empleados.update', $empleado], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
             @include('admin.empleados.partials.form')
-            {!! Form::submit('Guardar', ['class' => 'btn btn-outline-primary btn-block']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block']) !!}
 
             {!! Form::close() !!}
         </div>

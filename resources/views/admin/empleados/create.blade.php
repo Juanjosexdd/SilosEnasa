@@ -16,7 +16,7 @@
             {!! Form::open(['route' => 'admin.empleados.store']) !!}
 
             @include('admin.empleados.partials.form')
-            {!! Form::submit('Guardar', ['class' => 'btn btn-outline-primary btn-block']) !!}
+            {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block']) !!}
             {!! Form::close() !!}
 
         </div>

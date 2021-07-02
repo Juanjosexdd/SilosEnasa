@@ -14,6 +14,11 @@ class Proveedor extends Model
     {
         return "slug";
     }
+
+    public function getDisplayProveedorAttribute()
+    {
+        return $this->id . ' ' .  $this->tipodocumento->abreviado . '-' . $this->cedularif . ' ' . $this->nombre;
+    }
     
     public function tipodocumento()
     {

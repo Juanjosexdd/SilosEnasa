@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>ENASA</b> LTE',
+    'logo' => '<b>ENASA</b>',
     'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,

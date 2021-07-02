@@ -136,10 +136,10 @@
                 </div>
                 <br>
                 <div class="row invoice-info">
-                    <div class="col-sm-9 invoice-col">
-                        <strong class="font-14 text-blue">Permisos del user</strong><br><br>
+                    <div class="col-sm-12 invoice-col">
+                        <strong class="font-14 text-blue">Permisos del usuario</strong><br><br>
                         @foreach ($user->getAllPermissions() as $permission)
-                            <span class="badge">{{ trans('permission.' . $permission->name) }}</span>&nbsp;&nbsp;
+                            <span class="badge">{{ $permission->description }}</span>&nbsp;&nbsp;
                         @endforeach
                         <p class="badge badge-danger">Aqui Listado de permisos</p>
                     </div>

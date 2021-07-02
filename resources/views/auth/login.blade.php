@@ -64,7 +64,7 @@
 						<div class="login-title">
 							<h2 class="text-center text-primary">Iniciar Sesión</h2>
 						</div>
-						<form  method="POST" action="{{ route('login') }}">
+						<form  method="POST" action="{{ route('login') }}" autocomplete="off">
                             @csrf
 							<div class="input-group custom">
 								<input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario">

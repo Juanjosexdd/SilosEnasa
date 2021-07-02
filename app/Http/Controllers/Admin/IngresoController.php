@@ -54,9 +54,11 @@ class IngresoController extends Controller
         $log->save();
 
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
-        $proveedors = DB::table('proveedors')->where('estatus', 1)->pluck('nombre' , 'id');
+        // $proveedors = DB::table('proveedors')->where('estatus', 1)->pluck('nombre' , 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos  = DB::table('productos')->where('estatus', 1)->pluck('nombre' , 'id');
+        // $productos  = DB::table('productos')->where('estatus', 1)->pluck('nombre' , 'id');
+        $productos  = Producto::where('estatus', 1)->get()->pluck('display_producto','id');
+        $proveedors  = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor','id');
 
         return view('admin.ingresos.create', compact('proveedors','users','almacens','productos'));
     }

@@ -2,10 +2,6 @@
 
 @section('title', 'Inicio Enasa')
 
-@section('content_header')
-    <h1>Bienvenido a Enasa</h1>
-@stop
-
 @section('content')
     <div class="container">
 
@@ -14,13 +10,13 @@
                 style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">
             </div>
             <div class="card-custom-avatar">
-                <img class="img-fluid"
-                    src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg"
-                    alt="Avatar" />
+                <img
+                                        class="img-size-32  img-circle image elevation-2"
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"  />
                                     
             </div>
             <div class="card-body" style="overflow-y: auto">
-                <h1>Bienvenido a Enasa</h1>
+                <h1>Bienvenido a Enasa {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h1>
             </div>
             <div class="card-footer" style="background: inherit; border-color: inherit;">
 

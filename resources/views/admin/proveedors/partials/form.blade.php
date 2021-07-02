@@ -16,19 +16,19 @@
         </div>
     </div>
     <div class="col-md-2">
-            {!! Form::label('tipodocumento_id', 'N : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
+            {!! Form::label('tipodocumento_id', 'Documento : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             {!! Form::select('tipodocumento_id', $tipodocumentos, null, ['class' => 'form-control select2'. ($errors->has('tipodocumento_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
             {!! $errors->first('tipodocumento_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            {!! Form::label('cedularif', 'Cedula : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
+            {!! Form::label('cedularif', 'Cedula / Rif : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
                 </div>
-                {!! Form::text('cedularif', null, ['class' => 'form-control' . ($errors->has('cedularif') ? ' is-invalid' : ''), 'placeholder' => 'Cedula']) !!}
+                {!! Form::text('cedularif', null, ['class' => 'form-control' . ($errors->has('cedularif') ? ' is-invalid' : ''), 'placeholder' => 'Cedula / Rif']) !!}
                 {!! $errors->first('cedularif', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
             </div>
         </div>
