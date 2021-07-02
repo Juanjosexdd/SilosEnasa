@@ -1,0 +1,26 @@
+-------------------1ra Parte-----------------------
+CREATE FUNCTION silosenasa.tr_updCantidadIngreso()
+	RETURNS trigger
+	LANGUAGE 'plpgsql'
+	COST 100
+	VOLATILE NOT LEAKPROOF
+AS $BODY$
+	
+	BEGIN
+		UPDATE silosenasa.productos SET stock = stock + NEW.cantidad
+		WHERE productos.id = NEW.producto_id;
+		
+		RETURN NULL;
+	END;
+	
+$BODY$
+	
+--------------------2da parte---------------------
+ALTER FUNCTION silosenasa.tr_updCantidadIngreso()
+	OWNER TO postgres;
+	
+CREATE TRIGGER tr_updCantidadIngreso
+	AFTER INSERT
+	ON silosenasa.detalle_ingreso
+	FOR EACH ROW
+	EXECUTE PROCEDURE silosenasa.tr_updCantidadIngreso();
