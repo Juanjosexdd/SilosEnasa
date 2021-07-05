@@ -19,6 +19,7 @@ class CreateIngresosTable extends Migration
             $table->unsignedBigInteger("user_id")->nullable();
             $table->unsignedBigInteger("proveedor_id")->nullable();
             $table->text('observacion')->nullable();
+            $table->boolean('estatus')->default(1);
 
             $table->foreign('tipomovimiento_id')
                   ->references('id')

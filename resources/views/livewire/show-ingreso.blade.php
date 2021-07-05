@@ -54,19 +54,31 @@
                             @endif
                         </th>
                         <th>
-                            almacenes
+                            Estatus
                         </th>
-                        
+                        <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($ingresos as $ingreso)
                         <tr>
-                            <td>{{ $ingreso->id }}</td>
-                            <td>{{ $ingreso->user->name .' - '. $ingreso->user->last_name }} </td>
-                            <td>{{ $ingreso->proveedor->nombre }}</td>
-                            <td>{{ $ingreso->almacen_id }}</td>
-                            
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->id }}</a></td>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->user->name .' - '. $ingreso->user->last_name }} </a> </td>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->proveedor->nombre }}</a></td>     
+                            <td>
+                                @if ($ingreso->estatus == 1 )
+                                    <span class="badge badge-success"> Procesado </span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-default elevation-4 btn-sm"
+                                            style="border-color: rgb(158, 157, 157);"
+                                            href=" {{ route('admin.ingresos.show', $ingreso->id) }} "><i
+                                                class="fas fa-eye text-yellow"></i>
+                                        </a>
+                                </div>
+                            </td>                   
                         </tr>
                     @endforeach
                 </tbody>

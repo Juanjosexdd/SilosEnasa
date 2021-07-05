@@ -56,6 +56,7 @@ class IngresoController extends Controller
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         // $proveedors = DB::table('proveedors')->where('estatus', 1)->pluck('nombre' , 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
+        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
         // $productos  = DB::table('productos')->where('estatus', 1)->pluck('nombre' , 'id');
         $productos  = Producto::where('estatus', 1)->get()->pluck('display_producto','id');
         $proveedors  = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor','id');
@@ -74,6 +75,7 @@ class IngresoController extends Controller
         try {
             DB::beginTransaction();
             $ingreso=new Ingreso;
+            
             $ingreso->proveedor_id=$request->get('proveedor_id');
             $ingreso->observacion=$request->get('observacion');
             $ingreso->user_id = auth()->user()->id;
@@ -140,9 +142,10 @@ class IngresoController extends Controller
      * @param  \App\Models\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ingreso $ingreso)
     {
-    
+        
+        return view('admin.ingresos.show', compact('ingreso'));
     }
 
     /**

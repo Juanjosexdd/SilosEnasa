@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\EstadoController;
 use App\Http\Controllers\Admin\CiudadController;
 use App\Http\Controllers\Admin\EmpleadoController;
 use App\Http\Controllers\Admin\AlmacenController;
+use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\ClacificacionController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\ProveedorController;
@@ -34,7 +35,9 @@ Route::resource('ingresos', IngresoController::class)->names('admin.ingresos');
 Route::resource('logs', LogsistemaController::class)->names('admin.logs');
 Route::resource('logins', LoginController::class)->names('admin.logins');
 Route::resource('roles', RoleController::class)->names('admin.roles');
-
+Route::resource('roles', RoleController::class)->names('admin.roles');
+Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
+Route::view('backup', 'laravel_backup_panel::layout');
 
 Route::get('UpdateStatus/{user}', [UserController::class, 'UpdateStatus'])->name('admin.users.UpdateStatus');
 Route::get('estatuestado/{estado}', [EstadoController::class, 'estatuestado'])->name('admin.estados.estatuestado');

@@ -25,6 +25,11 @@ class Producto extends Model
         return $this->belongsTo(Clacificacion::class);
     }
 
+    public function detalleingreso()
+    {
+        return $this->belongsTo(Detalleingreso::class);
+    }
+
     public function getDisplayProductoAttribute()
     {
         return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre;

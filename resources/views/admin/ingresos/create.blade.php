@@ -29,9 +29,7 @@
                         <label class="text-blue">Responsable :</label>
                         <input  type="text" class="form-control"value="{{ Auth::user()->name .' '.Auth::user()->last_name }}" disabled>
                     </div>
-                </div>
-                <div class="row">
-                    {{-- <div class="col-md-4">
+                    {{-- <div class="col-md-3">
                         <div>
                             {!! Form::label('tipomovimiento_id', 'Tipo Movimiento : ', ['class' => 'text-blue']) !!}
                             {!! Form::select('tipomovimiento_id', $tipomovimients, null, ['class' => 'form-control select2 selectpicker','data-live-search' => 'true']) !!}
@@ -40,6 +38,9 @@
                             @enderror
                         </div>
                     </div> --}}
+                </div>
+                <div class="row">
+                    
                     {{-- <div class="col-md-4">
                         <div>
                             {!! Form::label('tipomovimiento_id', 'Tipo Movimiento : ', ['class' => 'text-blue']) !!}

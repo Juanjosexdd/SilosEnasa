@@ -258,6 +258,14 @@ return [
                     'label'       => 'Ver',
                     'label_color' => 'success',
                 ],
+                [
+                    'text' => 'Egreso',
+                    'route'  => 'admin.ingresos.index',
+                    'icon' => 'fas fa-dolly text-blue',
+                    'active' => ['admin/ingresos*'],
+                    'label'       => 'Ver',
+                    'label_color' => 'success',
+                ],
             ],
         ],
         ['header' => 'INVENTARIO'],
@@ -372,6 +380,12 @@ return [
                     'icon' => 'fas fa-traffic-light text-blue',
                     'active' => ['admin/logins*'],
                     'can' => 'admin.logins.index',
+                ],
+                [
+                    'text' => 'Backup',
+                    'route'  => 'admin.respaldos.index',
+                    'icon' => 'fas fa-cloud-download-alt text-blue',
+                    'active' => ['admin/backup*'],
                 ],
             ],
             

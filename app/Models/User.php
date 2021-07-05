@@ -99,5 +99,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ingreso::class);
     }
+    public function getDisplayUserAttribute()
+    {
+        return $this->name . ' ' . $this->last_name;
+    }
 
 }

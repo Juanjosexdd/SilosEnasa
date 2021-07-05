@@ -17,7 +17,7 @@ class Proveedor extends Model
 
     public function getDisplayProveedorAttribute()
     {
-        return $this->id . ' ' .  $this->tipodocumento->abreviado . '-' . $this->cedularif . ' ' . $this->nombre;
+        return $this->tipodocumento->abreviado . '-' . $this->cedularif . ' ' . $this->nombre;
     }
     
     public function tipodocumento()

@@ -12,5 +12,15 @@ class Detalleingreso extends Model
     protected $table = 'detalle_ingreso';
 
     protected $guarded = ['id','created_at','updated_at'];
+
+    public function ingreso()
+    {
+        return $this->belongsTo(Ingreso::class);
+    }
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class);
+    }
     
 }
