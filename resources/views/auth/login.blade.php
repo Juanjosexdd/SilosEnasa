@@ -32,7 +32,7 @@
 	</script>
 </head>
 <body class="login-page">
-    <div class="pre-loader">
+    {{-- <div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo"><img src="{{asset('vendores/images/logo.png')}}" alt="" width="250"></div>
 			<div class='loader-progress' id="progress_div">
@@ -43,7 +43,7 @@
 				Cargando...
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
@@ -67,13 +67,19 @@
 						<form  method="POST" action="{{ route('login') }}" autocomplete="off">
                             @csrf
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario">
+								{{ Form::text('username', null, ['class' => 'form-control form-control-lg' . ($errors->has('username') ? ' is-invalid' : ''), 'placeholder' => 'Usuario']) }}
+								{{-- <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario"> --}}
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
+								{!! $errors->first('username', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+
 							</div>
 							<div class="input-group custom">
-								<input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="**********">
+								{{-- <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="**********"> --}}
+								{!! Form::password('password', ['class' => 'form-control form-control-lg' . ($errors->has('password') ? ' is-invalid' : ''), 'placeholder' => 'Contraseña']) !!}
+								{!! $errors->first('password', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+				
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 								</div>

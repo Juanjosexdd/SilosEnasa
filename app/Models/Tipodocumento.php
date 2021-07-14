@@ -23,4 +23,8 @@ class Tipodocumento extends Model
     {
         return $this->hasMany(Empleado::class);
     }
+    public function empresas()
+    {
+        return $this->hasMany(Empresa::class);
+    }
 }

@@ -4,9 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Ingreso;
+use App\Models\Empresa;
 
-class ShowIngreso extends Component
+
+class ShowEmpresa extends Component
 {
     protected $paginationTheme = "bootstrap";
     use WithPagination;
@@ -19,17 +20,15 @@ class ShowIngreso extends Component
     {
         $this->resetPage();
     }
+    
 
     public function render()
-    {        
-        $ingresos = Ingreso::where('id', 'like', '%' . $this->search . '%')
-                   ->orWhere('user_id', 'like', '%' . $this->search . '%')
-                   ->orWhere('correlativo', 'like', '%' . $this->search . '%')
-                   ->orWhere('proveedor_id', 'like', '%' . $this->search . '%')
+    {
+        $empresas = Empresa::where('nombre', 'like', '%' . $this->search . '%')
                    ->orderBy($this->sort, $this->direction)
                    ->paginate(10);
                    
-        return view('livewire.show-ingreso', compact('ingresos'));
+        return view('livewire.show-empresa', compact('empresas'));
     }
 
     public function order($sort)

@@ -63,7 +63,7 @@ class ProveedorController extends Controller
         //return $request;
         $proveedor = Proveedor::create($request->all());
 
-        return redirect()->route('admin.proveedors.edit', $proveedor)->with('success', ' ¡Felicidades el proveedor se creo con éxito!');
+        return redirect()->route('admin.proveedors.index', $proveedor)->with('success', ' ¡Felicidades el proveedor se creo con éxito!');
     }
 
     /**

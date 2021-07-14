@@ -21,6 +21,7 @@ class CreateDetalleIngresoTable extends Migration
 
             $table->integer('cantidad');
             $table->text('observacion')->nullable();
+            $table->boolean('estatus')->default(1);
 
             
             $table->foreign('almacen_id')

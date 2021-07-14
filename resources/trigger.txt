@@ -6,3 +6,25 @@ FOR EACH ROW BEGIN
 END
 //
 DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tr_updStockAnulado AFTER UPDATE ON detalle_ingreso
+FOR EACH ROW BEGIN
+	UPDATE productos SET estatus = stock - NEW.cantidad
+	WHERE productos.id = NEW.producto_id;
+END
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER tr_updStockAnulado AFTER UPDATE ON ingresos
+FOR EACH ROW BEGIN
+	UPDATE productos p
+	JOIN detalle_ingreso di
+	ON di.producto_id = p.id
+	AND di.ingreso_id = NEW.id
+	SET p.stock = p.stock - di.cantidad;
+END;
+//
+DELIMITER ;

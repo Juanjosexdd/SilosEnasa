@@ -52,6 +52,7 @@ class ProductoController extends Controller
         // $clacificaciones = Clacificacion::pluck('abreviado','id');
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
         
+        
         return view('admin.productos.create', compact('clacificaciones'));
     }
 
@@ -78,7 +79,7 @@ class ProductoController extends Controller
 
         $producto = Producto::create($request->all());
 
-        return redirect()->route('admin.productos.edit', $producto)->with('success', ' ¡Felicidades el producto se creo con éxito!');
+        return redirect()->route('admin.productos.index', $producto)->with('success', ' ¡Felicidades el producto se creo con éxito!');
     }
 
     /**
@@ -100,6 +101,8 @@ class ProductoController extends Controller
 
         return view('admin.productos.edit', compact('producto','clacificaciones'));
     }
+
+    
 
     /**
      * Update the specified resource in storage.

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\EmpleadoController;
 use App\Http\Controllers\Admin\AlmacenController;
 use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\ClacificacionController;
+use App\Http\Controllers\Admin\EmpresaController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\ProveedorController;
 use App\Http\Controllers\Admin\IngresoController;
@@ -27,6 +28,7 @@ Route::resource('departamentos', DepartamentoController::class)->names('admin.de
 Route::resource('estados', EstadoController::class)->names('admin.estados');
 Route::resource('ciudads', CiudadController::class)->names('admin.ciudads');
 Route::resource('empleados', EmpleadoController::class)->names('admin.empleados');
+Route::resource('empresas', EmpresaController::class)->names('admin.empresas');
 Route::resource('almacens', AlmacenController::class)->names('admin.almacens');
 Route::resource('clacificacions', ClacificacionController::class)->names('admin.clacificacions');
 Route::resource('productos', ProductoController::class)->names('admin.productos');
@@ -38,6 +40,10 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
 Route::view('backup', 'laravel_backup_panel::layout');
+
+
+Route::resource('storeproductoingreso',   'ProductoController@storeproductoingreso');
+
 
 Route::get('UpdateStatus/{user}', [UserController::class, 'UpdateStatus'])->name('admin.users.UpdateStatus');
 Route::get('estatuestado/{estado}', [EstadoController::class, 'estatuestado'])->name('admin.estados.estatuestado');
@@ -51,4 +57,5 @@ Route::get('estatutipodocumento/{tipodocumento}', [TipodocumentoController::clas
 Route::get('estatuempleado/{empleado}', [EmpleadoController::class, 'estatuempleado'])->name('admin.empleados.estatuempleado');
 Route::get('estatualmacen/{almacen}', [AlmacenController::class, 'estatualmacen'])->name('admin.almacens.estatualmacen');
 Route::get('estatuproducto/{producto}', [ProductoController::class, 'estatuproducto'])->name('admin.productos.estatuproducto');
+Route::get('estatuingreso/{ingreso}', [IngresoController::class, 'estatuingreso'])->name('admin.ingresos.estatuingreso');
 

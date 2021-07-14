@@ -5,7 +5,7 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-           
+
             <a href="{{ route('admin.ingresos.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
                     class="fas fa-plus mt-2 px-3"></i>
             </a>
@@ -16,8 +16,21 @@
             <table class="table table-striped table-hover text-nowrap">
                 <thead>
                     <tr>
+                        <th scope="col" role="button" wire:click="order('correlativo')">
+                            Correlativo
+                            @if ($sort == 'correlativo')
+                                @if ($direction == 'asc')
+                                    <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
+                                @else
+                                    <i class="fas fa-sort-amount-down float-right mt-1"></i>
+                                @endif
+                            @else
+                                <i class="fas fa-sort float-right mt-1"></i>
+                            @endif
+
+                        </th>
                         <th scope="col" role="button" wire:click="order('id')">
-                            ID
+                            Codigo
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -27,7 +40,7 @@
                             @else
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
-                            
+
                         </th>
                         <th scope="col" role="button" wire:click="order('user_id')">
                             Responsable
@@ -62,23 +75,35 @@
                 <tbody>
                     @foreach ($ingresos as $ingreso)
                         <tr>
-                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->id }}</a></td>
-                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->user->name .' - '. $ingreso->user->last_name }} </a> </td>
-                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->proveedor->nombre }}</a></td>     
+                            
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->correlativo}}</a>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->created_at->toDateString() . '-' . $ingreso->id }}</a> </td>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->user->name . ' - ' . $ingreso->user->last_name }}</a> </td>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->proveedor->nombre }}</a></td>
                             <td>
-                                @if ($ingreso->estatus == 1 )
-                                    <span class="badge badge-success"> Procesado </span>
+                                @if ($ingreso->estatus == 1)
+                                    <form class="anular"
+                                        action="{{ route('admin.ingresos.estatuingreso', $ingreso) }}" method="get">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm elevation-4">
+                                            <i class="fas fa-check-circle"></i> Procesado
+                                        </button>
+                                    </form>
+                                @else
+                                    <p class="btn  btn-danger btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Anulado &nbsp; &nbsp;
+                                    </p>
                                 @endif
                             </td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-default elevation-4 btn-sm"
-                                            style="border-color: rgb(158, 157, 157);"
-                                            href=" {{ route('admin.ingresos.show', $ingreso->id) }} "><i
-                                                class="fas fa-eye text-yellow"></i>
-                                        </a>
+                                        style="border-color: rgb(158, 157, 157);"
+                                        href=" {{ route('admin.ingresos.show', $ingreso->id) }} "> 
+                                        <i class="fas fa-eye text-yellow"></i>
+                                    </a>
                                 </div>
-                            </td>                   
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

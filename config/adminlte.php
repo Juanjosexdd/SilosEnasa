@@ -310,6 +310,12 @@ return [
             'icon'    => 'fas fa-cogs text-blue',
             'submenu' => [
                 [
+                    'text' => 'Empresa',
+                    'route'  => 'admin.empresas.index',
+                    'icon' => 'fas fa-city text-blue',
+                    'active' => ['admin/empresas*'],
+                ],
+                [
                     'text' => 'Tipo Documentos',
                     'route'  => 'admin.tipodocumentos.index',
                     'icon' => 'far fa-file-alt text-blue',

@@ -56,12 +56,16 @@ class IngresoController extends Controller
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         // $proveedors = DB::table('proveedors')->where('estatus', 1)->pluck('nombre' , 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
         // $productos  = DB::table('productos')->where('estatus', 1)->pluck('nombre' , 'id');
         $productos  = Producto::where('estatus', 1)->get()->pluck('display_producto','id');
         $proveedors  = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor','id');
+        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
+        $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
 
-        return view('admin.ingresos.create', compact('proveedors','users','almacens','productos'));
+        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
+
+
+        return view('admin.ingresos.create', compact('proveedors','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
 
     /**
@@ -72,37 +76,39 @@ class IngresoController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            DB::beginTransaction();
-            $ingreso=new Ingreso;
-            
-            $ingreso->proveedor_id=$request->get('proveedor_id');
-            $ingreso->observacion=$request->get('observacion');
-            $ingreso->user_id = auth()->user()->id;
-            $ingreso->save();
+                try {
+                    DB::beginTransaction();
+                    $ingreso=new Ingreso;
+                    
+                    $ingreso->proveedor_id=$request->get('proveedor_id');
+                    $ingreso->correlativo=$request->get('correlativo');
+                    $ingreso->observacion=$request->get('observacion');
+                    $ingreso->user_id = auth()->user()->id;
+                    $ingreso->save();
 
-            $producto_id = $request->get('producto_id');
-            $almacen_id=$request->get('almacen_id');
-            $cantidad = $request->get('cantidad');
-            $cont = 0;
-            
-            while($cont < count($producto_id))
-            {
-                $detalle = new Detalleingreso();
-                $detalle->ingreso_id=$ingreso->id;
-                $detalle->producto_id=$producto_id[$cont];
-                $detalle->almacen_id=$almacen_id[$cont];
-                $detalle->cantidad=$cantidad[$cont];
-                $detalle->save();
+                    $producto_id = $request->get('producto_id');
+                    $almacen_id=$request->get('almacen_id');
+                    $cantidad = $request->get('cantidad');
+                    $cont = 0;
+                    
+                    while($cont < count($producto_id))
+                    {
+                        $detalle = new Detalleingreso();
+                        $detalle->ingreso_id=$ingreso->id;
+                        $detalle->producto_id=$producto_id[$cont];
+                        $detalle->almacen_id=$almacen_id[$cont];
+                        $detalle->cantidad=$cantidad[$cont];
+                        $detalle->save();
+                        
+                        $cont = $cont+1;
+                    }
+                    
+                    DB::commit();
 
-                $cont = $cont+1;
-            }
-            
-            DB::commit();
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-        }
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                }
+                
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
@@ -142,10 +148,22 @@ class IngresoController extends Controller
      * @param  \App\Models\Ingreso  $ingreso
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingreso $ingreso)
+    public function show($id)
     {
-        
-        return view('admin.ingresos.show', compact('ingreso'));
+        $empresa=DB::table('empresas as e')
+            ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
+        $ingreso = Ingreso::find($id);
+
+        $detalles = Detalleingreso::join('productos','detalle_ingreso.producto_id','=','productos.id')
+                                  ->join('almacens' ,'detalle_ingreso.almacen_id','=','almacens.id')
+             ->select('productos.nombre as producto',
+                      'almacens.nombre as almacen',
+                      'detalle_ingreso.cantidad',
+                      'detalle_ingreso.created_at',
+                      'detalle_ingreso.updated_at',)
+             ->where('detalle_ingreso.ingreso_id','=',$id)
+             ->orderBy('detalle_ingreso.id', 'desc')->get();
+        return view('admin.ingresos.show', compact('ingreso','detalles'));
     }
 
     /**
@@ -183,5 +201,32 @@ class IngresoController extends Controller
         $ingreso->estatus=2;
         $ingreso->update();
         return view('admin.ingresos.index');
+    }
+
+    public function estatuingreso(Ingreso $ingreso)
+    {
+        
+        if ($ingreso->estatus == "1") {
+
+            $log = new LogSistema();
+
+            $log->user_id = auth()->user()->id;
+            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al ingreso: ' . $ingreso->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+            $log->save();
+
+            
+
+            // $cont = 0;
+            // while($cont < count($ingreso->producto_id)){
+            //     $ingreso->estatus = '0';
+            //     $ingreso->save();
+            // }
+
+            $ingreso->estatus = '0';
+            $ingreso->save();
+
+            return redirect()->route('admin.ingresos.index')->with('success', 'El documento se anuló con éxito!');
+
+        }
     }
 }

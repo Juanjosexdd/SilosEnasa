@@ -73,7 +73,7 @@ class AlmacenController extends Controller
 
         $almacen = Almacen::create($request->all());
 
-        return redirect()->route('admin.almacens.edit', $almacen)->with('success', ' ¡Felicidades el almacen se creo con éxito!');
+        return redirect()->route('admin.almacens.index', $almacen)->with('success', ' ¡Felicidades el almacen se creo con éxito!');
     }
 
     /**

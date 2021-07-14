@@ -136,12 +136,15 @@
                 </div>
                 <br>
                 <div class="row invoice-info">
-                    <div class="col-sm-12 invoice-col">
+                    <div class="col-sm-12  invoice-col">
                         <strong class="font-14 text-blue">Permisos del usuario</strong><br><br>
+                        <div class="row">
                         @foreach ($user->getAllPermissions() as $permission)
-                            <span class="badge">{{ $permission->description }}</span>&nbsp;&nbsp;
+                            <div class="col-md-3">
+                                <span class="form-control form-control-sm text-center shadow-sm">{{ $permission->description }}</span>&nbsp;&nbsp;
+                            </div>
                         @endforeach
-                        <p class="badge badge-danger">Aqui Listado de permisos</p>
+                        </div>
                     </div>
                 </div>
             </div>
