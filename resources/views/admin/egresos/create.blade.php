@@ -19,14 +19,14 @@
                 {!! Form::open(['route' => 'admin.egresos.store']) !!}
                 <div class="row">
                     <div class="col-md-6">
-                        {!! Form::label('proveedor_id', 'Proveedor : ', ['class' => 'text-blue']) !!}
+                        {!! Form::label('empleado_id', 'Trabajador : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text ">
                                     <i class="fas fa-search text-blue"></i>
                                 </span>
                             </div>
-                            {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
                             {{-- <span class="input-group-append">
                                 <button type="button" class="btn bg-navy" data-toggle="modal"
                                     data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>

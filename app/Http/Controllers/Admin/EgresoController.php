@@ -18,6 +18,7 @@ use Illuminate\Support\Collection;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EgresoFormRequest;
+use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
@@ -58,14 +59,14 @@ class EgresoController extends Controller
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
         // $productos  = DB::table('productos')->where('estatus', 1)->pluck('nombre' , 'id');
         $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
-        $proveedors  = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor','id');
+        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 
 
-        return view('admin.egresos.create', compact('proveedors','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.egresos.create', compact('empleados','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
 
     /**
@@ -82,7 +83,7 @@ class EgresoController extends Controller
             DB::beginTransaction();
             $egreso=new Egreso;
             
-            $egreso->proveedor_id=$request->get('proveedor_id');
+            $egreso->empleado_id=$request->get('empleado_id');
             $egreso->correlativo=$request->get('correlativo');
             $egreso->observacion=$request->get('observacion');
             $egreso->user_id = auth()->user()->id;

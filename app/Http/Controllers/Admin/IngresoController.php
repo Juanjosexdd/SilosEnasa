@@ -77,6 +77,9 @@ class IngresoController extends Controller
     public function store(Request $request)
     {
         //return dd($request);
+        $request->validate([
+            'proveedor_id' => 'required|not_in:0',
+        ]);
                 try {
                     DB::beginTransaction();
                     $ingreso=new Ingreso;

@@ -54,9 +54,9 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('proveedor_id')">
+                        <th scope="col" role="button" wire:click="order('empleado_id')">
                             Proveedor
-                            @if ($sort == 'proveedor_id')
+                            @if ($sort == 'empleado_id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
                                 @else
@@ -79,7 +79,7 @@
                             <td> <a href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->correlativo}}</a>
                             <td> <a href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->created_at->toDateString() . '-' . $egreso->id }}</a> </td>
                             <td> <a href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->user->name . ' - ' . $egreso->user->last_name }}</a> </td>
-                            <td> <a href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->proveedor->nombre }}</a></td>
+                            <td> <a href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->empleado->display_empleado }}</a></td>
                             <td>
                                 @if ($egreso->estatus == 1)
                                     <form class="anular"

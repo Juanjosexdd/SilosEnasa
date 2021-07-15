@@ -32,6 +32,6 @@ class Producto extends Model
 
     public function getDisplayProductoAttribute()
     {
-        return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre;
+        return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre . '  - stock    (' . $this->stock .')';
     }
 }

@@ -25,7 +25,7 @@ class ShowEgreso extends Component
         $egresos = Egreso::where('id', 'like', '%' . $this->search . '%')
                    ->orWhere('user_id', 'like', '%' . $this->search . '%')
                    ->orWhere('correlativo', 'like', '%' . $this->search . '%')
-                   ->orWhere('proveedor_id', 'like', '%' . $this->search . '%')
+                   ->orWhere('empleado_id', 'like', '%' . $this->search . '%')
                    ->orderBy($this->sort, $this->direction)
                    ->paginate(10);
                    

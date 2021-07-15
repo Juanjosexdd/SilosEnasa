@@ -26,17 +26,14 @@
                                     <i class="fas fa-search text-blue"></i>
                                 </span>
                             </div>
-                            {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
+                            {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control  select2'. ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
+                            {!! $errors->first('proveedor_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                            
                             {{-- <span class="input-group-append">
                                 <button type="button" class="btn bg-navy" data-toggle="modal"
                                     data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>
                             </span> --}}
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="text-blue">Responsable :</label>
-                        <input type="text" class="form-control"
-                            value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
@@ -46,6 +43,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <label class="text-blue">Responsable :</label>
+                        <input type="text" class="form-control"
+                            value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
+                    </div> 
                 </div>
                 <br>
                 <div class="row">

@@ -29,4 +29,9 @@ class Empleado extends Model
     {
         return $this->belongsTo(Cargo::class);
     }
+
+    public function getDisplayEmpleadoAttribute()
+    {
+        return $this->tipodocumento->abreviado. '-' . $this->cedula . ' ' .$this->nombres . ' ' . $this->apellidos;
+    }
 }

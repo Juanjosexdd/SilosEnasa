@@ -15,12 +15,12 @@ class CreateTriggerAnularEgreso extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE TRIGGER tr_updStockAnular AFTER UPDATE ON ingresos
+            CREATE TRIGGER tr_updStockAnular AFTER UPDATE ON egresos
             FOR EACH ROW BEGIN
                 UPDATE productos p
-                JOIN detalle_ingreso di
+                JOIN detalle_egreso di
                 ON di.producto_id = p.id
-                AND di.ingreso_id = NEW.id
+                AND di.egreso_id = NEW.id
                 SET p.stock = p.stock + di.cantidad;
 
             END;

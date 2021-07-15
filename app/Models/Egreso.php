@@ -16,9 +16,9 @@ class Egreso extends Model
     //     return "slug";
     // }
 
-    public function proveedor()
+    public function empleado()
     {
-        return $this->belongsTo(Proveedor::class);
+        return $this->belongsTo(Empleado::class);
     }
 
     public function user()

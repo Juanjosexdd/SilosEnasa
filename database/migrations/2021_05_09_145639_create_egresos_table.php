@@ -17,7 +17,7 @@ class CreateEgresosTable extends Migration
             $table->id();
             $table->unsignedBigInteger("tipomovimiento_id")->nullable();
             $table->unsignedBigInteger("user_id")->nullable();
-            $table->unsignedBigInteger("proveedor_id")->nullable();
+            $table->unsignedBigInteger("empleado_id")->nullable();
             $table->text('observacion')->nullable();
             $table->string("correlativo")->unique()->nullable();
 
@@ -28,9 +28,9 @@ class CreateEgresosTable extends Migration
                   ->on('tipomovimientos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->foreign('proveedor_id')
+            $table->foreign('empleado_id')
                   ->references('id')
-                  ->on('proveedors')
+                  ->on('empleados')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->foreign('user_id')
