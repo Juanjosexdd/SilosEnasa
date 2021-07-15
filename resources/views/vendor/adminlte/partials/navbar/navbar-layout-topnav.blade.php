@@ -33,6 +33,7 @@
         <ul class="navbar-nav ml-auto order-1 order-md-3 navbar-no-expand">
             {{-- Custom right links --}}
             @yield('content_top_nav_right')
+            @include('adminlte::partials.navbar.content_top_nav_right')
 
             {{-- Configured right links --}}
             @each('adminlte::partials.navbar.menu-item', $adminlte->menu('navbar-right'), 'item')

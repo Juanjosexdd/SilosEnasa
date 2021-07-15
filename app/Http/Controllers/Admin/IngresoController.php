@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\IngresoEvent;
 use App\Models\Almacen;
 use App\Models\Ingreso;
 use Illuminate\Http\Request;
@@ -21,6 +22,8 @@ use App\Http\Requests\IngresoFormRequest;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
+use App\Notifications\IngresoNotification;
+use Illuminate\Support\Facades\Auth;
 
 class IngresoController extends Controller
 {
@@ -118,6 +121,17 @@ class IngresoController extends Controller
         $log->user_id = auth()->user()->id;
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado el ingreso a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
+
+
+        //$user->notify(new InvoicePaid($invoice));
+        //Auth()->user()->notify(new IngresoNotification($ingreso));
+
+        // User::all()->except($ingreso->user_id)
+        //            ->each(function(User $user) use ($ingreso){
+        //              $user->notify(new IngresoNotification($ingreso));
+        //            });
+
+        event(new IngresoEvent($ingreso));
 
 
         return redirect()->route('admin.ingresos.index')->with('success', 'Guardado con exito');
