@@ -29,4 +29,8 @@ class Proveedor extends Model
     {
         return $this->hasMany(Ingreso::class);
     }
+    public function egresos()
+    {
+        return $this->hasMany(Egreso::class);
+    }
 }

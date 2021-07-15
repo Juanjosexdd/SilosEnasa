@@ -260,9 +260,9 @@ return [
                 ],
                 [
                     'text' => 'Egreso',
-                    'route'  => 'admin.ingresos.index',
+                    'route'  => 'admin.egresos.index',
                     'icon' => 'fas fa-dolly text-blue',
-                    'active' => ['admin/ingresos*'],
+                    'active' => ['admin/egresos*'],
                     'label'       => 'Ver',
                     'label_color' => 'success',
                 ],

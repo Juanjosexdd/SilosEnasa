@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\EmpleadoController;
 use App\Http\Controllers\Admin\AlmacenController;
 use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\ClacificacionController;
+use App\Http\Controllers\Admin\EgresoController;
 use App\Http\Controllers\Admin\EmpresaController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\ProveedorController;
@@ -34,6 +35,7 @@ Route::resource('clacificacions', ClacificacionController::class)->names('admin.
 Route::resource('productos', ProductoController::class)->names('admin.productos');
 Route::resource('proveedors', ProveedorController::class)->names('admin.proveedors');
 Route::resource('ingresos', IngresoController::class)->names('admin.ingresos');
+Route::resource('egresos', EgresoController::class)->names('admin.egresos');
 Route::resource('logs', LogsistemaController::class)->names('admin.logs');
 Route::resource('logins', LoginController::class)->names('admin.logins');
 Route::resource('roles', RoleController::class)->names('admin.roles');
@@ -58,4 +60,5 @@ Route::get('estatuempleado/{empleado}', [EmpleadoController::class, 'estatuemple
 Route::get('estatualmacen/{almacen}', [AlmacenController::class, 'estatualmacen'])->name('admin.almacens.estatualmacen');
 Route::get('estatuproducto/{producto}', [ProductoController::class, 'estatuproducto'])->name('admin.productos.estatuproducto');
 Route::get('estatuingreso/{ingreso}', [IngresoController::class, 'estatuingreso'])->name('admin.ingresos.estatuingreso');
+Route::get('estatuegreso/{egreso}', [EgresoController::class, 'estatuegreso'])->name('admin.egresos.estatuegreso');
 

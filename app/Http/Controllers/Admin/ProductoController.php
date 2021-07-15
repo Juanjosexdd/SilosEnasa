@@ -50,7 +50,9 @@ class ProductoController extends Controller
         $log->save();
 
         // $clacificaciones = Clacificacion::pluck('abreviado','id');
-        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
+        $clacificaciones  = Clacificacion::where('estatus', 1)->get()->pluck('display_clacificacion','id');
+
+        // $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('display_clacificacion' , 'id');
         
         
         return view('admin.productos.create', compact('clacificaciones'));

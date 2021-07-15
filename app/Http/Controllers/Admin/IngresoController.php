@@ -76,6 +76,7 @@ class IngresoController extends Controller
      */
     public function store(Request $request)
     {
+        //return dd($request);
                 try {
                     DB::beginTransaction();
                     $ingreso=new Ingreso;
@@ -115,29 +116,6 @@ class IngresoController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado el ingreso a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
-        // //return $request;
-        // $ingreso= new Ingreso;
-        // $ingreso->proveedor_id=$request->proveedor_id;
-        // // $ingreso->tipomovimento_id=$request->tipomovimento_id;
-        // $ingreso->user_id = auth()->user()->id;
-        // $ingreso->save();
-        
-        // $producto_id = $request->producto_id;
-        // $almacen_id = $request->almacen_id;
-        // // $cantidad = $request->get('cantidad');
-        // $cantidad=$request->cantidad;
-        // $cont = 0;
-
-        // while($cont < count($producto_id)){
-        //     $detalle = new Detalleingreso();
-        //     $detalle->ingreso_id= $ingreso->id;
-        //     $detalle->almacen_id= $almacen_id[$cont];
-        //     $detalle->producto_id= $producto_id[$cont];
-        //     $detalle->cantidad= $cantidad[$cont];
-        //     $detalle->save();
-        //     $cont=$cont+1;
-
-        // }
 
         return redirect()->route('admin.ingresos.index')->with('success', 'Guardado con exito');
     }

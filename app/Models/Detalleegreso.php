@@ -5,23 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Clacificacion extends Model
+class Detalleegreso extends Model
 {
     use HasFactory;
+
+    protected $table = 'detalle_egreso';
+
     protected $guarded = ['id','created_at','updated_at'];
 
-    public function getRouteKeyName()
+    public function ingreso()
     {
-        return "slug";
+        return $this->belongsTo(Egreso::class);
     }
 
     public function productos()
     {
         return $this->hasMany(Producto::class);
     }
-
-    public function getDisplayClacificacionAttribute()
-    {
-        return $this->abreviado . ' ' . $this->nombre;
-    }
+    
 }
