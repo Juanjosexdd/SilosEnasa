@@ -58,8 +58,8 @@ class IngresoNotification extends Notification
     {
         return [
             'ingreso' => $this->ingreso->id,
-            'proveedor_id' => $this->ingreso->proveedor_id,
-            'user_id' => $this->ingreso->user_id,
+            'proveedor_id' => $this->ingreso->proveedor->nombre,
+            'user_id' => $this->ingreso->user->display_user,
             'correlativo' => $this->ingreso->correlativo,
             'created_at' => Carbon::now()->diffForHumans(),
         ];

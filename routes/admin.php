@@ -43,6 +43,12 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
 Route::view('backup', 'laravel_backup_panel::layout');
 
+Route::get('markAsRead', function(){
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('markAsRead');
+
+Route::post('/mark-as-read',[IngresoController::class, 'markNotification'])->name('markNotification');
 
 Route::resource('storeproductoingreso',   'ProductoController@storeproductoingreso');
 

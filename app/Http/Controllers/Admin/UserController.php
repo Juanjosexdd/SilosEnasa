@@ -177,8 +177,11 @@ class UserController extends Controller
         $tipodocumentos = Tipodocumento::pluck('abreviado', 'id');
         $cargos = Cargo::pluck('nombre', 'id');
         $roles = Role::all();
+        
 
-        return view('admin.users.show', compact('departamentos', 'tipodocumentos', 'cargos', 'roles', 'user'));
+        $ingresoNotifications = auth()->user()->unreadNotifications;
+
+        return view('admin.users.show', compact('departamentos', 'tipodocumentos','ingresoNotifications', 'cargos', 'roles', 'user'));
     }
 
 

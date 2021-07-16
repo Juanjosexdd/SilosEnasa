@@ -64,8 +64,8 @@
                         <strong class="font-14 text-blue">Dirección</strong><br>
                         @if ($user->address == null)
                             <span class="text-muted font-italic">*** Falta Información ***</span>
-                        @else 
-                        <span class="text-muted">{{ $user->address }}</span>
+                        @else
+                            <span class="text-muted">{{ $user->address }}</span>
                         @endif
                     </div>
                     <div class="col-sm-3 invoice-col">
@@ -89,16 +89,16 @@
                         <strong class="font-14 text-blue">Celular</strong><br>
                         @if ($user->phone == null)
                             <span class="text-muted font-italic">*** Falta Información ***</span>
-                        @else 
-                        <span class="text-muted">{{ $user->phone }}</span>
+                        @else
+                            <span class="text-muted">{{ $user->phone }}</span>
                         @endif
                     </div>
                     <div class="col-sm-3 invoice-col">
                         <strong class="font-14 text-blue">Telefono</strong><br>
                         @if ($user->phone == null)
                             <span class="text-muted font-italic">*** Falta Información ***</span>
-                        @else 
-                        <span class="text-muted">{{ $user->phone2 }}</span>
+                        @else
+                            <span class="text-muted">{{ $user->phone2 }}</span>
                         @endif
                     </div>
                     <div class="col-sm-3 invoice-col">
@@ -112,6 +112,28 @@
 
                 </div>
                 <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (auth()->user())
+                            
+                            @forelse ($ingresoNotifications as $notification)
+                                <div class="alert alert-default-warning">
+                                    El usuario {{ $notification->data['user_id'] }}
+                                    registró el documento nro.: {{ $notification->data['ingreso'] }} -
+                                    {{ $notification->created_at->diffForHumans() }}
+                                    <button type="submit" class="mark-as-read btn btn-sm btn-dark"
+                                        data-id="{{ $notification->id }}">Marcar como leida</button>
+                                </div>
+                                @if ($loop->last)
+                                    <a href="" id="mark-all">Marcar todas como leidas</a>
+                                @endif
+                            @empty
+                                No hay notificaciones
+                            @endforelse
+                        @endif
+
+                    </div>
+                </div>
                 <p class="h3 text-blue">Información Institucional</p>
                 <hr>
                 <div class="row">
@@ -139,11 +161,12 @@
                     <div class="col-sm-12  invoice-col">
                         <strong class="font-14 text-blue">Permisos del usuario</strong><br><br>
                         <div class="row">
-                        @foreach ($user->getAllPermissions() as $permission)
-                            <div class="col-md-3">
-                                <span class="form-control form-control-sm text-center shadow-sm">{{ $permission->description }}</span>&nbsp;&nbsp;
-                            </div>
-                        @endforeach
+                            @foreach ($user->getAllPermissions() as $permission)
+                                <div class="col-md-3">
+                                    <span
+                                        class="form-control form-control-sm text-center shadow-sm">{{ $permission->description }}</span>&nbsp;&nbsp;
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -152,6 +175,36 @@
     </div>
 @stop
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+<h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
+        ENASA - UPTP "JJ MONTILLA"</a></h5>
+@stop
+
+@section('js')
+<script>
+    function sendMarkRequest(id = null) {
+        return $.ajax("{{ route('markNotification') }}", {
+            method: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id
+            }
+        });
+    }
+    $(function() {
+        $('.mark-as-read').click(function() {
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+                $(this).parents('div.alert').remove();
+            });
+        });
+        $('#mark-all').click(function() {
+            let request = sendMarkRequest();
+
+            request.done(() => {
+                $('div.alert').remove();
+            })
+        });
+    });
+
+</script>
 @stop

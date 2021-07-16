@@ -16,27 +16,37 @@
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
       <i class="far fa-bell"></i>
-      <span class="badge badge-warning navbar-badge">15</span>
+          @if( count(auth()->user()->unreadNotifications))
+            <span class="badge badge-warning navbar-badge">{{count(auth()->user()->unreadNotifications)}}</span>
+          @endif
     </a>
-    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-      <span class="dropdown-item dropdown-header">15 Notifications</span>
-      <div class="dropdown-divider"></div>
-      <a href="#" class="dropdown-item">
-        <i class="fas fa-envelope mr-2"></i> 4 new messages
-        <span class="float-right text-muted text-sm">3 mins</span>
-      </a>
-      <div class="dropdown-divider"></div>
-      <a href="#" class="dropdown-item">
-        <i class="fas fa-users mr-2"></i> 8 friend requests
-        <span class="float-right text-muted text-sm">12 hours</span>
-      </a>
-      <div class="dropdown-divider"></div>
-      <a href="#" class="dropdown-item">
-        <i class="fas fa-file mr-2"></i> 3 new reports
-        <span class="float-right text-muted text-sm">2 days</span>
-      </a>
-      <div class="dropdown-divider"></div>
-      <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+        <span class="dropdown-header">Notificaciones sin leer</span>
+        @forelse (auth()->user()->unreadNotifications as $notification )
+            <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
+                registró el documento nro.: {{ $notification->data['ingreso']}}
+                <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans()}}</span>
+            </a>
+        @empty
+        <span class="text-muted text-sm text-center p-3 ml-3">Sin nuevas notificaciones</span> 
+            
+        @endforelse
+        
+        <div class="dropdown-divider"></div>
+        <span class="dropdown-header">Notificaciones leidas</span>
+        
+        @forelse (auth()->user()->readNotifications as $notification)
+        <a href="#" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
+            registró el documento nro.: {{ $notification->data['ingreso']}}
+            <span class="float-right text-muted text-sm">{{ $notification->updated_at->diffForHumans()}}</span>
+        </a>
+        @empty
+            <span class="text-muted text-sm text-center p-3 ml-3">Sin notificaciones leidas</span> 
+        @endforelse
+        <div class="dropdown-divider"></div>
+        <a href=" {{ route('markAsRead')}} " class="dropdown-item dropdown-footer">Marcar todas como leidas</a>
     </div>
   </li>
 
