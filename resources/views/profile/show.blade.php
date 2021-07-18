@@ -1,45 +1,102 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('adminlte::page')
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                @livewire('profile.update-profile-information-form')
+@section('title', 'ENASA | PERFIl DE USUARIO')
 
-                <x-jet-section-border />
-            @endif
+@section('css')
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.update-password-form')
-                </div>
+@endsection
+@section('js')
+    <script src="{{ mix('js/app.js') }}" defer></script>
 
-                <x-jet-section-border />
-            @endif
+@endsection
 
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.two-factor-authentication-form')
-                </div>
+@section('content')
 
-                <x-jet-section-border />
-            @endif
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('profile.logout-other-browser-sessions-form')
+    <div class="container">
+        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
+            <div class="card-body">
+                <h3 class="text-blue h3">Perfil de {{ auth()->user()->display_user }}</h3>
             </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                <x-jet-section-border />
-
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.delete-user-form')
-                </div>
-            @endif
         </div>
     </div>
-</x-app-layout>
+    <div class="container">
+        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
+            <div class="card-body">
+                <div class="row justify-content">
+                    <div class="col-md-8">
+                        <p class="h3 text-blue">Información Personal</p>
+                        <hr>
+                        @if (Laravel\Fortify\Features::canUpdateProfileInformation())
+                            @livewire('profile.update-profile-information-form')
+
+                        @endif
+                        <br>
+                        <p class="h3 text-blue">Actualizar Contraseña</p>
+                        <hr>
+
+                        @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
+                            <div class="mt-10 sm:mt-0">
+                                @livewire('profile.update-password-form')
+                            </div>
+
+                            <x-jet-section-border />
+                        @endif
+                    </div>
+                    <div class="col-md-4">
+                        <p class="h3 text-blue">Notificaciones</p>
+                        <hr>
+                        @if (auth()->user())
+                            @forelse ($ingresoNotifications as $notification)
+                                <div class="alert alert-default-warning mt-3">
+                                    El usuario {{ $notification->data['user_id'] }}
+                                    registró el documento nro.: {{ $notification->data['ingreso'] }} -
+                                    {{ $notification->created_at->diffForHumans() }}
+                                    <button type="submit" class="mark-as-read btn btn-sm btn-dark"
+                                        data-id="{{ $notification->id }}">Marcar como leida</button>
+                                </div>
+                                @if ($loop->last)
+                                    <a href="" id="mark-all">Marcar todas como leidas</a>
+                                @endif
+                            @empty
+                                <span class="text-center m-2 p-2">No hay notificaciones</span> 
+                            @endforelse
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @livewireScripts
+
+@stop
+
+@section('js')
+<script>
+    function sendMarkRequest(id = null) {
+        return $.ajax("{{ route('markNotification') }}", {
+            method: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id
+            }
+        });
+    }
+    $(function() {
+        $('.mark-as-read').click(function() {
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+                $(this).parents('div.alert').remove();
+            });
+        });
+        $('#mark-all').click(function() {
+            let request = sendMarkRequest();
+
+            request.done(() => {
+                $('div.alert').remove();
+            })
+        });
+    });
+
+</script>
+@stop

@@ -10,7 +10,7 @@
     <div class="container">
         <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
             <div class="card-body">
-                <a href=" {{ route('admin.ingreso.index') }} "
+                <a href=" {{ route('admin.ingresos.index') }} "
                     class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4"><i class="fas fa-reply"></i> Volver</a>
 
                 <h3 class="text-blue">Ingresos de {{ $ingreso->proveedor->display_proveedor }}</h3>

@@ -58,6 +58,7 @@ class IngresoNotification extends Notification
     {
         return [
             'ingreso' => $this->ingreso->id,
+            'tipomovimiento' => $this->ingreso->tipomovimiento_id,
             'proveedor_id' => $this->ingreso->proveedor->nombre,
             'user_id' => $this->ingreso->user->display_user,
             'correlativo' => $this->ingreso->correlativo,

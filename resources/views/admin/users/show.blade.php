@@ -115,7 +115,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         @if (auth()->user())
-                            
                             @forelse ($ingresoNotifications as $notification)
                                 <div class="alert alert-default-warning">
                                     El usuario {{ $notification->data['user_id'] }}

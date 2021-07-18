@@ -20,7 +20,8 @@ class CreateDetalleIngresoTable extends Migration
             $table->unsignedBigInteger("almacen_id")->nullable();
 
             $table->integer('cantidad');
-            $table->text('observacion')->nullable();
+            $table->text('observacionp')->nullable();
+            $table->text('ubicacion')->nullable();
             $table->boolean('estatus')->default(1);
 
             

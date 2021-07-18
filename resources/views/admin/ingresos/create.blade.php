@@ -8,7 +8,7 @@
     <div class="container">
         <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
             <div class="card-body">
-                <h3 class="text-blue">Ingreso de productos</h3>
+                <h3 class="text-blue">Ingreso de productos al almacen</h3>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
             <div class="card-body" style="overflow-y: auto">
                 {!! Form::open(['route' => 'admin.ingresos.store']) !!}
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         {!! Form::label('proveedor_id', 'Proveedor : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -26,20 +26,26 @@
                                     <i class="fas fa-search text-blue"></i>
                                 </span>
                             </div>
-                            {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control  select2'. ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
+                            {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control  select2' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
                             {!! $errors->first('proveedor_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-                            
+
                             {{-- <span class="input-group-append">
                                 <button type="button" class="btn bg-navy" data-toggle="modal"
                                     data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>
                             </span> --}}
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
-                            {!! Form::label('correlativo', 'Cantidad ', ['class' => 'text-blue ']) !!}
-                            <div class="input-group mb-3">
-                                {!! Form::text('correlativo', null, ['class' => 'form-control', 'placeholder' => 'Correlativo']) !!}
+                            {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group">
+                                @if (count($ingresos) == 0)
+                                    <input type="text" value="" class="form-control" name="correlativo" id="correlativo">
+                                @else
+                                    <input type="text"
+                                        value="{{ number_format($ingresos->last()->correlativo + 1, 0, '', '') }}"
+                                        class="form-control" name="correlativo" id="correlativo">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -47,11 +53,10 @@
                         <label class="text-blue">Responsable :</label>
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
-                    </div> 
+                    </div>
                 </div>
-                <br>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -67,25 +72,52 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div>
-                            {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text ">
-                                        <i class="fas fa-search text-blue"></i>
-                                    </span>
-                                </div>
-                                {!! Form::select('palmacen_id', $almacens, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
-                                {{-- <span class="input-group-append">
-                                    <button type="button" class="btn bg-navy" data-toggle="modal"
-                                        data-target="#modalAlmacen"><i class="fas fa-plus text-white"></i></button>
-                                </span> --}}
+                        {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text ">
+                                    <i class="fas fa-search text-blue"></i>
+                                </span>
+                            </div>
+                            {!! Form::select('palmacen_id', $almacens, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
+                            {{-- <span class="input-group-append">
+                                <button type="button" class="btn bg-navy" data-toggle="modal"
+                                    data-target="#modalAlmacen"><i class="fas fa-plus text-white"></i></button>
+                            </span> --}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-control-label text-blue" for="tipomovimiento_id">Tipo Movimiento :</label>
+
+                        <select class="form-control selectpicker" disabled name="tipomovimiento_id" id="tipomovimiento_id"
+                            data-live-search="true" required>
+                            <option value="1" selected>Ingreso al almacen</option>
+                        </select>
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group mb-3">
+                                {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
+                            {!! Form::label('pubicacion', 'Ubicación del Producto: ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group mb-3">
+                                {!! Form::text('pubicacion', null, ['class' => 'form-control', 'placeholder' => 'Ubicación']) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('pcantidad', 'Cantidad :', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
                                 {!! Form::number('pcantidad', null, ['class' => 'form-control', 'placeholder' => 'Cantidad']) !!}
                             </div>
@@ -102,12 +134,16 @@
                     <div class="col-md-12">
                         <table id="detalles" class="table table-striped table-sm table-hover">
                             <thead style="background-color: #001f3f; border-radius: 0.25 rem;" class="p-0" ;>
-                                <th class="text-white">Opciones</th>
-                                <th class="text-white">Producto</th>
-                                <th class="text-white">Cantidad</th>
-                                <th class="text-white">Almacen</th>
+                                <th class="text-white">Ópciones</th>
+                                <th class="text-white">Prodúcto</th>
+                                <th class="text-white">Cántidad</th>
+                                <th class="text-white">Almacén</th>
+                                <th class="text-white">Ubicación</th>
+                                <th class="text-white">Observación</th>
                             </thead>
                             <tfoot>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -159,7 +195,7 @@
             </div>
         </div>
     </div> --}}
-    
+
     {{-- <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
@@ -179,29 +215,26 @@
             </div>
         </div>
     </div> --}}
- 
-{{-- 
-    <div class="modal fade" id="modalProveedores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-lg">
+
+    {{-- <div class="modal fade docs-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="text-blue">Crear un nuevo proveedor</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo proveedor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => 'admin.proveedors.store']) !!}
-                    @include('admin.proveedors.partials.form')
-                    {!! Form::submit('Guardar proveedor', ['class' => 'btn bg-navy btn-block']) !!}
-                    {!! Form::close() !!}
+                        {!! Form::open(['route' => 'admin.proveedors.store']) !!}
+                        @include('admin.proveedors.partials.form')
+                        {!! Form::submit('Guardar proveedor', ['class' => 'btn bg-navy btn-block']) !!}
+                        {!! Form::close() !!}
                 </div>
             </div>
         </div>
-    </div>
-    --}}
-{{--
-    <div class="modal fade" id="modalAlmacen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div> --}}
+    {{-- <div class="modal fade" id="modalAlmacen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -252,30 +285,39 @@
         });
 
         var cont = 0;
-
-        function evaluar() {
-            if ($cont === 0) {
+        if ($cont == 0) {
                 $("#guardar").hide();
             } else {
                 $("#guardar").show();
             }
+
+        function evaluar() {
+            
         }
 
 
         function agregar() {
             producto_id = $("#pproducto_id").val();
+            ubicacion = $("#pubicacion").val();
             producto = $("#pproducto_id option:selected").text();
             almacen = $("#palmacen_id option:selected").text();
             cantidad = $("#pcantidad").val();
+            observacionp = $("#pobservacionp").val();
             almacen_id = $("#palmacen_id").val();
 
-            if (producto_id != "" && cantidad > 0 && almacen_id != "") {
+            if (producto_id != "" && cantidad > 0 && almacen_id != "" || observacion != '' || ubicacion != '') {
                 var fila = '<tr class="selected" id="fila' + cont +
                     '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
-                    ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
-                    producto + '</td><td><input type="number" class="" name="cantidad[]" value="' + cantidad +
+                    ');">X</button></td><td><input type="hidden"  name="producto_id[]" value="' + producto_id + '">' +
+                    producto +
+                    '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' +
+                    cantidad +
                     '"></td><td><input type="hidden" name="almacen_id[]" value="' + almacen_id + '">' + almacen +
-                    '</td></tr>';
+                    '</td><td><input type="text" class="form-control form-control-sm" name="ubicacion[]" value="' +
+                    ubicacion +
+                    '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
+                    observacionp +
+                    '"></td></tr>';
                 cont++;
                 limpiar();
                 $('#detalles').append(fila);
@@ -291,6 +333,8 @@
 
         function limpiar() {
             $("#pproducto_id").val(" ");
+            $("#pobservacionp").val(" ");
+            $("#pubicacion").val(" ");
             $("#pcantidad").val("");
         }
 

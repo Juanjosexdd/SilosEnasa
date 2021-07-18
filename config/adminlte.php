@@ -239,6 +239,12 @@ return [
             'url'         => 'admin',
             'icon'        => 'fas fa-tachometer-alt fa-fw text-blue'
         ],
+        [
+            'text'        => 'Mi Perfil',
+            'url'         => 'user/profile',
+            'icon'        => 'fas fa-user text-blue'
+        ],
+        
         ['header' => 'MOVIMIENTOS'],
         [
             'text'    => 'MOVIMIENTOS',

@@ -38,11 +38,17 @@
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
-                            {!! Form::label('correlativo', 'Cantidad ', ['class' => 'text-blue ']) !!}
-                            <div class="input-group mb-3">
-                                {!! Form::text('correlativo', null, ['class' => 'form-control', 'placeholder' => 'Correlativo']) !!}
+                            {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group">
+                                @if (count($egresos) == 0)
+                                    <input type="text" value="" class="form-control" name="correlativo" id="correlativo">
+                                @else
+                                    <input type="text"
+                                        value="{{ number_format($egresos->last()->correlativo + 1, 0, '', '') }}"
+                                        class="form-control" name="correlativo" id="correlativo">
+                                @endif
                             </div>
                         </div>
                     </div>

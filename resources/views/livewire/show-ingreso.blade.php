@@ -29,7 +29,7 @@
                             @endif
 
                         </th>
-                        <th scope="col" role="button" wire:click="order('id')">
+                        {{-- <th scope="col" role="button" wire:click="order('id')">
                             Codigo
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
@@ -41,10 +41,10 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
 
-                        </th>
-                        <th scope="col" role="button" wire:click="order('user_id')">
-                            Responsable
-                            @if ($sort == 'user_id')
+                        </th> --}}
+                        <th scope="col" role="button" wire:click="order('proveedor_id')">
+                            Proveedor
+                            @if ($sort == 'proveedor_id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
                                 @else
@@ -54,9 +54,9 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('proveedor_id')">
-                            Proveedor
-                            @if ($sort == 'proveedor_id')
+                        <th scope="col" role="button" wire:click="order('user_id')">
+                            Responsable
+                            @if ($sort == 'user_id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
                                 @else
@@ -76,10 +76,10 @@
                     @foreach ($ingresos as $ingreso)
                         <tr>
                             
-                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->correlativo}}</a>
-                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->created_at->toDateString() . '-' . $ingreso->id }}</a> </td>
-                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->user->name . ' - ' . $ingreso->user->last_name }}</a> </td>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->correlativo}}</a></td>
+                            {{-- <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->created_at->toDateString() . '-' . $ingreso->id }}</a> </td> --}}
                             <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->proveedor->nombre }}</a></td>
+                            <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->user->username }}</a> </td>
                             <td>
                                 @if ($ingreso->estatus == 1)
                                     <form class="anular"
@@ -99,7 +99,7 @@
                                 <div class="btn-group">
                                     <a class="btn btn-default elevation-4 btn-sm"
                                         style="border-color: rgb(158, 157, 157);"
-                                        href=" {{ route('admin.ingresos.show', $ingreso->id) }} "> 
+                                        href=" {{ route('admin.ingresos.show', $ingreso) }} "> 
                                         <i class="fas fa-eye text-yellow"></i>
                                     </a>
                                 </div>

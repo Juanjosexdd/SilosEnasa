@@ -21,15 +21,22 @@
           @endif
     </a>
     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+        <a href=" {{ route('markAsRead')}} " class="dropdown-item dropdown-footer">Marcar todas como leidas</a>
+        <div class="dropdown-divider"></div>
         <span class="dropdown-header">Notificaciones sin leer</span>
         @forelse (auth()->user()->unreadNotifications as $notification )
             <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
-                registró el documento nro.: {{ $notification->data['ingreso']}}
+                <i class="fas fa-envelope mr-2"></i>{{ $notification->data['user_id']}}
+                registró el documento de
+                @if ( $notification->data['tipomovimiento'] == '1' )
+                    Ingreso
+                @else
+                    Egreso
+                @endif nro.: {{ $notification->data['correlativo']}}
                 <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans()}}</span>
             </a>
         @empty
-        <span class="text-muted text-sm text-center p-3 ml-3">Sin nuevas notificaciones</span> 
+        <span class="text-muted text-sm text-center p-3 ml-3">*******</span> 
             
         @endforelse
         
@@ -39,14 +46,13 @@
         @forelse (auth()->user()->readNotifications as $notification)
         <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
-            registró el documento nro.: {{ $notification->data['ingreso']}}
+            registró el documento nro.: {{ $notification->data['correlativo']}}
             <span class="float-right text-muted text-sm">{{ $notification->updated_at->diffForHumans()}}</span>
         </a>
         @empty
-            <span class="text-muted text-sm text-center p-3 ml-3">Sin notificaciones leidas</span> 
+            <span class="text-muted text-sm text-center p-3 ml-3">*******</span> 
         @endforelse
-        <div class="dropdown-divider"></div>
-        <a href=" {{ route('markAsRead')}} " class="dropdown-item dropdown-footer">Marcar todas como leidas</a>
+        
     </div>
   </li>
 

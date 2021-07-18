@@ -16,7 +16,7 @@
     </div>
 
     <div class="container">
-            @livewire('show-ingreso')
+        @livewire('show-ingreso')
     </div>
 
 </div>

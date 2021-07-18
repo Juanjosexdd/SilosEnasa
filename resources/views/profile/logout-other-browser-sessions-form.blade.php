@@ -1,15 +1,7 @@
 <x-jet-action-section>
-    <x-slot name="title">
-        {{ __('Browser Sessions') }}
-    </x-slot>
-
-    <x-slot name="description">
-        {{ __('Manage and log out your active sessions on other browsers and devices.') }}
-    </x-slot>
-
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.') }}
+            Si es necesario, puede cerrar la sesión de todas las demás sesiones de su navegador en todos sus dispositivos. Algunas de sus sesiones recientes se enumeran a continuación; sin embargo, esta lista puede no ser exhaustiva. Si crees que tu cuenta se ha visto comprometida, también debes actualizar tu contraseña.
         </div>
 
         @if (count($this->sessions) > 0)
@@ -53,7 +45,7 @@
 
         <div class="flex items-center mt-5">
             <x-jet-button wire:click="confirmLogout" wire:loading.attr="disabled">
-                {{ __('Log Out Other Browser Sessions') }}
+                {{ __(' Cerrar sesión en otras sesiones del explorador ') }}
             </x-jet-button>
 
             <x-jet-action-message class="ml-3" on="loggedOut">
@@ -64,7 +56,7 @@
         <!-- Log Out Other Devices Confirmation Modal -->
         <x-jet-dialog-modal wire:model="confirmingLogout">
             <x-slot name="title">
-                {{ __('Log Out Other Browser Sessions') }}
+                {{ __(' Cerrar sesión en otras sesiones del explorador ') }}
             </x-slot>
 
             <x-slot name="content">
@@ -89,7 +81,7 @@
                 <x-jet-button class="ml-2"
                             wire:click="logoutOtherBrowserSessions"
                             wire:loading.attr="disabled">
-                    {{ __('Log Out Other Browser Sessions') }}
+                    {{ __(' Cerrar sesión en otras sesiones del explorador ') }}
                 </x-jet-button>
             </x-slot>
         </x-jet-dialog-modal>

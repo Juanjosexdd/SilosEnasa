@@ -29,24 +29,30 @@
                 </div>
                 {!! Form::text('unidad_medida', null, ['class' => 'form-control', 'placeholder' => 'Unidad de medida']) !!}
             </div>
-            @error('unidad_medida')
-                <small class="text-danger mt-0">{{$message}}</small>
-            @enderror
         </div>
     </div>
 </div>
 <div class="row">
-    
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="form-group">
-            {!! Form::label('descripcion', 'Descripción : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
+            {!! Form::label('marca', 'Marca : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-ad"></i></span>
                 </div>
-                {!! Form::text('descripcion', null, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'placeholder' => 'Descripción']) !!}
-                {!! $errors->first('descripcion', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-
+                {!! Form::text('marca', null, ['class' => 'form-control' . ($errors->has('marca') ? ' is-invalid' : ''), 'placeholder' => 'Marca']) !!}
+                {!! $errors->first('marca', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            {!! Form::label('ubicacion', 'Ubicación: ',['class' => 'text-blue']) !!}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-ad"></i></span>
+                </div>
+                {!! Form::text('ubicacion', null, ['class' => 'form-control', 'placeholder' => 'Ubicación']) !!}
             </div>
         </div>
     </div>
@@ -60,9 +66,6 @@
                 {!! Form::number('minimo', null, ['class' => 'form-control', 'placeholder' => 'Minimo']) !!}
             </div>
         </div>
-        @error('minimo')
-            <small class="text-danger mt-0">{{$message}}</small>
-        @enderror
     </div>
     <div class="col-md-3">
         <div class="form-group">
@@ -74,9 +77,36 @@
                 {!! Form::number('maximo', null, ['class' => 'form-control', 'placeholder' => 'Maximo']) !!}
             </div>
         </div>
-        @error('maximo')
-            <small class="text-danger mt-0">{{$message}}</small>
-        @enderror
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {!! Form::label('descripcion', 'Descripción : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-ad"></i></span>
+                </div>
+                {!! Form::text('descripcion', null, ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'placeholder' => 'Descripción']) !!}
+                {!! $errors->first('descripcion', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+
+            </div>
+        </div>
+            
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            {!! Form::label('observacionp', 'Observación : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-ad"></i></span>
+                </div>
+                {!! Form::text('observacionp', null, ['class' => 'form-control' . ($errors->has('observacionp') ? ' is-invalid' : ''), 'placeholder' => 'Descripción']) !!}
+                {!! $errors->first('observacionp', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+
+            </div>
+        </div>
+            
     </div>
 </div>
 

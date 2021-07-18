@@ -25,11 +25,7 @@ use App\Models\Log\LogSistema;
 
 class EgresoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $log = new LogSistema();
@@ -40,12 +36,7 @@ class EgresoController extends Controller
 
         return view('admin.egresos.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         $log = new LogSistema();
@@ -54,10 +45,9 @@ class EgresoController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear un egreso nuevo a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
+        $egresos     = Egreso::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
-        // $proveedors = DB::table('proveedors')->where('estatus', 1)->pluck('nombre' , 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        // $productos  = DB::table('productos')->where('estatus', 1)->pluck('nombre' , 'id');
         $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
         $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
@@ -66,15 +56,9 @@ class EgresoController extends Controller
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 
 
-        return view('admin.egresos.create', compact('empleados','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.egresos.create', compact('egresos','empleados','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         //return dd($request);
@@ -122,12 +106,6 @@ class EgresoController extends Controller
         return redirect()->route('admin.egresos.index')->with('success', 'Guardado con exito');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Egreso  $egreso
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $empresa=DB::table('empresas as e')
@@ -146,35 +124,16 @@ class EgresoController extends Controller
         return view('admin.egresos.show', compact('egreso','detalles'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Egreso  $egreso
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Egreso $egreso)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Egreso  $egreso
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Egreso $egreso)
     {
-        //
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Egreso  $egreso
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $egreso=Egreso::findOrFail($id);
@@ -185,28 +144,17 @@ class EgresoController extends Controller
 
     public function estatuegreso(Egreso $egreso)
     {
-        
         if ($egreso->estatus == "1") {
 
             $log = new LogSistema();
-
             $log->user_id = auth()->user()->id;
             $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al egreso: ' . $egreso->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
-
-            
-
-            // $cont = 0;
-            // while($cont < count($egreso->producto_id)){
-            //     $egreso->estatus = '0';
-            //     $egreso->save();
-            // }
 
             $egreso->estatus = '0';
             $egreso->save();
 
             return redirect()->route('admin.egresos.index')->with('success', 'El documento se anuló con éxito!');
-
         }
     }
 }
