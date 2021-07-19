@@ -18,7 +18,7 @@
             <div class="card-body" style="overflow-y: auto">
                 {!! Form::open(['route' => 'admin.ingresos.store']) !!}
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         {!! Form::label('proveedor_id', 'Proveedor : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -35,7 +35,7 @@
                             </span> --}}
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
                             <div class="input-group">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -71,7 +71,7 @@
                             </span> --}}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
