@@ -14,7 +14,9 @@
             <table class="table table-striped table-hover text-nowrap">
                 <thead>
                     <tr>
-                        <th scope="col" role="button" wire:click="order('id')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('id')">
                             ID
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
@@ -27,7 +29,9 @@
                             @endif
 
                         </th>
-                        <th scope="col" role="button" wire:click="order('nombre')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('nombre')">
                             Nombres
                             @if ($sort == 'nombre')
                                 @if ($direction == 'asc')
@@ -39,7 +43,9 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('abreviado')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('abreviado')">
                             Abreviacion
                             @if ($sort == 'abreviado')
                                 @if ($direction == 'asc')

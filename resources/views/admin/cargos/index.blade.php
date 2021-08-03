@@ -12,23 +12,20 @@
 
 @stop
 @section('content')
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue">Lista de cargos</h3>
-            </div>
-        </div>
-    </div>
-
     @include('sweetalert::alert')
 
+    <x-card-header>
+        <h3 class="text-white">Lista de cargos</h3>
+    </x-card-header>
+    
     <div class="container">
         @livewire('show-cargos')
     </div>
+
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank"> ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
 
 @section('css')

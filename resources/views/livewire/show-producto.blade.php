@@ -16,7 +16,9 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col" role="button" wire:click="order('id')">
+                            <th scope="col" role="button"
+                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                                wire:click="order('id')">
                                 Codigo
                                 @if ($sort == 'id')
                                     @if ($direction == 'asc')
@@ -29,7 +31,9 @@
                                 @endif
 
                             </th>
-                            <th scope="col" role="button" wire:click="order('nombre')">
+                            <th scope="col" role="button"
+                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                                wire:click="order('nombre')">
                                 Nombre
                                 @if ($sort == 'nombre')
                                     @if ($direction == 'asc')
@@ -41,7 +45,9 @@
                                     <i class="fas fa-sort float-right mt-1"></i>
                                 @endif
                             </th>
-                            <th scope="col" role="button" wire:click="order('unidad_medida')">
+                            <th scope="col" role="button"
+                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                                wire:click="order('unidad_medida')">
                                 Unidad medidad
                                 @if ($sort == 'unidad_medida')
                                     @if ($direction == 'asc')
@@ -56,7 +62,9 @@
                             <th>
                                 Stock
                             </th>
-                            <th scope="col" role="button" wire:click="order('minimo')">
+                            <th scope="col" role="button"
+                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                                wire:click="order('minimo')">
                                 Minimo
                                 @if ($sort == 'minimo')
                                     @if ($direction == 'asc')
@@ -68,7 +76,9 @@
                                     <i class="fas fa-sort float-right mt-1"></i>
                                 @endif
                             </th>
-                            <th scope="col" role="button" wire:click="order('maximo')">
+                            <th scope="col" role="button"
+                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                                wire:click="order('maximo')">
                                 Maximo
                                 @if ($sort == 'maximo')
                                     @if ($direction == 'asc')
@@ -80,7 +90,7 @@
                                     <i class="fas fa-sort float-right mt-1"></i>
                                 @endif
                             </th>
-                            <th>Estatus</th>
+                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Estatus</th>
                             <th colspan="3"></th>
                         </tr>
                     </thead>

@@ -12,8 +12,9 @@
         @if ($logins->count())
             <table class="table table-striped table-hover text-nowrap">
                 <thead>
-                    <tr>
-                        <th scope="col" role="button" wire:click="order('id')">
+                    <tr class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">
+                        <th scope="col" role="button"
+                            wire:click="order('id')">
                             ID
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
@@ -26,7 +27,8 @@
                             @endif
 
                         </th>
-                        <th scope="col" role="button" wire:click="order('user_id')">
+                        <th scope="col" role="button"
+                            wire:click="order('user_id')">
                             Nombres
                             @if ($sort == 'user_id')
                                 @if ($direction == 'asc')
@@ -38,7 +40,8 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('login_at')">
+                        <th scope="col" role="button"
+                            wire:click="order('login_at')">
                             Ingresó
                             @if ($sort == 'login_at')
                                 @if ($direction == 'asc')
@@ -50,7 +53,8 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('logout_at')">
+                        <th scope="col" role="button"
+                            wire:click="order('logout_at')">
                             Salió
                             @if ($sort == 'logout_at')
                                 @if ($direction == 'asc')
@@ -62,7 +66,8 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('ip_address')">
+                        <th scope="col" role="button"
+                            wire:click="order('ip_address')">
                             Dirección IP
                             @if ($sort == 'ip_address')
                                 @if ($direction == 'asc')
@@ -74,7 +79,8 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('user_agent')">
+                        <th scope="col" role="button"
+                            wire:click="order('user_agent')">
                             Navegador
                             @if ($sort == 'user_agent')
                                 @if ($direction == 'asc')
@@ -90,13 +96,13 @@
                 </thead>
                 <tbody>
                     @foreach ($logins as $login)
-                        <tr>
+                        <tr class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">
                             <td>{{ $login->id }}</td>
                             <td>{{ $login->user->username }}</td>
                             <td>{{ $login->login_at }}</td>
                             <td>{{ $login->logout_at }}</td>
                             <td>{{ $login->ip_address }}</td>
-                            <td>{{ Str::limit($login->user_agent, 30) }}</td>
+                            <td>{{ Str::limit($login->user_agent, 42) }}</td>
 
                         </tr>
                     @endforeach

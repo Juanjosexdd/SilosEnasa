@@ -43,26 +43,7 @@
                             <x-jet-section-border />
                         @endif
                     </div>
-                    <div class="col-md-4">
-                        <p class="h3 text-blue">Notificaciones</p>
-                        <hr>
-                        @if (auth()->user())
-                            @forelse ($ingresoNotifications as $notification)
-                                <div class="alert alert-default-warning mt-3">
-                                    El usuario {{ $notification->data['user_id'] }}
-                                    registró el documento nro.: {{ $notification->data['ingreso'] }} -
-                                    {{ $notification->created_at->diffForHumans() }}
-                                    <button type="submit" class="mark-as-read btn btn-sm btn-dark"
-                                        data-id="{{ $notification->id }}">Marcar como leida</button>
-                                </div>
-                                @if ($loop->last)
-                                    <a href="" id="mark-all">Marcar todas como leidas</a>
-                                @endif
-                            @empty
-                                <span class="text-center m-2 p-2">No hay notificaciones</span> 
-                            @endforelse
-                        @endif
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -4,32 +4,25 @@
 
 @section('content')
     @include('sweetalert::alert')
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue">Editar datos de {{ $user->name }} {{ $user->last_name }}</h3>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body" style="overflow-y: auto">
-                <a href=" {{ route('admin.users.index') }} "
-                    class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4"><i class="fas fa-reply"></i>
-                    Volver</a>
-                {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
-                @include('admin.users.partials.form')
-                {!! Form::submit('Guardar usuario', ['class' => 'btn bg-navy btn-block']) !!}
 
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
+    <x-card-header>
+        <h3 class="text-white">Editar datos de {{ $user->name }} {{ $user->last_name }}</h3>
+    </x-card-header>
+
+    <x-card-body>
+        <a href=" {{ route('admin.users.index') }} "
+            class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4"><i class="fas fa-reply"></i>
+            Volver</a>
+        {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
+        @include('admin.users.partials.form')
+        {!! Form::submit('Guardar usuario', ['class' => 'btn bg-navy btn-block']) !!}
+
+        {!! Form::close() !!}
+    </x-card-body>
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+<x-footer></x-footer>
 @stop
 
 @section('js')

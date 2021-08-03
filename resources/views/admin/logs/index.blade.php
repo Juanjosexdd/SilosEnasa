@@ -4,16 +4,12 @@
 
 @section('content')
     @include('sweetalert::alert')
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue">Lista de registros</h3>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        @livewire('show-log-sistema')
-    </div>
+
+    <x-card-header>
+        <h3 class="text-white">Lista de registros</h3>
+    </x-card-header>
+
+    @livewire('show-log-sistema')
 @stop
 
 @section('footer')

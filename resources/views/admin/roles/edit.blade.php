@@ -4,29 +4,19 @@
 
 @section('content')
     @include('sweetalert::alert')
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue">Editar Rol</h3>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body" style="overflow-y: auto">
+    <x-card-header>
+        <h3 class="text-white">Editar Rol {{ $role->name }}</h3>
+    </x-card-header>
 
-                {!! Form::model($role, ['route' => ['admin.roles.update', $role], 'method' => 'PUT']) !!}
+    <x-card-body>
+        {!! Form::model($role, ['route' => ['admin.roles.update', $role], 'method' => 'PUT']) !!}
 
-                @include('admin.roles.partials.form')
+        @include('admin.roles.partials.form')
 
-                {!! Form::submit('Editar rol', ['class' => 'btn btn-block bg-navy btn-sm px-3 py-2 elevation-4']) !!}
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
+        {!! Form::submit('Editar rol', ['class' => 'btn btn-block bg-navy btn-sm px-3 py-2 elevation-4']) !!}
+        {!! Form::close() !!}
+    </x-card-body>
 @stop
-
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop

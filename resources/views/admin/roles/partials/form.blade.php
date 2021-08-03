@@ -15,8 +15,8 @@
         </div>
     </div>
 </div>
-<h2 class="h3 text-center">Lista de permisos</h2>
-<br>
+<h2 class="h4 text-center font-weight-bold text-secondary">Lista de permisos</h2>
+
 
 {{-- Movimientos --}}
 <div id="movimientos">

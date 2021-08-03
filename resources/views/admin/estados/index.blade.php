@@ -8,14 +8,9 @@
 
 @section('content')
     @include('sweetalert::alert')
-
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue">Lista de estados</h3>
-            </div>
-        </div>
-    </div>
+    <x-card-header>
+        <h3 class="text-white">Lista de estados</h3>
+    </x-card-header>
 
     <div class="container">
         @livewire('show-estado')

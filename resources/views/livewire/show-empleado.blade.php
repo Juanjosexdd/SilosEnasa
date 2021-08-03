@@ -18,7 +18,9 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col" role="button" wire:click="order('id')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('id')">
                             #
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
@@ -31,7 +33,9 @@
                             @endif
 
                         </th>
-                        <th scope="col" role="button" wire:click="order('cedula')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('cedula')">
                             Cedula
                             @if ($sort == 'cedula')
                                 @if ($direction == 'asc')
@@ -43,7 +47,9 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th scope="col" role="button" wire:click="order('nombres')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('nombres')">
                             Nombres
                             @if ($sort == 'nombres')
                                 @if ($direction == 'asc')
@@ -55,7 +61,7 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        {{-- <th scope="col" role="button" wire:click="order('email')">
+                        {{-- <th scope="col" role="button" class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2" wire:click="order('email')">
                             Correo
                             @if ($sort == 'email')
                                 @if ($direction == 'asc')
@@ -67,7 +73,9 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th> --}}
-                        <th scope="col" role="button" wire:click="order('cargo_id')">
+                        <th scope="col" role="button"
+                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
+                            wire:click="order('cargo_id')">
                             Cargo
                             @if ($sort == 'cargo_id')
                                 @if ($direction == 'asc')
@@ -79,7 +87,7 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th>Estatus</th>
+                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Estatus</th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>

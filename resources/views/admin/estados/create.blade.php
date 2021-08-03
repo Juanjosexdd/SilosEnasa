@@ -4,31 +4,22 @@
 
 @section('content')
     @include('sweetalert::alert')
+    <x-card-header>
+        <h3 class="text-white">Crear nuevo estado</h3>
 
-    <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-        <div class="card-body">
-            <h3 class="text-blue">Crear nuevo estado</h3>
-        </div>
-    </div>
+    </x-card-header>
+    <x-card-body>
 
-    <div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem" bis_skin_checked="1">
+        {!! Form::open(['route' => 'admin.estados.store']) !!}
 
-        <div class="card-body" style="overflow-y: auto">
-            {!! Form::open(['route' => 'admin.estados.store']) !!}
-
-            @include('admin.estados.partials.form')
-            {!! Form::submit('Guardar estado', ['class' => 'btn bg-navy btn-block']) !!}
-            {!! Form::close() !!}
-        </div>
-        <div class="card-footer" style="background: inherit; border-color: inherit;">
-
-        </div>
-    </div>
+        @include('admin.estados.partials.form')
+        {!! Form::submit('Guardar estado', ['class' => 'btn bg-navy btn-block']) !!}
+        {!! Form::close() !!}
+    </x-card-body>
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/proyecto2021" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
 
 @section('js')
@@ -40,7 +31,6 @@
             "text": "Notificación Básica",
             "showConfirmButton": false
         });
-
     </script>
 @stop
 @section('css')

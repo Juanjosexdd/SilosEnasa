@@ -7,19 +7,15 @@
 
     @include('sweetalert::alert')
 
-    <div class="container">
-        <div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem" bis_skin_checked="1">
-            <div class="card-body" style="overflow-y: auto">
+    <x-card-body>
         <livewire:laravel_backup_panel::app />
-            </div>
-        </div>
-    </div>
+    </x-card-body>
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
+
 @section('css')
         <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/backup/toastify.min.css') }}">

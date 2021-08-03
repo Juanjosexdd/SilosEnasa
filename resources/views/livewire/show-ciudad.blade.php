@@ -17,8 +17,9 @@
         @if ($ciudads->count())
             <table class="table table-striped table-hover text-nowrap">
                 <thead>
-                    <tr>
-                        <th scope="col" role="button" wire:click="order('id')">
+                    <tr class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                        <th scope="col" role="button"
+                            wire:click="order('id')">
                             ID
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
@@ -32,7 +33,8 @@
 
                         </th>
                         <th>Estado</th>
-                        <th scope="col" role="button" wire:click="order('nombre')">
+                        <th scope="col" role="button"
+                            wire:click="order('nombre')">
                             Nombre
                             @if ($sort == 'nombre')
                                 @if ($direction == 'asc')
@@ -51,7 +53,7 @@
                 </thead>
                 <tbody>
                     @foreach ($ciudads as $ciudad)
-                        <tr>
+                        <tr class="text-secondary text-sm font-weight-bold">
                             <td>{{ $ciudad->id }}</td>
                             <td>{{ $ciudad->estado->nombre }}</td>
                             <td>{{ $ciudad->nombre }}</td>
