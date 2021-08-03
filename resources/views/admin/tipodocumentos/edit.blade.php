@@ -7,7 +7,7 @@
     @include('sweetalert::alert')
 
     <x-card-header>
-        <h3 class="text-blue">Editar tipo documento {{ $tipodocumento->nombre }} </h3>
+        <h3 class="text-white">Editar tipo documento {{ $tipodocumento->nombre }} </h3>
     </x-card-header>
 
     <x-card-body>

@@ -1,22 +1,18 @@
-<div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem">
-    <div class="card-header" style="padding: .75rem .25rem">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-            </div>
-            <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-            <a href="{{ route('admin.clacificacions.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
-                    class="fas fa-plus mt-2 px-3"></i></a>
+<x-card-body>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
+        <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
+        <a href="{{ route('admin.clacificacions.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
+                class="fas fa-plus mt-2 px-3"></i></a>
     </div>
-    <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
         @if ($clacificacions->count())
             <table class="table table-striped table-hover text-nowrap">
                 <thead>
-                    <tr>
+                    <tr class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 ps-2">
                         <th scope="col" role="button"
-                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('id')">
                             ID
                             @if ($sort == 'id')
@@ -31,7 +27,6 @@
 
                         </th>
                         <th scope="col" role="button"
-                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('nombre')">
                             nombre
                             @if ($sort == 'nombre')
@@ -45,7 +40,6 @@
                             @endif
                         </th>
                         <th scope="col" role="button"
-                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('abreviado')">
                             abreviatura
                             @if ($sort == 'abreviado')
@@ -59,7 +53,6 @@
                             @endif
                         </th>
                         <th scope="col" role="button"
-                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('descripcion')">
                             Descripción
                             @if ($sort == 'abreviado')
@@ -72,14 +65,14 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
-                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"> Estatus
+                        <th> Estatus
                         </th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($clacificacions as $clacificacion)
-                        <tr>
+                        <tr class="text-secondary text-sm font-weight-bold">
                             <td>{{ $clacificacion->id }}</td>
                             <td>{{ $clacificacion->nombre }}</td>
                             <td>{{ $clacificacion->abreviado }}</td>
@@ -149,4 +142,4 @@
             </div>
         @endif
     </div>
-</div>
+</x-card-body>

@@ -6,27 +6,20 @@
 @section('content')
     @include('sweetalert::alert')
 
-    <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-        <div class="card-body">
-            <h3 class="text-blue">Editar trabajador {{ $empleado->nombres }} {{ $empleado->apellidos }}</h3>
-        </div>
-    </div>
+    <x-card-header>
+        <h3 class="text-white">Editar trabajador {{ $empleado->nombres }} {{ $empleado->apellidos }}</h3>
+    </x-card-header>
 
-    <div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem" bis_skin_checked="1">
-
-        <div class="card-body" style="overflow-y: auto">
-            {!! Form::model($empleado, ['route' => ['admin.empleados.update', $empleado], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
-            @include('admin.empleados.partials.form')
-            {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block']) !!}
-
-            {!! Form::close() !!}
-        </div>
-    </div>    
+    <x-card-body>
+        {!! Form::model($empleado, ['route' => ['admin.empleados.update', $empleado], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
+        @include('admin.empleados.partials.form')
+        {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block']) !!}
+        {!! Form::close() !!}
+    </x-card-body>  
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/proyecto2021" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
 
 @section('css')

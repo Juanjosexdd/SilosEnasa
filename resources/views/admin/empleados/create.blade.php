@@ -5,33 +5,20 @@
 @section('content')
     @include('sweetalert::alert')
 
-    <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-        <div class="card-body">
-            <h3 class="text-blue">Registrar nuevo empleado</h3>
-        </div>
-    </div>
-
-    <div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem">
-        <div class="card-body" style="overflow-y: auto">
-            {!! Form::open(['route' => 'admin.empleados.store']) !!}
-
-            @include('admin.empleados.partials.form')
-            {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block']) !!}
-            {!! Form::close() !!}
-
-        </div>
-        <div class="card-footer" style="background: inherit; border-color: inherit;">
-
-        </div>
-    </div>
-    <!-- Copy until here -->
-
-    </div>
+    <x-card-header>
+        <h3 class="text-white">Registrar nuevo empleado</h3>
+    </x-card-header>
+    
+    <x-card-body>
+        {!! Form::open(['route' => 'admin.empleados.store']) !!}
+        @include('admin.empleados.partials.form')
+        {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block']) !!}
+        {!! Form::close() !!}
+    </x-card-body>
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/proyecto2021" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
 
 @section('css')
