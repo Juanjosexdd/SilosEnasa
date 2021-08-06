@@ -17,18 +17,9 @@ class CreateDetalleEgresoTable extends Migration
             $table->id();
             $table->unsignedBigInteger("egreso_id")->nullable();
             $table->unsignedBigInteger("producto_id")->nullable();
-            $table->unsignedBigInteger("almacen_id")->nullable();
 
             $table->integer('cantidad');
-            $table->text('observacion')->nullable();
-            $table->boolean('estatus')->default(1);
-
-            
-            $table->foreign('almacen_id')
-                  ->references('id')
-                  ->on('almacens')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+            $table->text('observacionp')->nullable();
 
             $table->foreign('producto_id')
                   ->references('id')

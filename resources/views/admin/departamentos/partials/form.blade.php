@@ -17,6 +17,21 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
+            {!! Form::label('abreviado', 'Abreviación : ',['class' => 'text-blue']) !!}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-ad"></i></span>
+                </div>
+                {!! Form::text('abreviado', null, ['class' => 'form-control'  . ($errors->has('abreviado') ? ' is-invalid' : ''), 'placeholder' => 'Abreviación']) !!}
+                {!! $errors->first('abreviado', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
             {!! Form::label('descripcion', 'Descripción : ',['class' => 'text-blue']) !!}
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

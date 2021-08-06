@@ -5,99 +5,65 @@
 
 @section('content')
     @include('sweetalert::alert')
-    <x-card-header>
-        <h3 class="text-white">Egreso de productos</h3>
-    </x-card-header>
-    
+    <div class="container">
+        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
+            <div class="card-body">
+                <h3 class="text-blue">Ingreso de productos</h3>
+            </div>
+        </div>
+    </div>
     <div class="container">
 
-        <div class="card card-custom bg-white border-white border-0 elevation-5">
+        <div class="card card-custom card-responsive bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
-                {!! Form::open(['route' => 'admin.egresos.store']) !!}
+                {!! Form::open(['route' => 'admin.ingresos.store']) !!}
                 <div class="row">
-                    <div class="col-md-5">
-                        {!! Form::label('departamento_id', 'Departamento que solicita : ', ['class' => 'text-blue']) !!}
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
+                        {!! Form::label('proveedor_id', 'Proveedor : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text ">
                                     <i class="fas fa-search text-blue"></i>
                                 </span>
                             </div>
-                            {!! Form::select('departamento_id', $departamentos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
-                            {{-- <span class="input-group-append">
-                                <button type="button" class="btn bg-navy" data-toggle="modal"
-                                    data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>
-                            </span> --}}
+                            {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
+                            
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        {!! Form::label('empleado_id', 'Trabajador responsable : ', ['class' => 'text-blue']) !!}
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
-                                </span>
-                            </div>
-                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
-                            {{-- <span class="input-group-append">
-                                <button type="button" class="btn bg-navy" data-toggle="modal"
-                                    data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>
-                            </span> --}}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            {!! Form::label('correlativo', 'Correlativo: ', ['class' => 'text-blue ']) !!}
-                            <div class="input-group">
-                                @if (count($egresos) == 0)
-                                    <input type="text" value="" class="form-control" name="correlativo" id="correlativo">
-                                @else
-                                    <input type="text"
-                                        value="{{ number_format($egresos->last()->correlativo + 1, 0, '', '') }}"
-                                        class="form-control" name="correlativo" id="correlativo">
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    
-                    <div class="col-md-4">
-                        <label class="text-blue">Usuario :</label>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <label class="text-blue">Responsable :</label>
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
-                    <div class="col-md-4">
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
                                 </span>
                             </div>
                             {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
-                            {{-- <span class="input-group-append">
-                                <button type="button" class="btn bg-navy" data-toggle="modal"
-                                    data-target="#modalProducto"><i class="fas fa-plus text-white"></i></button>
-                            </span> --}}
+                            
                         </div>
                     </div>
-                    {{-- <div class="col-md-4">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                         <div>
                             {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text ">
-                                        <i class="fas fa-search text-blue"></i>
+                                    <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
                                     </span>
                                 </div>
                                 {!! Form::select('palmacen_id', $almacens, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
                                 
                             </div>
                         </div>
-                    </div> --}}
-                    <div class="col-md-3">
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
@@ -105,13 +71,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1 col-sm-12">
                         {!! Form::label('&nbsp;&nbsp;', 'Agregar ', ['class' => 'text-blue ']) !!}
                         <button type="button" id="bt_add" class="btn bg-navy elevation-4"><i
                                 class="fas fa-plus mt-1 px-3"></i></button>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-md-12">
                         <table id="detalles" class="table table-striped table-sm table-hover">
@@ -119,8 +84,10 @@
                                 <th class="text-white">Opciones</th>
                                 <th class="text-white">Producto</th>
                                 <th class="text-white">Cantidad</th>
+                                <th class="text-white">Almacen</th>
                             </thead>
                             <tfoot>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -146,12 +113,37 @@
 
                     </div>
                 </div>
-                {{-- @include('admin.egresos.partials.form') --}}
+                {{-- @include('admin.ingresos.partials.form') --}}
                 {!! Form::close() !!}
             </div>
         </div>
     </div>
-    
+
+
+
+
+
+    <div class="modal fade" id="modal-lg" style="display: block; padding-right: 17px;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Large Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body…</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
 @stop
 
 @section('footer')
@@ -198,14 +190,20 @@
         function agregar() {
             producto_id = $("#pproducto_id").val();
             producto = $("#pproducto_id option:selected").text();
+            almacen = $("#palmacen_id option:selected").text();
             cantidad = $("#pcantidad").val();
+            almacen_id = $("#palmacen_id").val();
 
-            if (producto_id != "" && cantidad > 0 ) {
+            if (producto_id != "" && cantidad > 0 && almacen_id != "") {
                 var fila = '<tr class="selected" id="fila' + cont +
                     '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
-                    ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
-                    producto + '</td><td><input type="number" class="" name="cantidad[]" value="' + cantidad +
-                    '"></td></tr>';
+                    ');">X</button></td><td><input type="hidden"  name="producto_id[]" value="' + producto_id + '">' +
+                    producto +
+                    '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' +
+                    cantidad +
+                    '"></td><td><input type="hidden" class="form-control mr-5" name="almacen_id[]" value="' + almacen_id +
+                    '">' + almacen +
+                    '</td></tr>';
                 cont++;
                 limpiar();
                 $('#detalles').append(fila);
@@ -220,7 +218,8 @@
         }
 
         function limpiar() {
-            $("#pproducto_id").val(" ");
+            $("#pproducto_id").val("");
+            $("#palmacen_id").val("");
             $("#pcantidad").val("");
         }
 

@@ -15,6 +15,25 @@ class CreateRequisicionsTable extends Migration
     {
         Schema::create('requisicions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id")->nullable();
+            $table->unsignedBigInteger("departamento_id")->nullable();
+            $table->text('observacion')->nullable();
+            $table->string("correlativo")->unique()->nullable();
+
+            $table->boolean('estatus')->default(1);
+
+            $table->foreign('departamento_id')
+                ->references('id')
+                ->on('departamentos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

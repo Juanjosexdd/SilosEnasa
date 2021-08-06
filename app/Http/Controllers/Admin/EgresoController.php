@@ -18,6 +18,7 @@ use Illuminate\Support\Collection;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EgresoFormRequest;
+use App\Models\Departamento;
 use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
@@ -48,15 +49,17 @@ class EgresoController extends Controller
         $egresos     = Egreso::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
+        $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_product','id');
         $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
+
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 
 
-        return view('admin.egresos.create', compact('egresos','empleados','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.egresos.create', compact('egresos','empleados','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
     
     public function store(Request $request)
@@ -67,6 +70,7 @@ class EgresoController extends Controller
             DB::beginTransaction();
             $egreso=new Egreso;
             
+            $egreso->departamento_id=$request->get('departamento_id');
             $egreso->empleado_id=$request->get('empleado_id');
             $egreso->correlativo=$request->get('correlativo');
             $egreso->observacion=$request->get('observacion');
@@ -74,7 +78,6 @@ class EgresoController extends Controller
             $egreso->save();
 
             $producto_id = $request->get('producto_id');
-            $almacen_id=$request->get('almacen_id');
             $cantidad = $request->get('cantidad');
             $cont = 0;
             
@@ -83,7 +86,6 @@ class EgresoController extends Controller
                 $detalle = new Detalleegreso();
                 $detalle->egreso_id=$egreso->id;
                 $detalle->producto_id=$producto_id[$cont];
-                $detalle->almacen_id=$almacen_id[$cont];
                 $detalle->cantidad=$cantidad[$cont];
                 $detalle->save();
                 

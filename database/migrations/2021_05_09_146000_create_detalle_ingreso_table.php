@@ -22,9 +22,7 @@ class CreateDetalleIngresoTable extends Migration
             $table->integer('cantidad');
             $table->text('observacionp')->nullable();
             $table->text('ubicacion')->nullable();
-            $table->boolean('estatus')->default(1);
 
-            
             $table->foreign('almacen_id')
                   ->references('id')
                   ->on('almacens')

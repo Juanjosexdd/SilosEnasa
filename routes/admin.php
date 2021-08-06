@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\EmpresaController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\ProveedorController;
 use App\Http\Controllers\Admin\IngresoController;
+use App\Http\Controllers\Admin\RequisicionController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\LogsistemaController;
 use App\Http\Controllers\Admin\RoleController;
@@ -35,6 +36,7 @@ Route::resource('clacificacions', ClacificacionController::class)->names('admin.
 Route::resource('productos', ProductoController::class)->names('admin.productos');
 Route::resource('proveedors', ProveedorController::class)->names('admin.proveedors');
 Route::resource('ingresos', IngresoController::class)->names('admin.ingresos');
+Route::resource('requisicions', RequisicionController::class)->names('admin.requisicions');
 Route::resource('egresos', EgresoController::class)->names('admin.egresos');
 Route::resource('logs', LogsistemaController::class)->names('admin.logs');
 Route::resource('logins', LoginController::class)->names('admin.logins');
@@ -67,4 +69,5 @@ Route::get('estatualmacen/{almacen}', [AlmacenController::class, 'estatualmacen'
 Route::get('estatuproducto/{producto}', [ProductoController::class, 'estatuproducto'])->name('admin.productos.estatuproducto');
 Route::get('estatuingreso/{ingreso}', [IngresoController::class, 'estatuingreso'])->name('admin.ingresos.estatuingreso');
 Route::get('estatuegreso/{egreso}', [EgresoController::class, 'estatuegreso'])->name('admin.egresos.estatuegreso');
+Route::get('estaturequisicion/{requisicion}', [RequisicionController::class, 'estaturequisicion'])->name('admin.requisicions.estaturequisicion');
 

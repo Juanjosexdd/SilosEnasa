@@ -19,9 +19,11 @@ use Illuminate\Support\Collection;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IngresoFormRequest;
+use App\Models\AlmacenProducto;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
+use App\Models\Requisicion;
 use App\Notifications\IngresoNotification;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,12 +64,13 @@ class IngresoController extends Controller
         $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto','id');
         $proveedors      = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
+        $requisicions  = Requisicion::where('estatus', 1)->get()->pluck('correlativo','id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 
 
-        return view('admin.ingresos.create', compact('ingresos','proveedors','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.ingresos.create', compact('ingresos','requisicions','proveedors','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
 
     /**
@@ -87,6 +90,7 @@ class IngresoController extends Controller
                     $ingreso=new Ingreso;
                     
                     $ingreso->tipomovimiento_id= 1;
+                    $ingreso->requisicion_id=$request->get('requisicion_id');
                     $ingreso->proveedor_id=$request->get('proveedor_id');
                     $ingreso->correlativo=$request->get('correlativo');
                     $ingreso->observacion=$request->get('observacion');
@@ -110,6 +114,11 @@ class IngresoController extends Controller
                         $detalle->observacionp=$observacionp[$cont];
                         $detalle->cantidad=$cantidad[$cont];
                         $detalle->save();
+
+                        $almacenProducto = new AlmacenProducto();
+                        $almacenProducto->producto_id=$producto_id[$cont];
+                        $almacenProducto->almacen_id=$almacen_id[$cont];
+                        $almacenProducto->save();
                         
                         $p = Producto::findOrFail($producto_id[$cont]);
                         $p->observacionp = $observacionp[$cont];

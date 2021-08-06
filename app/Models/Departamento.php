@@ -23,4 +23,9 @@ class Departamento extends Model
     {
         return $this->hasMany(Empleado::class);
     }
+
+    public function getDisplayDepartamentoAttribute()
+    {
+        return $this->abreviado . ' - ' .$this->nombre;
+    }
 }
