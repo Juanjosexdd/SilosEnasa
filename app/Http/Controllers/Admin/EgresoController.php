@@ -49,7 +49,7 @@ class EgresoController extends Controller
         $egresos     = Egreso::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_product','id');
+        $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
         $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');

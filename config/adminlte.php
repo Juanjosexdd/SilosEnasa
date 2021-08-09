@@ -226,8 +226,8 @@ return [
     'menu' => [
         [
             'text' => 'search',
-            'search' => true,
-            'topnav' => true,
+            'search' => false,
+            'sidebar' => false,
         ],
         [
             'text' => 'blog',
@@ -257,14 +257,6 @@ return [
                     'active' => ['admin/proveedors*'],
                 ],
                 [
-                    'text' => 'Requisición',
-                    'route'  => 'admin.requisicions.index',
-                    'icon' => 'fas fa-clipboard-list text-blue',
-                    'active' => ['admin/requisicions*'],
-                    'label'       => 'Ver',
-                    'label_color' => 'success',
-                ],
-                [
                     'text' => 'Ingreso',
                     'route'  => 'admin.ingresos.index',
                     'icon' => 'fas fa-people-carry text-blue',
@@ -277,6 +269,22 @@ return [
                     'route'  => 'admin.egresos.index',
                     'icon' => 'fas fa-dolly text-blue',
                     'active' => ['admin/egresos*'],
+                    'label'       => 'Ver',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text' => 'Requisición',
+                    'route'  => 'admin.requisicions.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/requisicions*'],
+                    'label'       => 'Ver',
+                    'label_color' => 'success',
+                ],
+                [
+                    'text' => 'Solicitud',
+                    'route'  => 'admin.solicituds.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/solicituds*'],
                     'label'       => 'Ver',
                     'label_color' => 'success',
                 ],

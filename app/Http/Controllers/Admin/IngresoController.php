@@ -60,17 +60,17 @@ class IngresoController extends Controller
 
         $ingresos        = Ingreso::all();
         $users           = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
-        $almacens        = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto','id');
-        $proveedors      = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor','id');
-        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
-        $requisicions  = Requisicion::where('estatus', 1)->get()->pluck('correlativo','id');
+        $almacens        = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
+        $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto', 'id');
+        $proveedors      = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor', 'id');
+        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
+        $requisicions  = Requisicion::where('estatus', 1)->get()->pluck('correlativo', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
 
-        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
+        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
 
-        return view('admin.ingresos.create', compact('ingresos','requisicions','proveedors','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.ingresos.create', compact('ingresos', 'requisicions', 'proveedors', 'users', 'almacens', 'productos', 'clacificaciones', 'tipodocumentos', 'tipomovimientos'));
     }
 
     /**
@@ -85,55 +85,116 @@ class IngresoController extends Controller
         $request->validate([
             'proveedor_id' => 'required|not_in:0',
         ]);
-                try {
-                    DB::beginTransaction();
-                    $ingreso=new Ingreso;
-                    
-                    $ingreso->tipomovimiento_id= 1;
-                    $ingreso->requisicion_id=$request->get('requisicion_id');
-                    $ingreso->proveedor_id=$request->get('proveedor_id');
-                    $ingreso->correlativo=$request->get('correlativo');
-                    $ingreso->observacion=$request->get('observacion');
-                    $ingreso->user_id = auth()->user()->id;
-                    $ingreso->save();
+        try {
+            DB::beginTransaction();
 
-                    $producto_id = $request->get('producto_id');
-                    $ubicacion = $request->get('ubicacion');
-                    $almacen_id=$request->get('almacen_id');
-                    $cantidad = $request->get('cantidad');
-                    $observacionp = $request->get('observacionp');
-                    $cont = 0;
-                    
-                    while($cont < count($producto_id))
-                    {
-                        $detalle = new Detalleingreso();
-                        $detalle->ingreso_id=$ingreso->id;
-                        $detalle->producto_id=$producto_id[$cont];
-                        $detalle->almacen_id=$almacen_id[$cont];
-                        $detalle->ubicacion=$ubicacion[$cont];
-                        $detalle->observacionp=$observacionp[$cont];
-                        $detalle->cantidad=$cantidad[$cont];
-                        $detalle->save();
+            $ingreso = new Ingreso;
 
-                        $almacenProducto = new AlmacenProducto();
-                        $almacenProducto->producto_id=$producto_id[$cont];
-                        $almacenProducto->almacen_id=$almacen_id[$cont];
-                        $almacenProducto->save();
-                        
-                        $p = Producto::findOrFail($producto_id[$cont]);
-                        $p->observacionp = $observacionp[$cont];
-                        $p->ubicacion = $ubicacion[$cont];
-                        $p->save();
-                        $cont = $cont+1;
-                    }
-                    
-                    
-                    DB::commit();
+            $ingreso->tipomovimiento_id = 1;
+            $ingreso->requisicion_id = $request->get('requisicion_id');
+            $ingreso->proveedor_id = $request->get('proveedor_id');
+            $ingreso->correlativo = $request->get('correlativo');
+            $ingreso->observacion = $request->get('observacion');
+            $ingreso->user_id = auth()->user()->id;
+            $ingreso->save();
 
-                } catch (\Exception $e) {
-                    DB::rollBack();
+            $requisicion_id = $request->get('requisicion_id');
+
+            if ($requisicion_id) {
+                $r = Requisicion::find($requisicion_id);
+                $r->estatus = '0';
+                $r->save();
+            }
+
+
+            $producto_id = $request->get('producto_id');
+            $ubicacion = $request->get('ubicacion');
+            $almacen_id = $request->get('almacen_id');
+            $cantidad = $request->get('cantidad');
+            $observacionp = $request->get('observacionp');
+            $cont = 0;
+
+            while ($cont < count($producto_id)) {
+                $detalle = new Detalleingreso();
+                $detalle->ingreso_id = $ingreso->id;
+                $detalle->producto_id = $producto_id[$cont];
+                $detalle->cantidad = $cantidad[$cont];
+                $detalle->observacionp = $observacionp[$cont];
+
+                $detalle->save();
+
+
+
+                // $almacenProducto = new AlmacenProducto();
+                // $almacenProducto->producto_id = $producto_id[$cont];
+                // $almacenProducto->almacen_id = $almacen_id[$cont];
+                // $almacenProducto->save();
+
+                $p = Producto::find($producto_id[$cont]);
+                $p->observacionp = $observacionp[$cont];
+                $p->ubicacion = $ubicacion[$cont];
+                $p->save();
+
+                if ($request->producto_id) {
+                    $p->almacenes()->attach($request->almacen_id);
+                }else {
+                    $p->almacenes()->sync($request->almacen_id);
                 }
-                
+                $cont = $cont + 1;
+            }
+
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+        // try {
+        //     DB::beginTransaction();
+        //     $ingreso = new Ingreso();
+
+        //     $ingreso->tipomovimiento_id = 1;
+        //     $ingreso->requisicion_id = $request->get('requisicion_id');
+        //     $ingreso->proveedor_id = $request->get('proveedor_id');
+        //     $ingreso->correlativo = $request->get('correlativo');
+        //     $ingreso->observacion = $request->get('observacion');
+        //     $ingreso->user_id = auth()->user()->id;
+        //     $ingreso->save();
+
+        //     $producto_id = $request->get('producto_id');
+        //     $ubicacion = $request->get('ubicacion');
+        //     $almacen_id = $request->get('almacen_id');
+        //     $cantidad = $request->get('cantidad');
+        //     $observacionp = $request->get('observacionp');
+        //     $cont = 0;
+
+        //     while ($cont < count($producto_id)) {
+        //         $detalle = new Detalleingreso();
+        //         $detalle->ingreso_id = $ingreso->id;
+        //         $detalle->producto_id = $producto_id[$cont];
+        //         $detalle->almacen_id = $almacen_id[$cont];
+        //         $detalle->ubicacion = $ubicacion[$cont];
+        //         $detalle->observacionp = $observacionp[$cont];
+        //         $detalle->cantidad = $cantidad[$cont];
+        //         $detalle->save();
+
+        //         $almacenProducto = new AlmacenProducto();
+        //         $almacenProducto->producto_id = $producto_id[$cont];
+        //         $almacenProducto->almacen_id = $almacen_id[$cont];
+        //         $almacenProducto->save();
+
+        //         $p = Producto::find($producto_id[$cont]);
+        //         $p->observacionp = $observacionp[$cont];
+        //         $p->ubicacion = $ubicacion[$cont];
+        //         $p->save();
+        //         $cont = $cont + 1;
+        //     }
+
+
+        //     DB::commit();
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        // }
+
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
@@ -167,16 +228,18 @@ class IngresoController extends Controller
         //     ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
         $ingreso = Ingreso::find($id);
 
-        $detalles = Detalleingreso::join('productos','detalle_ingreso.producto_id','=','productos.id')
-                                  ->join('almacens' ,'detalle_ingreso.almacen_id','=','almacens.id')
-             ->select('productos.nombre as producto',
-                      'almacens.nombre as almacen',
-                      'detalle_ingreso.cantidad',
-                      'detalle_ingreso.created_at',
-                      'detalle_ingreso.updated_at',)
-             ->where('detalle_ingreso.ingreso_id','=',$id)
-             ->orderBy('detalle_ingreso.id', 'desc')->get();
-        return view('admin.ingresos.show', compact('ingreso','detalles'));
+        $detalles = Detalleingreso::join('productos', 'detalle_ingreso.producto_id', '=', 'productos.id')
+            ->join('almacens', 'detalle_ingreso.almacen_id', '=', 'almacens.id')
+            ->select(
+                'productos.nombre as producto',
+                'almacens.nombre as almacen',
+                'detalle_ingreso.cantidad',
+                'detalle_ingreso.created_at',
+                'detalle_ingreso.updated_at',
+            )
+            ->where('detalle_ingreso.ingreso_id', '=', $id)
+            ->orderBy('detalle_ingreso.id', 'desc')->get();
+        return view('admin.ingresos.show', compact('ingreso', 'detalles'));
     }
 
     /**
@@ -210,15 +273,15 @@ class IngresoController extends Controller
      */
     public function destroy($id)
     {
-        $ingreso=Ingreso::findOrFail($id);
-        $ingreso->estatus=2;
+        $ingreso = Ingreso::findOrFail($id);
+        $ingreso->estatus = 2;
         $ingreso->update();
         return view('admin.ingresos.index');
     }
 
     public function estatuingreso(Ingreso $ingreso)
     {
-        
+
         if ($ingreso->estatus == "1") {
 
             $log = new LogSistema();
@@ -231,16 +294,15 @@ class IngresoController extends Controller
             $ingreso->save();
 
             return redirect()->route('admin.ingresos.index')->with('success', 'El documento se anuló con éxito!');
-
         }
     }
 
     public function markNotification(Request $request)
     {
         auth()->user()->unreadNotifications
-              ->when($request->input('id'), function($query) use ($request){
-                    return $query->where('id', $request->input('id'));
-        })->markAsRead();
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })->markAsRead();
         return response()->noContent();
     }
 }

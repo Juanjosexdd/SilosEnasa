@@ -41,6 +41,7 @@ class CreateDetalleRequisicionTable extends Migration
                   ->on('requisicions')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+                  
             $table->timestamps();
         });
     }
