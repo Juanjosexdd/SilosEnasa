@@ -68,21 +68,31 @@
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <label class="form-control-label" style="text-transform:uppercase"for="nombre">Servicio :</label>
+                        <select class="form-control selectpicker" name="producto_id" id="producto_id" data-live-search="true" required>
+                        <option value="0">SELECCIONE</option>
+                        @foreach($productos as $prod)
+                        <option value="{{$prod->id}}_{{$prod->stock}}">{{$prod->producto}}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <input type="hidden" disabled id="stock" name="stock" class="form-control">
+                    {{-- <div class="col-md-4">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text ">
                                     <i class="fas fa-search text-blue"></i>
                                 </span>
-                            </div>
-                            {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
+                            </div> --}}
+                            {{-- {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} --}}
                             {{-- <span class="input-group-append">
                                 <button type="button" class="btn bg-navy" data-toggle="modal"
                                     data-target="#modalProducto"><i class="fas fa-plus text-white"></i></button>
                             </span> --}}
-                        </div>
-                    </div>
+                        {{-- </div>
+                    </div> --}}
                     {{-- <div class="col-md-4">
                         <div>
                             {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
@@ -185,6 +195,14 @@
         });
 
         var cont = 0;
+        $("#producto_id").change(mostrarValores);
+
+    function mostrarValores() {
+
+        datosProducto = document.getElementById('producto_id').value.split('-');
+        $("#stock").val(datosProducto);
+
+    }
 
         function evaluar() {
             if ($cont === 0) {
@@ -196,20 +214,29 @@
 
 
         function agregar() {
+            stock = $("#stock").val();
             producto_id = $("#pproducto_id").val();
             producto = $("#pproducto_id option:selected").text();
             cantidad = $("#pcantidad").val();
 
             if (producto_id != "" && cantidad > 0 ) {
-                var fila = '<tr class="selected" id="fila' + cont +
-                    '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
-                    ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
-                    producto + '</td><td><input type="number" class="" name="cantidad[]" value="' + cantidad +
-                    '"></td></tr>';
-                cont++;
-                limpiar();
-                $('#detalles').append(fila);
-                evaluar();
+                if (parseInt(stock) >= parseInt(cantidad)){
+                    var fila = '<tr class="selected" id="fila' + cont +
+                        '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
+                        ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
+                        producto + '</td><td><input type="number" class="" name="cantidad[]" value="' + cantidad +
+                        '"></td></tr>';
+                    cont++;
+                    limpiar();
+                    $('#detalles').append(fila);
+                    evaluar();
+                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'La cantidad solicitada supera el stock...',
+                    })
+                }
             } else {
                 Swal.fire({
                     icon: 'error',

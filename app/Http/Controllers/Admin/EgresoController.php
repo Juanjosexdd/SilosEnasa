@@ -49,12 +49,17 @@ class EgresoController extends Controller
         $egresos     = Egreso::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
+        //$productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
         $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
         $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
 
+        $productos=DB::table('productos as prod')
+             ->select(DB::raw('CONCAT(prod.nombre) AS producto'),'prod.id','prod.stock')
+             ->where('prod.stock','>',0 )
+             ->groupBy('producto','prod.id','prod.stock')
+             ->get();
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 

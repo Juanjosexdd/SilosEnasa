@@ -64,8 +64,14 @@ class IngresoController extends Controller
         $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto', 'id');
         $proveedors      = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor', 'id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
-        $requisicions  = Requisicion::where('estatus', 1)->get()->pluck('correlativo', 'id');
+        //$requisicions    = Requisicion::where('estatus', 1)->get()->pluck('correlativo', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+
+        $requisicions = Requisicion::join('departamentos','requisicions.departamento_id','departamentos.id')
+                                   ->select('requisicions.id','requisicions.correlativo','departamentos.nombre as departamento')
+                                   ->where('requisicions.estatus','=','1')
+                                   ->groupBy('requisicions.id','requisicions.correlativo','departamento')
+                            ->get();;
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
