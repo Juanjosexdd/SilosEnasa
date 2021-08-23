@@ -28,11 +28,13 @@ class CreateIngresosTable extends Migration
                   ->on('tipomovimientos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+
             $table->foreign('proveedor_id')
                   ->references('id')
                   ->on('proveedors')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')

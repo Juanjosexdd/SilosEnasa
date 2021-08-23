@@ -23,6 +23,7 @@ use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
+use App\Models\Solicitud;
 
 class EgresoController extends Controller
 {
@@ -60,11 +61,17 @@ class EgresoController extends Controller
              ->where('prod.stock','>',0 )
              ->groupBy('producto','prod.id','prod.stock')
              ->get();
+        
+        $solicituds = Solicitud::join('departamentos','solicituds.departamento_id','departamentos.id')
+             ->select('solicituds.id','departamentos.nombre as departamento')
+             ->where('solicituds.estatus','=','1')
+             ->groupBy('solicituds.id','departamento')
+      ->get();;
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 
 
-        return view('admin.egresos.create', compact('egresos','empleados','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.egresos.create', compact('solicituds','egresos','empleados','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
     
     public function store(Request $request)
@@ -75,7 +82,11 @@ class EgresoController extends Controller
             DB::beginTransaction();
             $egreso=new Egreso;
             
-            $egreso->departamento_id=$request->get('departamento_id');
+            //$egreso->departamento_id=$request->get('departamento_id');
+            $egreso->tipomovimiento_id = 2;
+            if ($request->get('solicitud_id')) {
+                $egreso->solicitud_id=$request->get('solicitud_id');
+            }
             $egreso->empleado_id=$request->get('empleado_id');
             $egreso->correlativo=$request->get('correlativo');
             $egreso->observacion=$request->get('observacion');
@@ -85,6 +96,14 @@ class EgresoController extends Controller
             $producto_id = $request->get('producto_id');
             $cantidad = $request->get('cantidad');
             $cont = 0;
+
+            $solicitud_id = $request->get('solicitud_id');
+
+            if ($solicitud_id) {
+                $s = Solicitud::find($solicitud_id);
+                $s->estatus = '2';
+                $s->save();
+            }
             
             while($cont < count($producto_id))
             {

@@ -8,41 +8,28 @@
     <x-card-header>
         <h3 class="text-white">Egreso de productos</h3>
     </x-card-header>
-    
+
     <div class="container">
 
         <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
                 {!! Form::open(['route' => 'admin.egresos.store']) !!}
                 <div class="row">
-                    <div class="col-md-5">
-                        {!! Form::label('departamento_id', 'Departamento que solicita : ', ['class' => 'text-blue']) !!}
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
-                                </span>
-                            </div>
-                            {!! Form::select('departamento_id', $departamentos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
-                            {{-- <span class="input-group-append">
-                                <button type="button" class="btn bg-navy" data-toggle="modal"
-                                    data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>
-                            </span> --}}
-                        </div>
+                    <div class="col-md-4">
+                        <label class="text-blue" for="nombre">Solicitud nro. :</label>
+                        <select class="form-control select2" name="solicitud_id" id="solicitud_id" data-live-search="true"
+                            required>
+                            <option class="text-muted" value="0">Selecciona una opción</option>
+                            @foreach ($solicituds as $solicitud)
+                                <option value="{{ $solicitud->id }}">{{ $solicitud->id }} -
+                                    {{ $solicitud->departamento }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         {!! Form::label('empleado_id', 'Trabajador responsable : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
-                                </span>
-                            </div>
-                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
-                            {{-- <span class="input-group-append">
-                                <button type="button" class="btn bg-navy" data-toggle="modal"
-                                    data-target="#modalProveedores"><i class="fas fa-plus text-white"></i></button>
-                            </span> --}}
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -59,54 +46,31 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label class="text-blue">Usuario :</label>
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
-                        <label class="form-control-label" style="text-transform:uppercase"for="nombre">Servicio :</label>
-                        <select class="form-control selectpicker" name="producto_id" id="producto_id" data-live-search="true" required>
-                        <option value="0">SELECCIONE</option>
-                        @foreach($productos as $prod)
-                        <option value="{{$prod->id}}_{{$prod->stock}}">{{$prod->producto}}</option>
-                        @endforeach
+                        <label class="form-control-label text-blue" for="tipomovimiento_id">Tipo Movimiento :</label>
+
+                        <select class="form-control selectpicker" disabled name="tipomovimiento_id" id="tipomovimiento_id"
+                            data-live-search="true" required>
+                            <option value="2" selected>Salida del almacen</option>
                         </select>
                     </div>
-                    <input type="hidden" disabled id="stock" name="stock" class="form-control">
-                    {{-- <div class="col-md-4">
-                        {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
-                                </span>
-                            </div> --}}
-                            {{-- {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!} --}}
-                            {{-- <span class="input-group-append">
-                                <button type="button" class="btn bg-navy" data-toggle="modal"
-                                    data-target="#modalProducto"><i class="fas fa-plus text-white"></i></button>
-                            </span> --}}
-                        {{-- </div>
-                    </div> --}}
-                    {{-- <div class="col-md-4">
-                        <div>
-                            {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text ">
-                                        <i class="fas fa-search text-blue"></i>
-                                    </span>
-                                </div>
-                                {!! Form::select('palmacen_id', $almacens, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
-                                
-                            </div>
-                        </div>
-                    </div> --}}
+                    <div class="col-md-5">
+                        {!! Form::label('pproducto_id', 'Materiales : ', ['class' => 'text-blue ']) !!}
+                        <select class="form-control select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
+                            <option value="0">Seleccione una opción</option>
+                            @foreach ($productos as $prod)
+                                <option value="{{ $prod->id }}">{{ $prod->stock }} - {{ $prod->producto }} </option>
+                            @endforeach
+                        </select>
+
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
@@ -121,7 +85,6 @@
                                 class="fas fa-plus mt-1 px-3"></i></button>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-md-12">
                         <table id="detalles" class="table table-striped table-sm table-hover">
@@ -138,7 +101,6 @@
                         </table>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -149,24 +111,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 guardar" id="guardar">
-                        {{-- <input name="_token" value="{{ csrf_token() }}" type="hidden"> --}}
                         {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block elevation-4']) !!}
                         <button type="reset" class="btn btn-danger btn-block elevation-4">Cancelar</button>
-                        {{-- {!! Form::reset('Cancelar', ['class' => 'btn btn-danger btn-block elevation-4']) !!} --}}
-
                     </div>
                 </div>
-                {{-- @include('admin.egresos.partials.form') --}}
                 {!! Form::close() !!}
             </div>
         </div>
     </div>
-    
+
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
 
 
@@ -194,33 +151,28 @@
             });
         });
 
-        var cont = 0;
-        $("#producto_id").change(mostrarValores);
+        $("#pproducto_id").change(mostrarValores);
 
-    function mostrarValores() {
+        function mostrarValores() {
 
-        datosProducto = document.getElementById('producto_id').value.split('-');
-        $("#stock").val(datosProducto);
+            datosProducto = document.getElementById('pproducto_id').value.split('_');
+            $("#stock").val(datosProducto[1]);
 
-    }
-
-        function evaluar() {
-            if ($cont === 0) {
-                $("#guardar").hide();
-            } else {
-                $("#guardar").show();
-            }
         }
 
+        var cont = 0;
+        $("#guardar").hide();
 
         function agregar() {
+            datosProducto = document.getElementById('pproducto_id').value.split('_');
+
             stock = $("#stock").val();
             producto_id = $("#pproducto_id").val();
             producto = $("#pproducto_id option:selected").text();
             cantidad = $("#pcantidad").val();
 
-            if (producto_id != "" && cantidad > 0 ) {
-                if (parseInt(stock) >= parseInt(cantidad)){
+            if (producto_id != "" && cantidad > 0) {
+                if (parseInt(producto) >= parseInt(cantidad)) {
                     var fila = '<tr class="selected" id="fila' + cont +
                         '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
                         ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
@@ -229,12 +181,12 @@
                     cont++;
                     limpiar();
                     $('#detalles').append(fila);
-                    evaluar();
-                }else{
+                    evaluar(cont);
+                } else {
                     Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'La cantidad solicitada supera el stock...',
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La cantidad solicitada supera el stock...',
                     })
                 }
             } else {
@@ -246,6 +198,14 @@
             }
         }
 
+        function evaluar(cont) {
+            if (cont>0) {
+                $("#guardar").show();   
+            }else{
+                $("#guardar").hide();
+            }
+        }
+
         function limpiar() {
             $("#pproducto_id").val(" ");
             $("#pcantidad").val("");
@@ -253,6 +213,7 @@
 
         function eliminar(index) {
             $("#fila" + index).remove();
+            evaluar();
         }
     </script>
 @stop

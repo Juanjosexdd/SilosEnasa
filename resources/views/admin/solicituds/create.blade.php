@@ -6,7 +6,8 @@
 @section('content')
     @include('sweetalert::alert')
     <x-card-header>
-        <h3 class="text-white">Registrar nueva solicitud</h3>
+            <h3 class="text-white">Registrar nueva solicitud</h3>
+        </div>
     </x-card-header>
     
     <div class="container">
@@ -18,22 +19,24 @@
                     <div class="col-md-6">
                         {!! Form::label('departamento_id', 'Unidad solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
-                                </span>
-                            </div>
                             <input type="text" class="form-control"
                             value="{{ Auth::user()->departamento->nombre}}" disabled>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="text-blue">Responsable :</label>
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('correlativo', 'Solicitud Nro. : ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group">
+                                    <input type="text" value="{{number_format($solicituds->last()->id + 1)}}" class="form-control" name="correlativo" id="correlativo" disabled>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -46,11 +49,6 @@
                     <div class="col-md-4">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text ">
-                                    <i class="fas fa-search text-blue"></i>
-                                </span>
-                            </div>
                             {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                         </div>
                     </div>
@@ -69,7 +67,6 @@
                                 class="fas fa-plus mt-1 px-3"></i></button>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-md-12">
                         <table id="detalles" class="table table-striped table-sm table-hover">
@@ -88,7 +85,6 @@
                         </table>
                     </div>
                 </div>
-                <br>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -101,12 +97,11 @@
                     <div class="col-md-12 guardar" id="guardar">
                         {{-- <input name="_token" value="{{ csrf_token() }}" type="hidden"> --}}
                         {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block elevation-4']) !!}
-                        <button type="reset" class="btn btn-danger btn-block elevation-4">Cancelar</button>
+                        <a href="{{route('admin.solicituds.index')}}" class="btn btn-danger btn-block elevation-4">Cancelar</a>
                         {{-- {!! Form::reset('Cancelar', ['class' => 'btn btn-danger btn-block elevation-4']) !!} --}}
 
                     </div>
                 </div>
-                {{-- @include('admin.solicituds.partials.form') --}}
                 {!! Form::close() !!}
             </div>
         </div>
@@ -116,10 +111,8 @@
 @stop
 
 @section('footer')
-    <h5 class="text-center"><a href="https://github.com/Juanjosexdd/silosenasa" target="_blank">
-            ENASA - UPTP "JJ MONTILLA"</a></h5>
+    <x-footer></x-footer>
 @stop
-
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('vendor/select2/select2.min.css') }}">
@@ -145,16 +138,8 @@
             });
         });
 
-        var cont = 0;
-
-        function evaluar() {
-            if ($cont === 0) {
-                $("#guardar").hide();
-            } else {
-                $("#guardar").show();
-            }
-        }
-
+        var cont=0;
+        $("#guardar").hide();
 
         function agregar() {
             producto_id = $("#pproducto_id").val();
@@ -173,7 +158,7 @@
                 cont++;
                 limpiar();
                 $('#detalles').append(fila);
-                evaluar();
+                evaluar(cont);
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -183,6 +168,14 @@
             }
         }
 
+        function evaluar(cont) {
+            if (cont>0) {
+                $("#guardar").show();   
+            }else{
+                $("#guardar").hide();
+            }
+        }
+        
         function limpiar() {
             $("#pproducto_id").val(" ");
             $("#pcantidad").val("");
@@ -191,6 +184,7 @@
 
         function eliminar(index) {
             $("#fila" + index).remove();
+            evaluar();
         }
     </script>
 @stop

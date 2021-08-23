@@ -62,6 +62,9 @@
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Estatus
                         </th>
+                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                            Anular
+                        </th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>
@@ -79,16 +82,31 @@
                             </td>
                             <td>
                                 @if ($solicitud->estatus == 1)
+                                <p class="badge badge-warning text-white  elevation-4">
+                                    <i class="fas fa-times-circle"></i> Pendiente
+                                </p>
+                                @elseif ($solicitud->estatus == 0)
+                                    <p class="badge badge-secondary text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Anulada &nbsp; &nbsp;
+                                    </p>
+                                @elseif ($solicitud->estatus == 2)
+                                    <p class="badge badge-success  text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Procesada
+                                    </p>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($solicitud->estatus == 1)
                                     <form class="anular" action="{{ route('admin.solicituds.estatusolicitud', $solicitud) }}"
                                         method="get">
                                         @csrf
                                         <button type="submit" class="btn btn-warning btn-sm elevation-4">
-                                            <i class="fas fa-check-circle"></i> Pendiente
+                                            <i class="fas fa-check-circle"></i> Anular &nbsp; &nbsp;
                                         </button>
                                     </form>
-                                @else
-                                    <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
-                                        <i class="fas fa-times-circle"></i> Procesado
+                                @elseif ($solicitud->estatus == 0)
+                                    <p class="btn  btn-secondary btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Anulada
                                     </p>
                                 @endif
                             </td>

@@ -31,21 +31,6 @@
                             @endif
 
                         </th>
-                        {{-- <th scope="col" role="button"
-                            class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
-                            wire:click="order('id')">
-                            Codigo
-                            @if ($sort == 'id')
-                                @if ($direction == 'asc')
-                                    <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
-                                @else
-                                    <i class="fas fa-sort-amount-down float-right mt-1"></i>
-                                @endif
-                            @else
-                                <i class="fas fa-sort float-right mt-1"></i>
-                            @endif
-
-                        </th> --}}
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('user_id')">
@@ -77,6 +62,9 @@
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Estatus
                         </th>
+                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                            Anular
+                        </th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>
@@ -97,17 +85,38 @@
                             </td>
                             <td>
                                 @if ($requisicion->estatus == 1)
+                                <p class="badge badge-warning text-white  elevation-4">
+                                    <i class="fas fa-exclamation-circle"></i> Pendiente
+                                </p>
+                                @elseif ($requisicion->estatus == 0)
+                                    <p class="badge badge-secondary text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Anulada &nbsp; &nbsp;
+                                    </p>
+                                @elseif ($requisicion->estatus == 2)
+                                    <p class="badge badge-success  text-white  elevation-4">
+                                        <i class="fas fa-check-circle"></i> Procesada
+                                    </p>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($requisicion->estatus == 1)
                                     <form class="anular" action="{{ route('admin.requisicions.estaturequisicion', $requisicion) }}"
                                         method="get">
                                         @csrf
-                                        <button type="submit" class="btn btn-warning btn-sm elevation-4">
-                                            <i class="fas fa-check-circle"></i> Pendiente
+                                        <button type="submit" class="btn btn-warning text-white btn-sm elevation-4">
+                                            <i class="fas fa-exclamation-circle"></i> Pendiente
                                         </button>
                                     </form>
-                                @else
-                                    <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
-                                        <i class="fas fa-times-circle"></i> Procesado
+                                @elseif ($requisicion->estatus == 0)
+                                    <p class="btn  btn-secondary btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Anulado &nbsp; &nbsp;
                                     </p>
+
+                                @elseif ($requisicion->estatus == 2)
+                                    <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-check-circle"></i> Procesado
+                                    </p>
+
                                 @endif
                             </td>
                             <td>

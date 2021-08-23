@@ -11499,7 +11499,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   background: #ffffff;
   border-top: 1px solid #dee2e6;
   color: #869099;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .text-sm .main-footer, .main-footer.text-sm {
@@ -13302,7 +13302,7 @@ body.text-sm .control-sidebar {
 }
 
 .main-footer.text-sm ~ .control-sidebar {
-  bottom: calc(2.9365rem + 1px);
+  bottom: calc(1.9365rem + 1px);
 }
 
 .control-sidebar-push-slide .content-wrapper,

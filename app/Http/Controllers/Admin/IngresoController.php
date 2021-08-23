@@ -97,7 +97,9 @@ class IngresoController extends Controller
             $ingreso = new Ingreso;
 
             $ingreso->tipomovimiento_id = 1;
-            $ingreso->requisicion_id = $request->get('requisicion_id');
+            if ($request->get('requisicion_id')) {
+                $ingreso->requisicion_id = $request->get('requisicion_id');
+            }
             $ingreso->proveedor_id = $request->get('proveedor_id');
             $ingreso->correlativo = $request->get('correlativo');
             $ingreso->observacion = $request->get('observacion');
@@ -108,7 +110,7 @@ class IngresoController extends Controller
 
             if ($requisicion_id) {
                 $r = Requisicion::find($requisicion_id);
-                $r->estatus = '0';
+                $r->estatus = '2';
                 $r->save();
             }
 
@@ -124,17 +126,17 @@ class IngresoController extends Controller
                 $detalle = new Detalleingreso();
                 $detalle->ingreso_id = $ingreso->id;
                 $detalle->producto_id = $producto_id[$cont];
-                $detalle->cantidad = $cantidad[$cont];
+                $detalle->almacen_id = $almacen_id[$cont];
+                $detalle->ubicacion = $ubicacion[$cont];
                 $detalle->observacionp = $observacionp[$cont];
-
+                $detalle->cantidad = $cantidad[$cont];
                 $detalle->save();
 
 
-
-                // $almacenProducto = new AlmacenProducto();
-                // $almacenProducto->producto_id = $producto_id[$cont];
-                // $almacenProducto->almacen_id = $almacen_id[$cont];
-                // $almacenProducto->save();
+                $almacenProducto = new AlmacenProducto();
+                $almacenProducto->producto_id = $producto_id[$cont];
+                $almacenProducto->almacen_id = $almacen_id[$cont];
+                $almacenProducto->save();
 
                 $p = Producto::find($producto_id[$cont]);
                 $p->observacionp = $observacionp[$cont];
