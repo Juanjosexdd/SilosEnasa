@@ -8,9 +8,6 @@
         <div class="form-group">
             {!! Form::label('nombre', 'Nombre ', ['class' => 'text-blue']) !!} {!! Form::label('slug', 'slug :', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
-                </div>
                 {!! Form::text('nombre', null, ['class' => 'form-control' . ($errors->has('slug') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) !!}
                 {!! Form::hidden('slug', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
                 {!! $errors->first('slug', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
@@ -23,9 +20,6 @@
         <div class="form-group">
             {!! Form::label('abreviado', 'Abreviatura : ', ['class' => 'text-blue']) !!}
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-ad"></i></span>
-                </div>
                 {!! Form::text('abreviado', null, ['class' => 'form-control' . ($errors->has('abreviado') ? ' is-invalid' : ''), 'placeholder' => 'Abreviatura']) !!}
                 {!! $errors->first('abreviado', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 

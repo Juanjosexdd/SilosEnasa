@@ -13,9 +13,6 @@
         <div class="form-group">
             {!! Form::label('nombre', 'Nombre del municipio & ', ['class' => 'text-blue ']) !!} {!! Form::label('slug', 'slug :', ['class' => 'text-blue']) !!}
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
-                </div>
                 {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
                 {!! Form::hidden('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el slug', 'readonly']) !!}
             </div>

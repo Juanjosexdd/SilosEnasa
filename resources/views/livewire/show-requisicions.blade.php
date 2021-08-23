@@ -70,7 +70,7 @@
                 </thead>
                 <tbody>
                     @foreach ($requisicions as $requisicion)
-                        <tr>
+                        <tr class="text-secondary text-sm font-weight-bold">
 
                             <td> <a
                                     href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->correlativo }}</a>

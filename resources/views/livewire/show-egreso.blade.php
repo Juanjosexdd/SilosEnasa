@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                     @foreach ($egresos as $egreso)
-                        <tr>
+                        <tr class="text-secondary text-sm font-weight-bold">
 
                             <td> <a
                                     href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->correlativo }}</a>

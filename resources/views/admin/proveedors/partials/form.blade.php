@@ -23,9 +23,6 @@
         <div class="form-group">
             {!! Form::label('cedularif', 'Cedula / Rif : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
-                </div>
                 {!! Form::text('cedularif', null, ['class' => 'form-control' . ($errors->has('cedularif') ? ' is-invalid' : ''), 'placeholder' => 'Cedula / Rif']) !!}
                 {!! $errors->first('cedularif', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
             </div>
@@ -37,9 +34,6 @@
         <div class="form-group">
             {!! Form::label('correo', 'Correo eléctronico : ',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-envelope text-blue"></i></span>
-                </div>
                 {!! Form::email('correo', null, ['class' => 'form-control'. ($errors->has('correo') ? ' is-invalid' : ''), 'placeholder' => 'Correo electronico']) !!}
                 {!! $errors->first('correo', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 
@@ -50,9 +44,6 @@
         <div class="form-group">
             {!! Form::label('telefono', 'Telefono : ',['class' => 'text-blue']) !!}
             <div class="input-group" bis_skin_checked="1">
-                <div class="input-group-prepend" bis_skin_checked="1">
-                    <span class="input-group-text"><i class="fas fa-home text-blue"></i></span>
-                </div>
                 {!! Form::text('telefono', null, ['class' => 'form-control'. ($errors->has('telefono') ? ' is-invalid' : ''), 'placeholder' => 'Telefono']) !!}
                 {!! $errors->first('telefono', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 

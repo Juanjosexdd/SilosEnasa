@@ -70,7 +70,7 @@
                 </thead>
                 <tbody>
                     @foreach ($solicituds as $solicitud)
-                        <tr>
+                        <tr class="text-secondary text-sm font-weight-bold">
                             <td> <a
                                     href="{{ route('admin.solicituds.show', $solicitud->id) }}">{{ $solicitud->id }}</a>
                             </td>
@@ -100,13 +100,17 @@
                                     <form class="anular" action="{{ route('admin.solicituds.estatusolicitud', $solicitud) }}"
                                         method="get">
                                         @csrf
-                                        <button type="submit" class="btn btn-warning btn-sm elevation-4">
+                                        <button type="submit" class="btn btn-warning text-white btn-sm elevation-4">
                                             <i class="fas fa-check-circle"></i> Anular &nbsp; &nbsp;
                                         </button>
                                     </form>
                                 @elseif ($solicitud->estatus == 0)
                                     <p class="btn  btn-secondary btn-sm disabled text-white  elevation-4">
                                         <i class="fas fa-times-circle"></i> Anulada
+                                    </p>
+                                @elseif ($solicitud->estatus == 2)
+                                    <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-check-circle"></i> Aprobada
                                     </p>
                                 @endif
                             </td>

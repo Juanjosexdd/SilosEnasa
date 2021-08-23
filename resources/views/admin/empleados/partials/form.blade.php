@@ -7,9 +7,6 @@
         <div class="form-group">
             {!! Form::label('nombres', 'Nombres & ', ['class' => 'text-blue']) !!} {!! Form::label('slug', 'slug :', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
-                </div>
                 {{ Form::text('nombres', null, ['class' => 'form-control' . ($errors->has('nombres') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
                 {!! $errors->first('nombres', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                 {!! Form::hidden('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el slug', 'readonly']) !!}
@@ -20,9 +17,6 @@
         <div class="form-group">
             {!! Form::label('apellidos', 'Apellidos : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
-                </div>
                 {!! Form::text('apellidos', null, ['class' => 'form-control' . ($errors->has('apellidos') ? ' is-invalid' : ''), 'placeholder' => 'Apellidos']) !!}
                 {!! $errors->first('apellidos', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 
@@ -40,9 +34,6 @@
         <div class="form-group">
             {!! Form::label('cedula', 'Cedula : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-address-card text-blue"></i></span>
-                </div>
                 {!! Form::text('cedula', null, ['class' => 'form-control' . ($errors->has('cedula') ? ' is-invalid' : ''), 'placeholder' => 'Cedula']) !!}
                 {!! $errors->first('cedula', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 
@@ -56,9 +47,6 @@
         <div class="form-group">
             {!! Form::label('celular', 'Celular : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group" bis_skin_checked="1">
-                <div class="input-group-prepend" bis_skin_checked="1">
-                    <span class="input-group-text"><i class="fas fa-phone text-blue"></i></span>
-                </div>
                 {!! Form::text('celular', null, ['class' => 'form-control' . ($errors->has('celular') ? ' is-invalid' : ''), 'placeholder' => 'Celular']) !!}
                 {!! $errors->first('celular', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
             </div>
@@ -68,9 +56,6 @@
         <div class="form-group">
             {!! Form::label('telefono', 'Telefono : ', ['class' => 'text-blue']) !!}
             <div class="input-group" bis_skin_checked="1">
-                <div class="input-group-prepend" bis_skin_checked="1">
-                    <span class="input-group-text"><i class="fas fa-home text-blue"></i></span>
-                </div>
                 {!! Form::number('telefono', null, ['class' => 'form-control', 'placeholder' => 'Telefono']) !!}
             </div>
         </div>
@@ -79,9 +64,6 @@
         <div class="form-group">
             {!! Form::label('email', 'Correo eléctronico : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-envelope text-blue"></i></span>
-                </div>
                 {!! Form::email('email', null, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'Correo electronico']) !!}
                 {!! $errors->first('email', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
             </div>

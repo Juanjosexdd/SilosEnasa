@@ -74,7 +74,7 @@
                 </thead>
                 <tbody>
                     @foreach ($ingresos as $ingreso)
-                        <tr>
+                        <tr class="text-secondary text-sm font-weight-bold">
                             
                             <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->correlativo}}</a></td>
                             {{-- <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->created_at->toDateString() . '-' . $ingreso->id }}</a> </td> --}}

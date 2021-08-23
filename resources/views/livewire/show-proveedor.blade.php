@@ -29,7 +29,7 @@
                         </th>
                         <th scope="col" role="button"
                             wire:click="order('cedularif')">
-                            Identificacion
+                            Nro. Documento
                             @if ($sort == 'cedularif')
                                 @if ($direction == 'asc')
                                     <i class="fas fa-sort-numeric-up-alt float-right mt-1"></i>

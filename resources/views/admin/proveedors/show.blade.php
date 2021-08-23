@@ -3,18 +3,14 @@
 @section('title', 'ENASA | INFORMACION PERSONAL')
 
 @section('content')
-    <div class="container ">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue">Datos de {{ $proveedor->nombre }} </h3>
-            </div>
-        </div>
-    </div>
+<x-card-header>
+    <h3 class="text-white">Datos de {{ $proveedor->nombre }} </h3>
+</x-card-header>
     <div class="container">
         <div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem">
 
             <div class="card-body">
-                <div class="ror">
+                <div class="row">
                     <div class="col-md-12">
                         <a href=" {{ route('admin.proveedors.edit', $proveedor) }} "
                             class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4 ml-2"><i class="fas fa-edit"></i>
