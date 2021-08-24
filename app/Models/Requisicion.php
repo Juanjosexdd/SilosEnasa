@@ -27,4 +27,9 @@ class Requisicion extends Model
         return $this->hasMany(Detallerequisicion::class);
     }
 
+    public function ingresos()
+    {
+        return $this->hasMany(Ingreso::class);
+    }
+
 }

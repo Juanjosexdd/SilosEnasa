@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IngresoFormRequest;
 use App\Models\AlmacenProducto;
+use App\Models\Cargo;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
@@ -236,18 +237,24 @@ class IngresoController extends Controller
         //     ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
         $ingreso = Ingreso::find($id);
 
+        $compra = Cargo::find(11);
+        $almacen = Cargo::find(13);
+
         $detalles = Detalleingreso::join('productos', 'detalle_ingreso.producto_id', '=', 'productos.id')
             ->join('almacens', 'detalle_ingreso.almacen_id', '=', 'almacens.id')
             ->select(
                 'productos.nombre as producto',
+                'productos.unidad_medida as unidad',
+                'productos.marca as marca',
                 'almacens.nombre as almacen',
                 'detalle_ingreso.cantidad',
+                'detalle_ingreso.observacionp',
                 'detalle_ingreso.created_at',
                 'detalle_ingreso.updated_at',
             )
             ->where('detalle_ingreso.ingreso_id', '=', $id)
             ->orderBy('detalle_ingreso.id', 'desc')->get();
-        return view('admin.ingresos.show', compact('ingreso', 'detalles'));
+        return view('admin.ingresos.show', compact('ingreso', 'detalles','compra','almacen'));
     }
 
     /**

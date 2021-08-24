@@ -20,6 +20,10 @@ class Ingreso extends Model
     {
         return $this->belongsTo(Proveedor::class);
     }
+    public function requisicion()
+    {
+        return $this->belongsTo(Requisicion::class);
+    }
 
     public function user()
     {
