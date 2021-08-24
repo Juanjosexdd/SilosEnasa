@@ -31,6 +31,7 @@
                     @endforeach
                 </select>
             </div>
+            
             <div class="col-md-2">
                 <div class="form-group">
                     {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
@@ -46,11 +47,24 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                 {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                 <div class="input-group">
                     {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                 </div>
+            </div> --}}
+            <div class="col-md-3">
+                <label class="text-blue" for="pproducto_id">Producto :</label>
+                <select class="form-control selectpicker select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
+                <option value="0">Seleccione una opción</option>
+                @foreach($productos as $prod)
+                <option value="{{$prod->id}}_{{$prod->marca}}_{{$prod->observacionp}}_{{$prod->ubicacion}}">{{$prod->abreviado}}{{$prod->id}} - {{$prod->nombre}}</option>
+                @endforeach
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="text-blue" for="pproducto_id">Marca :</label>
+                <input type="text" id="marca" name="marca" class="form-control" placeholder="Ingrese precio de venta"style="text-transform:uppercase" >
             </div>
             <div class="col-md-3">
                 {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
@@ -102,14 +116,16 @@
             <div class="col-md-12">
                 <table id="detalles" class="table table-striped table-sm table-hover">
                     <thead style="background-color: #001f3f; border-radius: 0.25 rem;" class="p-0" ;>
-                        <th class="text-white">Opciones</th>
+                        <th class="text-white"></th>
                         <th class="text-white">Producto</th>
                         <th class="text-white">Cantidad</th>
                         <th class="text-white">Almacén</th>
                         <th class="text-white">Ubicación</th>
                         <th class="text-white">Observación</th>
+                        <th class="text-white">marca</th>
                     </thead>
                     <tfoot>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -174,11 +190,25 @@
 
         var cont = 0;
         $("#guardar").hide();
+        $("#pproducto_id").change(mostrarValores);
 
+     function mostrarValores(){
+         datosProducto = document.getElementById('pproducto_id').value.split('_');
+         $("#marca").val(datosProducto[1]);
+         $("#pobservacionp").val(datosProducto[2]);
+         $("#pubicacion").val(datosProducto[3]);
 
-        function agregar() {
+     }
+     
+     
+     
+     function agregar() {
+            datosProducto = document.getElementById('pproducto_id').value.split('_');
 
-            producto_id = $("#pproducto_id").val();
+            // producto_id = $("#pproducto_id").val();
+            producto_id= datosProducto[0];
+
+            marca= $("#marca").val();
             ubicacion = $("#pubicacion").val();
             producto = $("#pproducto_id option:selected").text();
             almacen = $("#palmacen_id option:selected").text();
@@ -198,6 +228,8 @@
                     ubicacion +
                     '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
                     observacionp +
+                    '"></td>><td><input type="text" class="form-control form-control-sm" name="marca[]" value="' +
+                    marca +
                     '"></td></tr>';
                 cont++;
                 limpiar();
@@ -225,6 +257,7 @@
             $("#pobservacionp").val(" ");
             $("#pubicacion").val(" ");
             $("#pcantidad").val("");
+            $("#marca").val("");
         }
 
         function eliminar(index) {

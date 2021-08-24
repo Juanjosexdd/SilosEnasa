@@ -17,7 +17,8 @@
             <div class="card-body p-5">
                 <div class="row">
                     <div class="justify-content">
-                        <img src="{{asset("vendor/adminlte/dist/img/banner.png")}}" alt="ENASA" class="img-fluid card-tools image img-center image-responsive rounded" width="100%";  >
+                        <img src="{{ asset('vendor/adminlte/dist/img/banner.png') }}" alt="ENASA"
+                            class="img-fluid card-tools image img-center image-responsive rounded" width="100%" ;>
                     </div>
                 </div>
                 <br>
@@ -27,17 +28,21 @@
                             {{ $ingreso->proveedor->display_proveedor }}
                             <br>
                             @if ($compra)
-                                {{$compra->users[0]->name}} - {{$compra->users[0]->last_name}}
+                                {{ $compra->users[0]->name }} - {{ $compra->users[0]->last_name }}
                                 <br>
-                                {{$compra->nombre}}
+                                {{ $compra->nombre }}
                             @endif
                         </div>
                         <div class="col-md-6 float-right">
                             <div class="float-right">
-                                Acarigua, {{$ingreso->created_at->format('d-m-Y')}}
+                                Acarigua, {{ $ingreso->created_at->format('d-m-Y') }}
+                                <br>
+                                @if ($ingreso->correlativo)
+                                    Ingreso Nro.: {{ $ingreso->correlativo }}
+                                @endif
                                 <br>
                                 @if ($ingreso->requisicion_id)
-                                Requisicion Nro.: {{$ingreso->requisicion->correlativo}}
+                                    Requisicion Nro.: {{ $ingreso->requisicion->correlativo }}
                                 @endif
                                 <br>
                                 Usuario : {{ $ingreso->user->display_user }}
@@ -49,27 +54,28 @@
                 <br>
                 <div class="text-center">
                     <h5 class="text-secondary font-weight-bold">Control Ingreso</h5>
-                    <p>Siendo {{$ingreso->created_at->toFormattedDateString()}} en horas de la mañana, la coordinacion de compras hace entrega a la gerencia de Almacen el siguiente material :</p>
+                    <p>Siendo {{ $ingreso->created_at->toFormattedDateString() }} en horas de la mañana, la coordinacion de
+                        compras hace entrega a la gerencia de Almacen el siguiente material :</p>
                 </div>
                 <hr>
                 <table class="table table-striped rounded-lg">
                     <thead class="rounded-lg">
                         <tr class="text-secondary text-sm font-weight-bold">
                             <th>Material</th>
-                            <th>Marca</th>
+                            <th>Ubicación</th>
                             <th>Unidad</th>
-                            <th>Almacen</th>
+                            <th>Marca</th>
                             <th>Cantidad</th>
                             <th>Observación</th>
                         </tr>
                     </thead>
                     <tbody class="rounded-lg">
                         @foreach ($detalles as $detalle)
-                            <tr>
+                            <tr class="text-secondary text-sm">
                                 <td>{{ $detalle->producto }}</td>
-                                <td>{{ $detalle->marca }}</td>
-                                <td>{{ $detalle->unidad }}</td>
                                 <td>{{ $detalle->almacen }}</td>
+                                <td>{{ $detalle->unidad }}</td>
+                                <td>{{ $detalle->marca }}</td>
                                 <td>{{ $detalle->cantidad }}</td>
                                 <td>{{ $detalle->observacionp }}</td>
                             </tr>
@@ -78,27 +84,28 @@
                 </table>
                 <hr>
                 <div style="border: 1px solid #dee2e6" class="p-4 rounded-lg">
-                    <p class="p-2 text-secondary"><span class=" font-weight-bold">Observación:</span> {{$ingreso->observacion}}</p>
+                    <p class="p-2 text-secondary"><span class=" font-weight-bold">Observación:</span>
+                        {{ $ingreso->observacion }}</p>
                 </div>
                 <br>
                 <table class="table table-bordered text-center">
                     <thead>
                         <tr class="p-4 text-secondary font-weight-bold">
-                            <th>Entrega : 
+                            <th>Entrega :
                                 @if ($compra)
-                                {{$compra->users[0]->name}} - {{$compra->users[0]->last_name}}
-                                <br>
-                                {{$compra->nombre}}
+                                    {{ $compra->users[0]->name }} - {{ $compra->users[0]->last_name }}
+                                    <br>
+                                    {{ $compra->nombre }}
                                 @endif
-                                </th>
+                            </th>
                             <th>Recibe :
                                 @if ($almacen)
 
-                                {{$almacen->users[0]->name}} - {{$almacen->users[0]->last_name}}
-                                <br>
-                                {{$almacen->nombre}}
-                                @endif 
-                                    
+                                    {{ $almacen->users[0]->name }} - {{ $almacen->users[0]->last_name }}
+                                    <br>
+                                    {{ $almacen->nombre }}
+                                @endif
+
                             </th>
                         </tr>
                     </thead>

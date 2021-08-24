@@ -62,11 +62,19 @@ class IngresoController extends Controller
         $ingresos        = Ingreso::all();
         $users           = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         $almacens        = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
-        $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto', 'id');
+        // $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto', 'id');
         $proveedors      = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor', 'id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
         //$requisicions    = Requisicion::where('estatus', 1)->get()->pluck('correlativo', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+
+        $productos=Producto::join('clacificacions','productos.clacificacion_id','clacificacions.id')
+             ->select('productos.id','productos.nombre','productos.marca','productos.observacionp','productos.ubicacion','clacificacions.abreviado as abreviado')
+             ->where('productos.estatus','=','1')
+             ->groupBy('productos.id','productos.marca','productos.observacionp','productos.ubicacion','abreviado')
+             ->get();
+
+
 
         $requisicions = Requisicion::join('departamentos','requisicions.departamento_id','departamentos.id')
                                    ->select('requisicions.id','requisicions.correlativo','departamentos.nombre as departamento')
@@ -117,6 +125,7 @@ class IngresoController extends Controller
 
 
             $producto_id = $request->get('producto_id');
+            $marca = $request->get('marca');
             $ubicacion = $request->get('ubicacion');
             $almacen_id = $request->get('almacen_id');
             $cantidad = $request->get('cantidad');
@@ -141,6 +150,7 @@ class IngresoController extends Controller
 
                 $p = Producto::find($producto_id[$cont]);
                 $p->observacionp = $observacionp[$cont];
+                $p->marca = $marca[$cont];
                 $p->ubicacion = $ubicacion[$cont];
                 $p->save();
 
@@ -238,7 +248,7 @@ class IngresoController extends Controller
         $ingreso = Ingreso::find($id);
 
         $compra = Cargo::find(11);
-        $almacen = Cargo::find(13);
+        $almacen = Cargo::find(12);
 
         $detalles = Detalleingreso::join('productos', 'detalle_ingreso.producto_id', '=', 'productos.id')
             ->join('almacens', 'detalle_ingreso.almacen_id', '=', 'almacens.id')

@@ -21,6 +21,7 @@ class CreateProductosTable extends Migration
             $table->string('descripcion');
             $table->text('observacionp')->nullable();
             $table->text('ubicacion')->nullable();
+            $table->text('marca')->nullable();
             $table->string('unidad_medida')->nullable();
             $table->string('maximo')->nullable();
             $table->string('minimo')->nullable();

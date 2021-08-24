@@ -94,8 +94,8 @@
                                     <span class="badge badge-success">{{ $producto->stock }}</span>
                                 @endif
                             </td>
-                            <td>{{ $producto->maximo }}</td>
                             <td>{{ $producto->minimo }}</td>
+                            <td>{{ $producto->maximo }}</td>
                             <td>
                                 @if ($producto->estatus == 1)
                                     <span class="badge badge-success">Activo</span>
