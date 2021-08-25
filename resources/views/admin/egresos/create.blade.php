@@ -27,7 +27,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        {!! Form::label('empleado_id', 'Trabajador responsable : ', ['class' => 'text-blue']) !!}
+                        {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                         </div>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="form-control-label text-blue" for="tipomovimiento_id">Tipo Movimiento :</label>
 
                         <select class="form-control selectpicker" disabled name="tipomovimiento_id" id="tipomovimiento_id"
@@ -61,7 +61,7 @@
                             <option value="2" selected>Salida del almacen</option>
                         </select>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         {!! Form::label('pproducto_id', 'Materiales : ', ['class' => 'text-blue ']) !!}
                         <select class="form-control select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
                             <option value="0">Seleccione una opción</option>
@@ -71,7 +71,15 @@
                         </select>
 
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group mb-3">
+                                {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
@@ -92,8 +100,10 @@
                                 <th class="text-white">Opciones</th>
                                 <th class="text-white">Producto</th>
                                 <th class="text-white">Cantidad</th>
+                                <th class="text-white">Observación</th>
                             </thead>
                             <tfoot>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -170,14 +180,17 @@
             producto_id = $("#pproducto_id").val();
             producto = $("#pproducto_id option:selected").text();
             cantidad = $("#pcantidad").val();
+            observacionp = $("#pobservacionp").val();
 
             if (producto_id != "" && cantidad > 0) {
                 if (parseInt(producto) >= parseInt(cantidad)) {
                     var fila = '<tr class="selected" id="fila' + cont +
                         '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
-                        ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
+                        ');">X</button></td><td><input class="form-control form-control-sm" type="hidden" name="producto_id[]" value="' + producto_id + '">' +
                         producto + '</td><td><input type="number" class="" name="cantidad[]" value="' + cantidad +
-                        '"></td></tr>';
+                        '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
+                    observacionp +
+                    '"></td></tr>';
                     cont++;
                     limpiar();
                     $('#detalles').append(fila);

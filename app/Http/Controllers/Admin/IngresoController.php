@@ -168,52 +168,6 @@ class IngresoController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
         }
-        // try {
-        //     DB::beginTransaction();
-        //     $ingreso = new Ingreso();
-
-        //     $ingreso->tipomovimiento_id = 1;
-        //     $ingreso->requisicion_id = $request->get('requisicion_id');
-        //     $ingreso->proveedor_id = $request->get('proveedor_id');
-        //     $ingreso->correlativo = $request->get('correlativo');
-        //     $ingreso->observacion = $request->get('observacion');
-        //     $ingreso->user_id = auth()->user()->id;
-        //     $ingreso->save();
-
-        //     $producto_id = $request->get('producto_id');
-        //     $ubicacion = $request->get('ubicacion');
-        //     $almacen_id = $request->get('almacen_id');
-        //     $cantidad = $request->get('cantidad');
-        //     $observacionp = $request->get('observacionp');
-        //     $cont = 0;
-
-        //     while ($cont < count($producto_id)) {
-        //         $detalle = new Detalleingreso();
-        //         $detalle->ingreso_id = $ingreso->id;
-        //         $detalle->producto_id = $producto_id[$cont];
-        //         $detalle->almacen_id = $almacen_id[$cont];
-        //         $detalle->ubicacion = $ubicacion[$cont];
-        //         $detalle->observacionp = $observacionp[$cont];
-        //         $detalle->cantidad = $cantidad[$cont];
-        //         $detalle->save();
-
-        //         $almacenProducto = new AlmacenProducto();
-        //         $almacenProducto->producto_id = $producto_id[$cont];
-        //         $almacenProducto->almacen_id = $almacen_id[$cont];
-        //         $almacenProducto->save();
-
-        //         $p = Producto::find($producto_id[$cont]);
-        //         $p->observacionp = $observacionp[$cont];
-        //         $p->ubicacion = $ubicacion[$cont];
-        //         $p->save();
-        //         $cont = $cont + 1;
-        //     }
-
-
-        //     DB::commit();
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        // }
 
         $log = new LogSistema();
 
@@ -265,6 +219,7 @@ class IngresoController extends Controller
             )
             ->where('detalle_ingreso.ingreso_id', '=', $id)
             ->orderBy('detalle_ingreso.id', 'desc')->get();
+
         return view('admin.ingresos.show', compact('ingreso', 'detalles','compra','almacen'));
     }
 

@@ -20,9 +20,15 @@ class Ingreso extends Model
     {
         return $this->belongsTo(Proveedor::class);
     }
+
     public function requisicion()
     {
         return $this->belongsTo(Requisicion::class);
+    }
+
+    public function tipomovimiento()
+    {
+        return $this->belongsTo(Tipomovimiento::class);
     }
 
     public function user()

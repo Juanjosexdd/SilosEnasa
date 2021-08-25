@@ -228,7 +228,7 @@
                     ubicacion +
                     '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
                     observacionp +
-                    '"></td>><td><input type="text" class="form-control form-control-sm" name="marca[]" value="' +
+                    '"></td><td><input type="text" class="form-control form-control-sm" name="marca[]" value="' +
                     marca +
                     '"></td></tr>';
                 cont++;

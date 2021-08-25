@@ -22,30 +22,34 @@
                     </div>
                 </div>
                 <br>
-                <div style="border: 1px solid #dee2e6" class="p-4 rounded-lg">
+                <div style="border: 1px solid #dee2e6" class="p-4 rounded-lg text-secondary">
                     <div class="row">
                         <div class="col-m-6">
-                            {{ $ingreso->proveedor->display_proveedor }}
+                            <span class="font-weight-bold">Departamento :</span> 
+                            {{ $ingreso->proveedor->nombre }}
                             <br>
                             @if ($compra)
-                                {{ $compra->users[0]->name }} - {{ $compra->users[0]->last_name }}
+                                <span class="font-weight-bold">Responsable :</span> {{ $compra->users[0]->name }} - {{ $compra->users[0]->last_name }}
                                 <br>
-                                {{ $compra->nombre }}
+                                <span class="font-weight-bold"> Cargo :</span> {{ $compra->nombre }}
                             @endif
+                            <br>
+                            <span class="font-weight-bold">Tipo de movimiento : </span>
+                            {{$ingreso->tipomovimiento->descripcion}}
                         </div>
                         <div class="col-md-6 float-right">
                             <div class="float-right">
-                                Acarigua, {{ $ingreso->created_at->format('d-m-Y') }}
+                                <span class="font-weight-bold">Acarigua</span>, {{ $ingreso->created_at->format('d-m-Y') }}
                                 <br>
                                 @if ($ingreso->correlativo)
-                                    Ingreso Nro.: {{ $ingreso->correlativo }}
+                                <span class="font-weight-bold">Ingreso Nro. :</span> {{ $ingreso->correlativo }}
                                 @endif
                                 <br>
                                 @if ($ingreso->requisicion_id)
-                                    Requisicion Nro.: {{ $ingreso->requisicion->correlativo }}
+                                <span class="font-weight-bold">Requisicion Nro. :</span> {{ $ingreso->requisicion->correlativo }}
                                 @endif
                                 <br>
-                                Usuario : {{ $ingreso->user->display_user }}
+                                <span class="font-weight-bold">Usuario :</span> {{ $ingreso->user->display_user }}
 
                             </div>
                         </div>

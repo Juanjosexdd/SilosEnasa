@@ -21,6 +21,16 @@ class Egreso extends Model
         return $this->belongsTo(Empleado::class);
     }
 
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
+
+    public function tipomovimiento()
+    {
+        return $this->belongsTo(Tipomovimiento::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

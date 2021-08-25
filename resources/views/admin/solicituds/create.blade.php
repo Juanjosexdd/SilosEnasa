@@ -42,6 +42,13 @@
                     </div>
                 </div>
                 <div class="row">
+                    
+                    <div class="col-md-4">
+                        {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
+                        <div class="input-group">
+                            {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
@@ -50,13 +57,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
-                        <div class="input-group">
-                            {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
-                        </div>
-                    </div>
-                    
                     <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}

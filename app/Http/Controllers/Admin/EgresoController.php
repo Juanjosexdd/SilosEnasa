@@ -95,6 +95,7 @@ class EgresoController extends Controller
 
             $producto_id = $request->get('producto_id');
             $cantidad = $request->get('cantidad');
+            $observacionp = $request->get('observacionp');
             $cont = 0;
 
             $solicitud_id = $request->get('solicitud_id');
@@ -111,6 +112,7 @@ class EgresoController extends Controller
                 $detalle->egreso_id=$egreso->id;
                 $detalle->producto_id=$producto_id[$cont];
                 $detalle->cantidad=$cantidad[$cont];
+                $detalle->observacionp = $observacionp[$cont];
                 $detalle->save();
                 
                 $cont = $cont+1;
@@ -137,12 +139,12 @@ class EgresoController extends Controller
         $empresa=DB::table('empresas as e')
             ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
         $egreso = Egreso::find($id);
+        
 
         $detalles = Detalleegreso::join('productos','detalle_egreso.producto_id','=','productos.id')
-                                  ->join('almacens' ,'detalle_egreso.almacen_id','=','almacens.id')
              ->select('productos.nombre as producto',
-                      'almacens.nombre as almacen',
                       'detalle_egreso.cantidad',
+                      'detalle_egreso.observacionp',
                       'detalle_egreso.created_at',
                       'detalle_egreso.updated_at',)
              ->where('detalle_egreso.egreso_id','=',$id)

@@ -15,6 +15,10 @@ class Solicitud extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class);
+    }
 
     public function departamento()
     {
@@ -24,5 +28,10 @@ class Solicitud extends Model
     public function detallesolicitud()
     {
         return $this->hasMany(DetalleSolicitud::class);
+    }
+
+    public function egresos()
+    {
+        return $this->hasMany(Egreso::class);
     }
 }
