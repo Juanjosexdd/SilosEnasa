@@ -152,13 +152,14 @@ class IngresoController extends Controller
                 $p->observacionp = $observacionp[$cont];
                 $p->marca = $marca[$cont];
                 $p->ubicacion = $ubicacion[$cont];
-                $p->save();
-
-                if ($request->producto_id) {
-                    $p->almacenes()->attach($request->almacen_id);
-                }else {
+                
+                if ((AlmacenProducto::where('producto_id','=',$request->get('producto_id')))&&(AlmacenProducto::where('almacen_id','=',$request->get('almacen_id'))))
+                {
                     $p->almacenes()->sync($request->almacen_id);
+                }else {
+                    $p->almacenes()->attach($request->almacen_id);
                 }
+                $p->save();
                 $cont = $cont + 1;
             }
 

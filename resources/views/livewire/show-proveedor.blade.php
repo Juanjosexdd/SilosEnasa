@@ -41,9 +41,9 @@
                             @endif
                         </th>
                         <th scope="col" role="button"
-                            wire:click="order('nombres')">
+                            wire:click="order('nombre')">
                             Nombres
-                            @if ($sort == 'nombres')
+                            @if ($sort == 'nombre')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
                                 @else

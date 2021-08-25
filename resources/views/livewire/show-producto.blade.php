@@ -84,18 +84,18 @@
                 <tbody>
                     @foreach ($productos as $producto)
                         <tr class="text-secondary text-sm font-weight-bold">
-                            <td>{{ $producto->clacificacion->abreviado }}{{ $producto->id }}</td>
-                            <td>{{ $producto->nombre }}</td>
-                            <td>{{ $producto->unidad_medida }}</td>
-                            <td>
+                            <td><a href="{{ route('admin.productos.show', $producto)}}"> {{ $producto->clacificacion->abreviado }}{{ $producto->id }}</a></td>
+                            <td><a href="{{ route('admin.productos.show', $producto)}}"> {{ $producto->nombre }}</a></td>
+                            <td><a href="{{ route('admin.productos.show', $producto)}}"> {{ $producto->unidad_medida }}</a></td>
+                            <td><a href="{{ route('admin.productos.show', $producto)}}"> 
                                 @if ($producto->stock == 0)
                                     <span class="badge badge-danger">{{ $producto->stock }}</span>
                                 @else
                                     <span class="badge badge-success">{{ $producto->stock }}</span>
-                                @endif
+                                @endif</a>
                             </td>
-                            <td>{{ $producto->minimo }}</td>
-                            <td>{{ $producto->maximo }}</td>
+                            <td><a href="{{ route('admin.productos.show', $producto)}}"> {{ $producto->minimo }}</a></td>
+                            <td><a href="{{ route('admin.productos.show', $producto)}}"> {{ $producto->maximo }}</a></td>
                             <td>
                                 @if ($producto->estatus == 1)
                                     <span class="badge badge-success">Activo</span>

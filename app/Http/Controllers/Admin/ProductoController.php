@@ -84,6 +84,18 @@ class ProductoController extends Controller
         return redirect()->route('admin.productos.index', $producto)->with('success', ' ¡Felicidades el producto se creo con éxito!');
     }
 
+    public function show(Producto $producto)
+    {
+        $log = new LogSistema();
+
+        $log->user_id = auth()->user()->id;
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->name . ' Ha ingresado a ver la ficha del producto: ' . $producto->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->save();
+
+        // $tipodocumentos = Tipodocumento::pluck('abreviado', 'id');
+        return view('admin.productos.show' , compact('producto'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

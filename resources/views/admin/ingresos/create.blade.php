@@ -55,7 +55,7 @@
             </div> --}}
             <div class="col-md-3">
                 <label class="text-blue" for="pproducto_id">Producto :</label>
-                <select class="form-control selectpicker select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
+                <select class="form-control  selectpicker select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
                 <option value="0">Seleccione una opción</option>
                 @foreach($productos as $prod)
                 <option value="{{$prod->id}}_{{$prod->marca}}_{{$prod->observacionp}}_{{$prod->ubicacion}}">{{$prod->abreviado}}{{$prod->id}} - {{$prod->nombre}}</option>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-3">
                 <label class="text-blue" for="pproducto_id">Marca :</label>
-                <input type="text" id="marca" name="marca" class="form-control" placeholder="Ingrese precio de venta"style="text-transform:uppercase" >
+                <input type="text" id="marca" name="marca" class="form-control" placeholder="">
             </div>
             <div class="col-md-3">
                 {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
@@ -127,7 +127,7 @@
                     <tfoot>
                         <th></th>
                         <th></th>
-                        <th></th>
+                        <th class="col-1"></th>
                         <th></th>
                         <th></th>
                         <th></th>
