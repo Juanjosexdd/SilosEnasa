@@ -8,24 +8,35 @@
     <x-card-header>
         <h3 class="text-white">Registrar nueva requisición</h3>
     </x-card-header>
-    
+
     <div class="container">
 
         <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
                 {!! Form::open(['route' => 'admin.requisicions.store']) !!}
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {!! Form::label('departamento_id', 'Unidad solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             {!! Form::select('departamento_id', $departamentos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label class="text-blue" for="nombre">Solicitud nro. :</label>
+                        <select class="form-control select2" name="solicitud_id" id="solicitud_id" data-live-search="true"
+                            required>
+                            <option class="text-muted" value="0">Selecciona una opción</option>
+                            @foreach ($solicituds as $solicitud)
+                                <option value="{{ $solicitud->id }}">
+                                    {{ $solicitud->departamento }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
                             <div class="input-group">
-                                
+
                                 @if (count($requisicions) == 0)
                                     <input type="text" value="" class="form-control" name="correlativo" id="correlativo">
                                 @else
@@ -36,19 +47,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="text-blue">Responsable :</label>
                         <input type="text" class="form-control"
                             value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
-                            <div class="input-group mb-3">
-                                {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
-                            </div>
+                    <div class="col-md-3">
+                        {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
+                        <div class="input-group">
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -57,8 +66,15 @@
                             {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
                         </div>
                     </div>
-                    
                     <div class="col-md-3">
+                        <div class="form-group">
+                            {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
+                            <div class="input-group mb-3">
+                                {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
@@ -110,7 +126,7 @@
         </div>
     </div>
 
- 
+
 @stop
 
 @section('footer')
@@ -152,11 +168,13 @@
             cantidad = $("#pcantidad").val();
             observacionp = $("#pobservacionp").val();
 
-            if (producto_id != "" && cantidad > 0 ) {
+            if (producto_id != "" && cantidad > 0) {
                 var fila = '<tr class="selected" id="fila' + cont +
                     '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
                     ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
-                    producto + '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' + cantidad +
+                    producto +
+                    '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' +
+                    cantidad +
                     '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
                     observacionp +
                     '"></td></tr>';
@@ -174,7 +192,7 @@
         }
 
         function evaluar(cont) {
-            if (cont>0) {
+            if (cont > 0) {
                 $("#guardar").show();
             } else {
                 $("#guardar").hide();

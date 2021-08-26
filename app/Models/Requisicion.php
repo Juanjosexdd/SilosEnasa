@@ -22,6 +22,16 @@ class Requisicion extends Model
         return $this->belongsTo(Departamento::class);
     }
 
+    public function empleado()
+    {
+        return $this->belongsTo(Empleado::class);
+    }
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
+
     public function detallerequisicion()
     {
         return $this->hasMany(Detallerequisicion::class);

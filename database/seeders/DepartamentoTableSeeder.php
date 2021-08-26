@@ -15,6 +15,18 @@ class DepartamentoTableSeeder extends Seeder
     public function run()
     {
         Departamento::create([
+            'nombre'      => 'Coordinacion de compras',
+            'slug'        => 'coordinacion-de-compras',
+            'descripcion' => 'Coordinacion de compras',
+            'estatus'     => '1'
+        ]);
+        Departamento::create([
+            'nombre'      => 'Coordinacion de almacen',
+            'slug'        => 'oficina-de-gestion-administrativa',
+            'descripcion' => 'Coordinacion de administrativa',
+            'estatus'     => '1'
+        ]);
+        Departamento::create([
             'nombre'      => 'Oficina de gestion administrativa',
             'slug'        => 'oficina-de-gestion-administrativa',
             'descripcion' => 'Oficina de gestion administrativa',

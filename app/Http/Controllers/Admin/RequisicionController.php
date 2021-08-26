@@ -20,6 +20,7 @@ use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
+use App\Models\Solicitud;
 
 class RequisicionController extends Controller
 {
@@ -50,11 +51,18 @@ class RequisicionController extends Controller
         $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
+        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
 
+        $solicituds = Solicitud::join('departamentos','solicituds.departamento_id','departamentos.id')
+             ->select('solicituds.id','departamentos.nombre as departamento')
+             ->where('solicituds.estatus','=','1')
+             ->groupBy('solicituds.id','departamento')
+             ->get();;
 
-        return view('admin.requisicions.create', compact('requisicions','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+
+        return view('admin.requisicions.create', compact('empleados','solicituds','requisicions','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
     }
     
     public function store(Request $request)
@@ -66,7 +74,10 @@ class RequisicionController extends Controller
             DB::beginTransaction();
             
             $requisicion= new Requisicion();
-            
+            if ($request->get('solicitud_id')) {
+                $requisicion->solicitud_id=$request->get('solicitud_id');
+            }
+            $requisicion->empleado_id=$request->get('empleado_id');
             $requisicion->departamento_id=$request->get('departamento_id');
             $requisicion->correlativo=$request->get('correlativo');
             $requisicion->observacion=$request->get('observacion');
@@ -116,10 +127,9 @@ class RequisicionController extends Controller
         $requisicion = Requisicion::find($id);
 
         $detalles = Detallerequisicion::join('productos','detalle_requisicion.producto_id','=','productos.id')
-                                  ->join('almacens' ,'detalle_requisicion.almacen_id','=','almacens.id')
              ->select('productos.nombre as producto',
-                      'almacens.nombre as almacen',
                       'detalle_requisicion.cantidad',
+                      'detalle_requisicion.observacionp',
                       'detalle_requisicion.created_at',
                       'detalle_requisicion.updated_at',)
              ->where('detalle_requisicion.requisicion_id','=',$id)

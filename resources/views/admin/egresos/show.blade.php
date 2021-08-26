@@ -67,7 +67,7 @@
                                 <br>
                                 @if ($egreso->correlativo)
                                     <span class="font-weight-bold">Egreso Nro. :</span> 
-                                    {{ $egreso->solicitud->departamento->abreviado }}-  {{ $egreso->correlativo }}</a>
+                                     {{ $egreso->correlativo }}</a>
                                 @endif
                                 <br>
                                 @if ($egreso->solicitud)

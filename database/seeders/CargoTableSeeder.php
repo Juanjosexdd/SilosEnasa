@@ -15,6 +15,18 @@ class CargoTableSeeder extends Seeder
     public function run()
     {
         Cargo::create([
+            'nombre'      => 'Coordinacion de compras',
+            'slug'        => 'Coordinacion-de-compras',
+            'descripcion' => 'Coordinacion de compras',
+            'estatus'     => '1'
+        ]);
+        Cargo::create([
+            'nombre'      => 'Supervisor de almacen',
+            'slug'        => 'supervisor-de-almacen',
+            'descripcion' => 'Supervisor de almacen',
+            'estatus'     => '1'
+        ]);
+        Cargo::create([
             'nombre'      => 'Supervisor de tecnología de la información',
             'slug'        => 'supervisor-de-tecnología-de-la-información',
             'descripcion' => 'Supervisor de tecnología de la información',

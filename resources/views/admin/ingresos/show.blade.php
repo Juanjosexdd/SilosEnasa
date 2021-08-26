@@ -104,7 +104,6 @@
                             </th>
                             <th>Recibe :
                                 @if ($almacen)
-
                                     {{ $almacen->users[0]->name }} - {{ $almacen->users[0]->last_name }}
                                     <br>
                                     {{ $almacen->nombre }}

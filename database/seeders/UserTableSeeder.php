@@ -18,8 +18,8 @@ class UserTableSeeder extends Seeder
     {
         User::create([
             'tipodocumento_id' => '1',
-            'departamento_id' => '1',
-            'cargo_id' => '1',
+            'departamento_id'  => '4',
+            'cargo_id'         => '3',
             'cedula' => '20391877',
             'name' => 'Juan Jose',
             'username' => 'juansoto',
@@ -30,9 +30,9 @@ class UserTableSeeder extends Seeder
         ])->assignRole('ADMINISTRADOR');
 
         User::create([
+            'departamento_id'  => '4',
+            'cargo_id'         => '3',
             'tipodocumento_id' => '1',
-            'departamento_id' => '1',
-            'cargo_id' => '1',
             'cedula' => '123456789',
             'name' => 'Admin',
             'username' => 'admin',
@@ -44,8 +44,8 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'tipodocumento_id' => '1',
-            'departamento_id' => '1',
-            'cargo_id' => '1',
+            'departamento_id'  => '4',
+            'cargo_id'         => '3',
             'cedula' => '12345678',
             'name' => 'usuario',
             'username' => 'usuario',
@@ -57,8 +57,8 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'tipodocumento_id' => '1',
-            'departamento_id' => '1',
-            'cargo_id' => '1',
+            'departamento_id' => '4',
+            'cargo_id' => '3',
             'cedula' => '3456345',
             'name' => 'Pablo',
             'username' => 'pablobencomo',
@@ -70,8 +70,8 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'tipodocumento_id' => '1',
-            'departamento_id' => '1',
-            'cargo_id' => '1',
+            'departamento_id' => '4',
+            'cargo_id' => '3',
             'cedula' => '45645645',
             'name' => 'Betania',
             'username' => 'Betania',
@@ -82,9 +82,9 @@ class UserTableSeeder extends Seeder
         ])->assignRole('ADMINISTRADOR');
 
         User::create([
+            'departamento_id'  => '4',
+            'cargo_id'         => '3',
             'tipodocumento_id' => '1',
-            'departamento_id' => '1',
-            'cargo_id' => '1',
             'cedula' => '5463464',
             'name' => 'Cristian',
             'username' => 'cristian',
@@ -95,8 +95,8 @@ class UserTableSeeder extends Seeder
         ])->assignRole('ADMINISTRADOR');
 
         User::create([
-            'departamento_id'  => '2',
-            'cargo_id'         => '1',
+            'departamento_id'  => '4',
+            'cargo_id'         => '3',
             'tipodocumento_id' => '1',
             'cedula' => '25563569',
             'name' => 'Luis',
@@ -105,6 +105,34 @@ class UserTableSeeder extends Seeder
             'last_name' => 'Yzarraga',
             'email' => 'luisyazarraga@gmail.com',
             'password' => 'yzarraga'
+        ])->assignRole('ADMINISTRADOR');
+
+            //para formatos
+
+        User::create([
+            'departamento_id'  => '1',
+            'cargo_id'         => '1',
+            'tipodocumento_id' => '1',
+            'cedula' => '54634647',
+            'name' => 'Jesus',
+            'username' => 'jesus',
+            'slug' => 'jesus',
+            'last_name' => 'Cardozo',
+            'email' => 'jesuscardozo@mail.com',
+            'password' => 'jesus'
+        ])->assignRole('ADMINISTRADOR');
+
+        User::create([
+            'departamento_id'  => '2',
+            'cargo_id'         => '2',
+            'tipodocumento_id' => '1',
+            'cedula' => '255635698',
+            'name' => 'Juan Manuel',
+            'username' => 'juan-manuel',
+            'slug' => 'luis',
+            'last_name' => 'Jimenez',
+            'email' => 'juanmanuel@gmail.com',
+            'password' => 'juan'
         ])->assignRole('ADMINISTRADOR');
        // User::factory(99)->create();
     }

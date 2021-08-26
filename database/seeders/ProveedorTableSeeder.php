@@ -16,6 +16,16 @@ class ProveedorTableSeeder extends Seeder
     {
         Proveedor::create([
             'tipodocumento_id'  => '4',
+            'cedularif'         => '00037398-2',
+            'nombre'            => 'Coordinacion de compras (ENASA)',
+            'slug'              => 'coordinacion-de-compras-enasa',
+            'direccion'         => 'Rio Acarigua, Edo. Portuguesa',
+            'correo'            => 'ENASA2@GMAIL.COM',
+            'telefono'          => '0255-000000',
+            'observacion'       => 'se dedica al almacenaje de cereales, granos y otros productos a granel, como parte del ciclo de acopio de la producción agrícola adscrita al Conglomerado Agroalimentario del Sur (Agrosur).'
+        ]);
+        Proveedor::create([
+            'tipodocumento_id'  => '4',
             'cedularif'         => '00037398-1',
             'nombre'            => 'Empresa nacional de sistemas de silos S.A (ENASA)',
             'slug'              => 'empresa-nacional-de-sistemas-de-silos-s-a-enasa',

@@ -202,8 +202,8 @@ class IngresoController extends Controller
         //     ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
         $ingreso = Ingreso::find($id);
 
-        $compra = Cargo::find(11);
-        $almacen = Cargo::find(12);
+        $compra = Cargo::find(1);
+        $almacen = Cargo::find(2);
 
         $detalles = Detalleingreso::join('productos', 'detalle_ingreso.producto_id', '=', 'productos.id')
             ->join('almacens', 'detalle_ingreso.almacen_id', '=', 'almacens.id')
