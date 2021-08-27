@@ -55,7 +55,7 @@
 
                                 <br>
                                 <span class="font-weight-bold">Solicitud Nro. : </span>
-                                <a href="{{ route('admin.solicituds.show', $solicitud->id) }}">
+                                <a href="{{ route('admin.solicituds.show', $solicitud->id) }}" target="_blank">
                                     {{ $solicitud->departamento->abreviado }}-{{ $solicitud->id }}</a>
                                 <br>
                                 <span class="font-weight-bold">Estatus :</span>

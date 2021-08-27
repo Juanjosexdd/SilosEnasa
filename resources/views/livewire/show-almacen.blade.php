@@ -4,8 +4,10 @@
             <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
         <input wire:model="search" type="email" class="form-control mr-2" placeholder="Buscar">
+        @can('admin.almacens.create')
         <a href="{{ route('admin.almacens.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
                 class="fas fa-plus mt-2 px-3"></i></a>
+        @endcan
     </div>
     <div class="card-body table-responsive p-0">
         @if ($almacens->count())

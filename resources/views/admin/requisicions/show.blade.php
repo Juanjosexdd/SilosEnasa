@@ -74,7 +74,7 @@
                                     <a href="{{ route('admin.solicituds.show', $requisicion->solicitud->id) }}">
                                         {{ $requisicion->solicitud->id }}</a>
                                 @else
-                                        <span class="font-weight-bold">Egreso Nro. :</span>
+                                        <span class="font-weight-bold" target="_blank">Egreso Nro. :</span>
                                         RBMS-{{ $requisicion->correlativo }}</a>
                                 @endif
                                 
