@@ -82,9 +82,9 @@
                             </td>
                             <td>
                                 @if ($solicitud->estatus == 1)
-                                <p class="badge badge-warning text-white  elevation-4">
-                                    <i class="fas fa-times-circle"></i> Pendiente
-                                </p>
+                                    <p class="badge badge-warning text-white  elevation-4">
+                                        <i class="fas fa-times-circle"></i> Pendiente
+                                    </p>
                                 @elseif ($solicitud->estatus == 0)
                                     <p class="badge badge-secondary text-white  elevation-4">
                                         <i class="fas fa-times-circle"></i> Anulada &nbsp; &nbsp;
@@ -93,11 +93,16 @@
                                     <p class="badge badge-success  text-white  elevation-4">
                                         <i class="fas fa-times-circle"></i> Procesada
                                     </p>
+                                @elseif ($solicitud->estatus == 3)
+                                    <p class="badge badge-info  text-white  elevation-4">
+                                        <i class="fas fa-check-circle"></i> Solicitado a compra
+                                    </p>
                                 @endif
                             </td>
                             <td>
                                 @if ($solicitud->estatus == 1)
-                                    <form class="anular" action="{{ route('admin.solicituds.estatusolicitud', $solicitud) }}"
+                                    <form class="anular"
+                                        action="{{ route('admin.solicituds.estatusolicitud', $solicitud) }}"
                                         method="get">
                                         @csrf
                                         <button type="submit" class="btn btn-warning text-white btn-sm elevation-4">
@@ -111,6 +116,10 @@
                                 @elseif ($solicitud->estatus == 2)
                                     <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
                                         <i class="fas fa-check-circle"></i> Aprobada
+                                    </p>
+                                @elseif ($solicitud->estatus == 3)
+                                    <p class="btn  btn-info btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-check-circle"></i> Solicitado a compra
                                     </p>
                                 @endif
                             </td>

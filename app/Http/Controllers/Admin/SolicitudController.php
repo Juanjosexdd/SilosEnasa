@@ -112,17 +112,17 @@ class SolicitudController extends Controller
     {
         $empresa=DB::table('empresas as e')
             ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
+
         $solicitud = Solicitud::find($id);
 
-        $detalles = Detallesolicitud::join('productos','detalle_solicitud.producto_id','=','productos.id')
-                                  ->join('almacens' ,'detalle_solicitud.almacen_id','=','almacens.id')
+        $detalles = Detallesolicitud::join('productos','detalle_solicituds.producto_id','=','productos.id')
              ->select('productos.nombre as producto',
-                      'almacens.nombre as almacen',
-                      'detalle_solicitud.cantidad',
-                      'detalle_solicitud.created_at',
-                      'detalle_solicitud.updated_at',)
-             ->where('detalle_solicitud.solicitud_id','=',$id)
-             ->orderBy('detalle_solicitud.id', 'desc')->get();
+                      'detalle_solicituds.cantidad',
+                      'detalle_solicituds.observacionp',
+                      'detalle_solicituds.created_at',
+                      'detalle_solicituds.updated_at',)
+             ->where('detalle_solicituds.solicitud_id','=',$id)
+             ->orderBy('detalle_solicituds.id', 'desc')->get();
         return view('admin.solicituds.show', compact('solicitud','detalles'));
     }
 

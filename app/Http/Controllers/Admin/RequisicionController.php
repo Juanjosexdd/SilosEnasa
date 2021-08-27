@@ -84,6 +84,14 @@ class RequisicionController extends Controller
             $requisicion->user_id = auth()->user()->id;
             $requisicion->save();
 
+            $solicitud_id = $request->get('solicitud_id');
+
+            if ($solicitud_id) {
+                $s = Solicitud::find($solicitud_id);
+                $s->estatus = '3';
+                $s->save();
+            }
+
             $producto_id = $request->get('producto_id');
             $cantidad = $request->get('cantidad');
             $observacionp = $request->get('observacionp');
@@ -131,7 +139,7 @@ class RequisicionController extends Controller
                       'detalle_requisicion.cantidad',
                       'detalle_requisicion.observacionp',
                       'detalle_requisicion.created_at',
-                      'detalle_requisicion.updated_at',)
+                      'detalle_requisicion.updated_at')
              ->where('detalle_requisicion.requisicion_id','=',$id)
              ->orderBy('detalle_requisicion.id', 'desc')->get();
         return view('admin.requisicions.show', compact('requisicion','detalles'));

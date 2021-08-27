@@ -46,7 +46,7 @@
                                 @endif
                                 <br>
                                 @if ($ingreso->requisicion_id)
-                                <span class="font-weight-bold">Requisicion Nro. :</span> {{ $ingreso->requisicion->correlativo }}
+                                <span class="font-weight-bold">Requisicion Nro. :</span> <a href="{{ route('admin.requisicions.show', $ingreso->requisicion->id)}}" target="_blank"> {{ $ingreso->requisicion->correlativo }}</a>
                                 @endif
                                 <br>
                                 <span class="font-weight-bold">Usuario :</span> {{ $ingreso->user->display_user }}
