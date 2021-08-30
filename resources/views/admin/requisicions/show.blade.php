@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'ENASA | INGRESOS')
+@section('title', 'ENASA | REQUISICION')
 
 
 @section('content')
@@ -46,14 +46,13 @@
                                 {{ $requisicion->solicitud->user->tipodocumento->abreviado }}-{{ $requisicion->solicitud->user->cedula }}
                             @else
                                 <span class="font-weight-bold">Departamento Solicitante :</span>
-                                {{ $requisicion->departamento->nombre }}
+                                {{ $requisicion->empleado->departamento->nombre }}
                                 <br>
                                 <span class="font-weight-bold">Solicitante :</span>
-                                {{ $requisicion->empleado->nombres }}-{{ $requisicion->empleado->apellidos }}
+                                {{ $requisicion->empleado->nombres }} {{ $requisicion->empleado->apellidos }}
                                 <br>
                                 <span class="font-weight-bold">Cedula :</span>
                                 {{ $requisicion->empleado->tipodocumento->abreviado }}-{{ $requisicion->empleado->cedula }}
-
                             @endif
                             <br>
                         </div>
@@ -74,13 +73,25 @@
                                     <a href="{{ route('admin.solicituds.show', $requisicion->solicitud->id) }}">
                                         {{ $requisicion->solicitud->id }}</a>
                                 @else
-                                        <span class="font-weight-bold" target="_blank">Egreso Nro. :</span>
+                                        <span class="font-weight-bold" target="_blank">Requisición Nro. :</span>
                                         RBMS-{{ $requisicion->correlativo }}</a>
                                 @endif
                                 
                                 <br>
                                 <span class="font-weight-bold">Usuario : </span>
                                 {{ $requisicion->user->display_user }}
+                                <br>
+                                <span class="font-weight-bold">Estatus :</span>
+                                @if ($requisicion->estatus == 0)
+                                    Anulada 
+                                @elseif ($requisicion->estatus == 1)
+                                   Pendiente 
+                                @elseif ($requisicion->estatus == 2)
+                                   Aprobado 
+                            
+                                @elseif ($requisicion->estatus == 3)
+                                   Solicitado a compras 
+                                @endif
 
                             </div>
                         </div>

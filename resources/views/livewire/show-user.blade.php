@@ -1,5 +1,5 @@
 <x-card-body>
-
+    
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -66,7 +66,7 @@
                             @else
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
-                        </th>
+                        {{-- </th>
                         <th scope="col" role="button" wire:click="order('cargo_id')">
                             Cargo
                             @if ($sort == 'cargo_id')
@@ -78,7 +78,7 @@
                             @else
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
-                        </th>
+                        </th> --}}
                         <th >Estatus</th>
                         <th colspan="3"></th>
                     </tr>
@@ -102,9 +102,9 @@
                             <td>
                                 <a href=" {{ route('admin.users.show', $user) }} ">{{ $user->email }}</a>
                             </td>
-                            <td>
+                            {{-- <td>
                                 <a href=" {{ route('admin.users.show', $user) }} ">{{ Str::limit($user->cargo->nombre, 20) }}</a>
-                            </td>
+                            </td> --}}
                             <td>
                                 @if ($user->estatus == 1)
                                     <span class="badge badge-success">Activo</span>

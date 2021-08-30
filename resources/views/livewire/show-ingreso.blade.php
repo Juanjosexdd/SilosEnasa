@@ -5,10 +5,12 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-
+            @can('admin.ingresos.create')
+                
             <a href="{{ route('admin.ingresos.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
-                    class="fas fa-plus mt-2 px-3"></i>
+                class="fas fa-plus mt-2 px-3"></i>
             </a>
+            @endcan
         </div>
     </div>
     <div class="card-body table-responsive">
@@ -66,9 +68,11 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
+                        @can('admin.ingresos.estatuingresos')
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Estatus
                         </th>
+                        @endcan
                         <th colspan="2"></th>
                     </tr>
                 </thead>
@@ -82,6 +86,7 @@
                             <td> <a href="{{ route('admin.ingresos.show', $ingreso->id) }}">{{ $ingreso->user->username }}</a> </td>
                             <td>
                                 @if ($ingreso->estatus == 1)
+                                    @can('admin.ingresos.estatuingresos')
                                     <form class="anular"
                                         action="{{ route('admin.ingresos.estatuingreso', $ingreso) }}" method="get">
                                         @csrf
@@ -89,6 +94,7 @@
                                             <i class="fas fa-check-circle"></i> Procesado
                                         </button>
                                     </form>
+                                    @endcan
                                 @else
                                     <p class="btn  btn-danger btn-sm disabled text-white  elevation-4">
                                         <i class="fas fa-times-circle"></i> Anulado &nbsp; &nbsp;

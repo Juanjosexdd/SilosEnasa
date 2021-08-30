@@ -14,9 +14,12 @@
             <div class="card-body">
                 <div class="ror">
                     <div class="col-md-12">
+                        @can('admin.users.edit')
+                            
                         <a href=" {{ route('admin.users.edit', $user) }} "
-                            class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4 ml-2"><i class="fas fa-edit"></i>
-                            Editar </a>
+                        class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4 ml-2"><i class="fas fa-edit"></i>
+                        Editar </a>
+                        @endcan
                         <a href=" {{ route('admin.users.index') }} "
                             class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4 "><i class="fas fa-reply"></i>
                             Volver </a>

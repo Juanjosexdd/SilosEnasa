@@ -4,8 +4,10 @@
             <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
         <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
+        @can('admin.clacificacions.create')
         <a href="{{ route('admin.clacificacions.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
-                class="fas fa-plus mt-2 px-3"></i></a>
+            class="fas fa-plus mt-2 px-3"></i></a>
+        @endcan     
     </div>
     <div class="card-body table-responsive p-0">
         @if ($clacificacions->count())
@@ -86,6 +88,7 @@
                             </td>
                             <td width="4px">
                                 <div class="btn-group">
+                                    @can('admin.clacificacions.estatuclacificacion')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157)">
                                         @if ($clacificacion->estatus == 1)
@@ -110,10 +113,15 @@
                                             </form>
                                         @endif
                                     </a>
+                                    @endcan
+                                    @can('admin.clacificacions.edit')
                                     <a class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
                                         href=" {{ route('admin.clacificacions.edit', $clacificacion) }} "><i
                                             class="fas fa-edit text-blue"></i></a>
+                        
+                                    @endcan
+                                    @can('admin.clacificacions.destroy')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
                                         <form class="formulario-eliminar"
@@ -126,6 +134,7 @@
                                                     class="fas fa-trash"></i></button>
                                         </form>
                                     </a>
+                                    @endcan
                                 </div>
 
                             </td>

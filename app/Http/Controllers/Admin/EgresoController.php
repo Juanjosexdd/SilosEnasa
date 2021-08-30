@@ -27,6 +27,12 @@ use App\Models\Solicitud;
 
 class EgresoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.egresos.index')->only('index');
+        $this->middleware('can:admin.egresos.create')->only('create', 'store');
+        $this->middleware('can:admin.egresos.estatuegresos')->only('estatuegresos');
+    }
 
     public function index()
     {
@@ -61,6 +67,16 @@ class EgresoController extends Controller
              ->where('prod.stock','>',0 )
              ->groupBy('producto','prod.id','prod.stock')
              ->get();
+
+        
+        // $empleados = Empleado::join('departamentos','empleados.departamento_id','departamentos.id')
+        //                     ->join('cargos','empleados.cargo_id','cargos.id')
+        //                     ->join('tipodocumentos','empleados.tipodocumento_id','tipodocumentos.id')
+        //                     ->select('empleados.id','departamentos.nombre as departamento','cargos.nombre as cargo','tipodocumentos.abreviado as tipodocumentos',
+        //                              'empleados.nombres','empleados.apellidos','empleados.cedula')
+        //                              ->where('empleados.estatus','=','1')
+        //                              ->groupBy('empleados.id')
+        //                              ->get();
         
         $solicituds = Solicitud::join('departamentos','solicituds.departamento_id','departamentos.id')
              ->select('solicituds.id','departamentos.nombre as departamento')
@@ -78,6 +94,9 @@ class EgresoController extends Controller
     {
         //return dd($request);
         //return $request;
+        $request->validate([
+            'empleado_id' => 'required|not_in:0',
+        ]);
         try {
             DB::beginTransaction();
             $egreso=new Egreso;

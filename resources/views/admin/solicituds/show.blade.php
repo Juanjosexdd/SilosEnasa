@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'ENASA | INGRESOS')
+@section('title', 'ENASA | SOLICITUD')
 
 
 @section('content')
@@ -61,6 +61,8 @@
                                 <span class="font-weight-bold">Estatus :</span>
                                 @if ($solicitud->estatus == 0)
                                     Anulada 
+                                @elseif ($solicitud->estatus == 1)
+                                   Pendiente 
                                 @elseif ($solicitud->estatus == 2)
                                    Aprobado 
                             

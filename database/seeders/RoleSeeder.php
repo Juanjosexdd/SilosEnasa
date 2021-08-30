@@ -55,33 +55,33 @@ class RoleSeeder extends Seeder
         //7
         Permission::create([
             'name'        => 'admin.roles.index',
-            'description' => 'Ver listado de trabajadores'
+            'description' => 'Ver listado de Roles'
         ])->syncRoles([$role1]);
         //8
         Permission::create([
             'name'        => 'admin.roles.create',
-            'description' => 'Crear trabajadores'
+            'description' => 'Crear Roles'
         ])->syncRoles([$role1]);
         //9
         Permission::create([
             'name'        => 'admin.roles.edit',
-            'description' => 'Eliminar trabajadores'
+            'description' => 'Eliminar Roles'
         ])->syncRoles([$role1]);
         //10
         Permission::create([
             'name'        => 'admin.roles.destroy',
-            'description' => 'Cambiar estatus de trabajadores'
+            'description' => 'Cambiar estatus de Roles'
         ])->syncRoles([$role1]);
-        //11
         #################################····LOGS Y SESIONES····########################################
+        //11
         Permission::create([
             'name'        => 'admin.logs.index',
-            'description' => 'Ver listado de trabajadores'
+            'description' => 'Ver listado de Registros'
         ])->syncRoles([$role1]);
         //12
         Permission::create([
             'name'        => 'admin.logins.index',
-            'description' => 'Ver listado de trabajadores'
+            'description' => 'Ver listado de Sesiones'
         ])->syncRoles([$role1]);
 
         ###################################····TIPO DOCUMENTOS····################################
@@ -356,5 +356,81 @@ class RoleSeeder extends Seeder
         ])->syncRoles([$role1]);
 
         #############################################################################################
+        //63
+        Permission::create([
+            'name'        => 'seguridadsistema',
+            'description' => 'Acceso a seguridad del sistema'
+        ])->syncRoles([$role1]);
+        //64
+        Permission::create([
+            'name'        => 'ajustessistema',
+            'description' => 'Acceso a ajustes del sistema'
+        ])->syncRoles([$role1]);
+        //65
+        Permission::create([
+            'name'        => 'inventariosistema',
+            'description' => 'Acceso a inventario del sistema'
+        ])->syncRoles([$role1]);
+        //66
+        Permission::create([
+            'name'        => 'movimientossistema',
+            'description' => 'Acceso a movimientos del sistema'
+        ])->syncRoles([$role1]);
+
+        ###################################····INGRESOS····################################
+        //67
+        Permission::create([
+            'name'        => 'admin.ingresos.index',
+            'description' => 'Ver listado de ingresos'
+        ])->syncRoles([$role1]);
+        //68               
+        Permission::create([
+            'name'        => 'admin.ingresos.create',
+            'description' => 'Crear ingresos'
+        ])->syncRoles([$role1]);
+        //69
+        Permission::create([
+            'name'        => 'admin.ingresos.estatuingresos',
+            'description' => 'Cambiar estatus de ingresos'
+        ])->syncRoles([$role1]);
+        ###################################····EGRESOS····################################
+        //70
+        Permission::create([
+            'name'        => 'admin.egresos.index',
+            'description' => 'Ver listado de egresos'
+        ])->syncRoles([$role1]);
+        //71              
+        Permission::create([
+            'name'        => 'admin.egresos.create',
+            'description' => 'Crear egresos'
+        ])->syncRoles([$role1]);
+        //72
+        Permission::create([
+            'name'        => 'admin.egresos.estatuegresos',
+            'description' => 'Cambiar estatus de egresos'
+        ])->syncRoles([$role1]);
+        ###################################····REQUISICION····################################
+        //73
+        Permission::create([
+            'name'        => 'admin.requisicions.index',
+            'description' => 'Ver listado de requisicions'
+        ])->syncRoles([$role1]);
+        //74              
+        Permission::create([
+            'name'        => 'admin.requisicions.create',
+            'description' => 'Crear requisicions'
+        ])->syncRoles([$role1]);
+        //75
+        Permission::create([
+            'name'        => 'admin.requisicions.estaturequisicions',
+            'description' => 'Cambiar estatus de requisicions'
+        ])->syncRoles([$role1]);
+        ###################################····RESPALDOS····################################
+        //76
+        Permission::create([
+            'name'        => 'admin.respaldos.index',
+            'description' => 'Ver listado de Respaldos'
+        ])->syncRoles([$role1]);
     }
+
 }

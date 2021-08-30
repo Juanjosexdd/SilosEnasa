@@ -244,56 +244,59 @@ return [
             'url'         => 'user/profile',
             'icon'        => 'fas fa-user text-blue'
         ],
+        [
+            'text' => 'Solicitudes',
+            'route'  => 'admin.solicituds.index',
+            'icon' => 'fas fa-clipboard-list text-blue',
+            'active' => ['admin/solicituds*'],
+        ],
         
-        ['header' => 'MOVIMIENTOS'],
+        ['header' => 'MOVIMIENTOS',
+         'can' => 'movimientossistema'],
         [
             'text'    => 'MOVIMIENTOS',
             'icon'    => 'fas fa-truck-loading text-blue',
+            'can'  => 'movimientossistema',
             'submenu' => [
                 [
                     'text' => 'Proveedores',
                     'route'  => 'admin.proveedors.index',
                     'icon' => 'fas fa-user-tie text-blue',
                     'active' => ['admin/proveedors*'],
+                    'can'  => 'admin.proveedors.index',
+
                 ],
                 [
                     'text' => 'Ingreso',
                     'route'  => 'admin.ingresos.index',
                     'icon' => 'fas fa-people-carry text-blue',
                     'active' => ['admin/ingresos*'],
-                    'label'       => 'Ver',
-                    'label_color' => 'success',
+                    'can'  => 'admin.ingresos.index',
+
                 ],
                 [
                     'text' => 'Egreso',
                     'route'  => 'admin.egresos.index',
                     'icon' => 'fas fa-dolly text-blue',
                     'active' => ['admin/egresos*'],
-                    'label'       => 'Ver',
-                    'label_color' => 'success',
+                    'can'  => 'admin.egresos.index',
+
                 ],
                 [
                     'text' => 'Requisición',
                     'route'  => 'admin.requisicions.index',
                     'icon' => 'fas fa-clipboard-list text-blue',
                     'active' => ['admin/requisicions*'],
-                    'label'       => 'Ver',
-                    'label_color' => 'success',
-                ],
-                [
-                    'text' => 'Solicitud',
-                    'route'  => 'admin.solicituds.index',
-                    'icon' => 'fas fa-clipboard-list text-blue',
-                    'active' => ['admin/solicituds*'],
-                    'label'       => 'Ver',
-                    'label_color' => 'success',
+                    'can'  => 'admin.requisicions.index',
                 ],
             ],
         ],
-        ['header' => 'INVENTARIO'],
+        ['header' => 'INVENTARIO',
+        'can'  => 'inventariosistema'],
         [
             'text'    => 'INVENTARIO',
             'icon'    => 'fas fa-warehouse text-blue',
+            'can'  => 'inventariosistema',
             'submenu' => [
                 [
                     'text' => 'Empleados',
@@ -326,17 +329,13 @@ return [
                 
             ],
         ],
-        ['header' => 'AJUSTES DE SISTEMA'],
+        ['header' => 'AJUSTES DE SISTEMA',
+        'can'  => 'ajustessistema'],
         [
             'text'    => 'AJUSTES EMPRESA',
             'icon'    => 'fas fa-cogs text-blue',
+            'can'  => 'ajustessistema',
             'submenu' => [
-                [
-                    'text' => 'Empresa',
-                    'route'  => 'admin.empresas.index',
-                    'icon' => 'fas fa-city text-blue',
-                    'active' => ['admin/empresas*'],
-                ],
                 [
                     'text' => 'Tipo Documentos',
                     'route'  => 'admin.tipodocumentos.index',
@@ -376,10 +375,12 @@ return [
                 ]
             ],
         ],
-        ['header' => 'SEGURIDAD DEL SISTEMA'],
+        ['header' => 'SEGURIDAD DEL SISTEMA',
+        'can'  => 'seguridadsistema'],
         [
             'text'    => 'SEGURIDAD SISTEMA',
             'icon'    => 'fas fa-fw fa-user-shield text-blue',
+            'can'  => 'seguridadsistema',
             'submenu' => [
                 [
                     'text' => 'Usuarios',
@@ -410,7 +411,7 @@ return [
                     'can' => 'admin.logins.index',
                 ],
                 [
-                    'text' => 'Backup',
+                    'text' => 'Respaldos',
                     'route'  => 'admin.respaldos.index',
                     'icon' => 'fas fa-cloud-download-alt text-blue',
                     'active' => ['admin/backup*'],

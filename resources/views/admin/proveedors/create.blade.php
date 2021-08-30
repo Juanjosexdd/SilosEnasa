@@ -6,7 +6,7 @@
     @include('sweetalert::alert')
 
     <x-card-header>
-        <h3 class="text-blue">Crear un nuevo proveedor</h3>
+        <h3 class="text-white">Crear un nuevo proveedor</h3>
     </x-card-header>
 
     <x-card-body>
@@ -14,9 +14,9 @@
                 class="fas fa-reply"></i> Volver</a>
         <p class="h3 text-blue">Información proveedor</p>
         <hr>
-        {!! Form::open(['route' => 'admin.proveedors.store']) !!}
+        {!! Form::open(['route' => 'admin.proveedors.store','autocomplete' => 'off']) !!}
         @include('admin.proveedors.partials.form')
-        {!! Form::submit('Guardar proveedor', ['class' => 'btn bg-navy btn-block']) !!}
+        {!! Form::submit('Guardar proveedor', ['class' => 'btn bg-navy btn-block elevation-4']) !!}
         {!! Form::close() !!}
     </x-card-body>
 

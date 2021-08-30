@@ -5,10 +5,11 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-
+            @can('admin.requisicions.create')
             <a href="{{ route('admin.requisicions.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
-                    class="fas fa-plus mt-2 px-3"></i>
+                class="fas fa-plus mt-2 px-3"></i>
             </a>
+            @endcan
         </div>
     </div>
     <div class="card-body table-responsive">
@@ -62,9 +63,12 @@
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Estatus
                         </th>
+                        @can('admin.requisicions.estaturequisicions')
+                            
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Anular
                         </th>
+                        @endcan
                         <th colspan="2"></th>
                     </tr>
                 </thead>
@@ -78,10 +82,10 @@
                                     href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->created_at->toDateString() . '-' . $requisicion->id }}</a>
                             </td> --}}
                             <td> <a
-                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->user->name . ' - ' . $requisicion->user->last_name }}</a>
+                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->empleado->nombres . ' - ' . $requisicion->empleado->apellidos }}</a>
                             </td>
                             <td> <a
-                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->departamento->display_departamento }}</a>
+                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->empleado->departamento->nombre }}</a>
                             </td>
                             <td>
                                 @if ($requisicion->estatus == 1)
@@ -100,6 +104,7 @@
                             </td>
                             <td>
                                 @if ($requisicion->estatus == 1)
+                                    @can('admin.requisicions.estaturequisicions')
                                     <form class="anular" action="{{ route('admin.requisicions.estaturequisicion', $requisicion) }}"
                                         method="get">
                                         @csrf
@@ -107,6 +112,8 @@
                                             <i class="fas fa-exclamation-circle"></i> Pendiente
                                         </button>
                                     </form>
+                                    @endcan
+
                                 @elseif ($requisicion->estatus == 0)
                                     <p class="btn  btn-secondary btn-sm disabled text-white  elevation-4">
                                         <i class="fas fa-times-circle"></i> Anulado &nbsp; &nbsp;

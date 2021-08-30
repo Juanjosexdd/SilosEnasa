@@ -12,6 +12,7 @@ use App\Models\Tipodocumento;
 use Spatie\Permission\Models\Role;
 use App\Models\Log\LogSistema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -137,9 +138,10 @@ class UserController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->name . ' Ha actualizado los datos del usuario: ' . $request->name . ' ' . $request->last_name . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
-
+        if ( !empty($request->input('password')) ) {
+            $user->password = Hash::make($request->input('password'));
+        }
         $user->update($request->all());
-
         $user->roles()->sync($request->get('roles'));
 
         $user->save();

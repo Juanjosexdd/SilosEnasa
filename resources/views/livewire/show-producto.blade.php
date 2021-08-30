@@ -4,8 +4,7 @@
             <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
         <input wire:model="search" type="email" class="form-control mr-2" placeholder="Buscar">
-        @can('admin.productos.index')
-            
+        @can('admin.productos.create')
         <a href="{{ route('admin.productos.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
                 class="fas fa-plus mt-2 px-3"></i></a>
         @endcan
@@ -108,6 +107,7 @@
                             </td>
                             <td width="4px">
                                 <div class="btn-group">
+                                    @can('admin.productos.estatuproducto')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157)">
                                         @if ($producto->estatus == 1)
@@ -132,10 +132,14 @@
                                             </form>
                                         @endif
                                     </a>
+                                    @endcan
+                                    @can('admin.productos.edit')
                                     <a class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
                                         href=" {{ route('admin.productos.edit', $producto) }} "><i
-                                            class="fas fa-edit text-blue"></i></a>
+                                        class="fas fa-edit text-blue"></i></a>
+                                    @endcan
+                                    @can('admin.productos.destroy')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
                                         <form class="formulario-eliminar"
@@ -147,6 +151,7 @@
                                                     class="fas fa-trash"></i></button>
                                         </form>
                                     </a>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>

@@ -13,7 +13,7 @@
 
         <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
-                {!! Form::open(['route' => 'admin.egresos.store']) !!}
+                {!! Form::open(['route' => 'admin.egresos.store', 'class' => 'confirmar', 'autocomplete' => 'off']) !!}
                 <div class="row">
                     <div class="col-md-4">
                         <label class="text-blue" for="nombre">Solicitud nro. :</label>
@@ -26,10 +26,12 @@
                             @endforeach
                         </select>
                     </div>
+
                     <div class="col-md-4">
                         {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
-                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2' . ($errors->has('empleado_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!}
+                            {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -37,11 +39,11 @@
                             {!! Form::label('correlativo', 'Correlativo: ', ['class' => 'text-blue ']) !!}
                             <div class="input-group">
                                 @if (count($egresos) == 0)
-                                    <input type="text" value="" class="form-control" name="correlativo" id="correlativo">
+                                    <input type="text" value="" class="form-control prevenir-envio" name="correlativo" id="correlativo">
                                 @else
                                     <input type="text"
                                         value="{{ number_format($egresos->last()->correlativo + 1, 0, '', '') }}"
-                                        class="form-control" name="correlativo" id="correlativo">
+                                        class="form-control prevenir-envio" name="correlativo" id="correlativo">
                                 @endif
                             </div>
                         </div>
@@ -75,7 +77,7 @@
                         <div class="form-group">
                             {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
-                                {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
+                                {!! Form::text('pobservacionp', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Observacion']) !!}
                             </div>
                         </div>
                     </div>
@@ -83,7 +85,7 @@
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
-                                {!! Form::number('pcantidad', null, ['class' => 'form-control', 'placeholder' => 'Cantidad']) !!}
+                                {!! Form::number('pcantidad', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Cantidad']) !!}
                             </div>
                         </div>
                     </div>
@@ -97,7 +99,7 @@
                     <div class="col-md-12">
                         <table id="detalles" class="table table-striped table-sm table-hover">
                             <thead style="background-color: #001f3f; border-radius: 0.25 rem;" class="p-0" ;>
-                                <th class="text-white">Opciones</th>
+                                <th class="text-white"></th>
                                 <th class="text-white">Producto</th>
                                 <th class="text-white">Cantidad</th>
                                 <th class="text-white">Observación</th>
@@ -105,7 +107,7 @@
                             <tfoot>
                                 <th></th>
                                 <th></th>
-                                <th></th>
+                                <th class="col-1"></th>
                                 <th></th>
                             </tfoot>
                         </table>
@@ -149,8 +151,21 @@
     <script src=" {{ asset('vendor/sweetalert-eliminar.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-estatus.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-estatus2.js') }} "></script>
+    <script src=" {{ asset('vendor/sweetalert-confirmar.js') }} "></script>
 
     <script>
+        const $elementos = document.querySelectorAll(".prevenir-envio");
+
+        $elementos.forEach(elemento => {
+            elemento.addEventListener("keydown", (evento) => {
+                if (evento.key == "Enter") {
+                    // Prevenir
+                    evento.preventDefault();
+                    return false;
+                }
+            });
+        });
+        //////////////////////////////////////////////
         $('.select2').select2({
             placeholder: 'Selecciona una opcion'
         });
@@ -186,11 +201,14 @@
                 if (parseInt(producto) >= parseInt(cantidad)) {
                     var fila = '<tr class="selected" id="fila' + cont +
                         '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
-                        ');">X</button></td><td><input class="form-control form-control-sm" type="hidden" name="producto_id[]" value="' + producto_id + '">' +
-                        producto + '</td><td><input type="number" class="" name="cantidad[]" value="' + cantidad +
+                        ');">X</button></td><td><input class="form-control form-control-sm" type="hidden" name="producto_id[]" value="' +
+                        producto_id + '">' +
+                        producto +
+                        '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' +
+                        cantidad +
                         '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
-                    observacionp +
-                    '"></td></tr>';
+                        observacionp +
+                        '"></td></tr>';
                     cont++;
                     limpiar();
                     $('#detalles').append(fila);
@@ -212,9 +230,9 @@
         }
 
         function evaluar(cont) {
-            if (cont>0) {
-                $("#guardar").show();   
-            }else{
+            if (cont > 0) {
+                $("#guardar").show();
+            } else {
                 $("#guardar").hide();
             }
         }

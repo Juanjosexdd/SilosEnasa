@@ -24,6 +24,9 @@
         <div class="card-header">
             <h4 class="card-title w-100">
                 <a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapsefive"  aria-expanded="false">
+                    <label class="text-muted d-inline">
+                        {!! Form::checkbox('permissions[]', 66, null, null, ['class' => 'icheckbox_flat-yellow']) !!}
+                    </label> &nbsp; &nbsp;
                     <i class="fas fa-truck-loading text-blue "></i> Movimientos
                 </a>
             </h4>
@@ -75,6 +78,99 @@
                                 </label>
                             </th>
                         </tr>
+                        {{-- Ingresos --}}
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-fw fa-users text-blue"></i>&nbsp; Ingresos
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 67, null, null, ['class' => 'icheckbox_flat']) !!} Ver Ingresos
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 68, null, null, ['class' => 'icheckbox_flat']) !!} Registrar Ingresos
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 69, null, null, ['class' => 'icheckbox_flat']) !!} Estatus Ingresos
+                                </label>
+                            </th>
+                        </tr>
+                        {{-- Egresos --}}
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-fw fa-users text-blue"></i>&nbsp; Egresos
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 70, null, null, ['class' => 'icheckbox_flat']) !!} Ver Egresos
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 71, null, null, ['class' => 'icheckbox_flat']) !!} Registrar Egresos
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 72, null, null, ['class' => 'icheckbox_flat']) !!} Estatus Egresos
+                                </label>
+                            </th>
+                        </tr>
+                        {{-- Requisicion --}}
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-fw fa-users text-blue"></i>&nbsp; Requisicion
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 73, null, null, ['class' => 'icheckbox_flat']) !!} Ver Requisicion
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 74, null, null, ['class' => 'icheckbox_flat']) !!} Registrar Requisicion
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 75, null, null, ['class' => 'icheckbox_flat']) !!} Estatus Requisicion
+                                </label>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -87,6 +183,9 @@
         <div class="card-header">
             <h4 class="card-title w-100">
                 <a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapsefour"  aria-expanded="false">
+                    <label class="text-muted d-inline">
+                        {!! Form::checkbox('permissions[]', 65, null, null, ['class' => 'icheckbox_flat-yellow']) !!}
+                    </label> &nbsp; &nbsp;
                     <i class="fas fa-warehouse text-blue "></i> Inventario
                 </a>
             </h4>
@@ -244,6 +343,9 @@
         <div class="card-header">
             <h4 class="card-title w-100">
                 <a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapsethree"  aria-expanded="false">
+                    <label class="text-muted d-inline">
+                        {!! Form::checkbox('permissions[]', 64, null, null, ['class' => 'icheckbox_flat-blue']) !!}
+                    </label> &nbsp; &nbsp;
                     <i class="fas fa-cogs text-blue "></i> Ajustes de empresa
                 </a>
             </h4>
@@ -432,6 +534,9 @@
         <div class="card-header">
             <h4 class="card-title w-100">
                 <a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapseOne"  aria-expanded="false">
+                    <label class="text-muted d-inline">
+                        {!! Form::checkbox('permissions[]', 63, null, null, ['class' => 'icheckbox_flat-yellow']) !!}
+                    </label> &nbsp; &nbsp;
                     <i class="fas fa-fw fa-user-shield text-blue "></i> Permisos de seguridad del sistema
                 </a>
             </h4>
@@ -517,7 +622,7 @@
                             </th>
                             <th>
                                 <label class="text-muted d-inline">
-                                    {!! Form::checkbox('permissions[]', 10, null, null, ['class' => 'icheckbox_flat']) !!} Ver registros
+                                    {!! Form::checkbox('permissions[]', 11, null, null, ['class' => 'icheckbox_flat']) !!} Ver registros
                                 </label>
                             </th>
                             <th>
@@ -571,6 +676,36 @@
                                 </label>
                             </th>
                         </tr>
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-traffic-light text-blue "></i> Sesiones
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 76, null, null, ['class' => 'icheckbox_flat']) !!} Ver Respaldos
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -580,6 +715,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('vendor/icheck/skins/flat/flat.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/icheck/skins/flat/_all.css') }}">
 @stop
 
 @section('js')
@@ -592,6 +728,12 @@
         $(document).ready(function() {
             $('input').iCheck({
                 checkboxClass: 'icheckbox_flat',
+                radioClass: 'iradio_flat'
+            });
+        });
+        $(document).ready(function() {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
                 radioClass: 'iradio_flat'
             });
         });

@@ -30,6 +30,12 @@ use Illuminate\Support\Facades\Auth;
 
 class IngresoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.ingresos.index')->only('index');
+        $this->middleware('can:admin.ingresos.create')->only('create', 'store');
+        $this->middleware('can:admin.ingresos.estatuingresos')->only('estatuingresos');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -60,27 +66,27 @@ class IngresoController extends Controller
         $log->save();
 
         $ingresos        = Ingreso::all();
+        $requisicions        = Requisicion::all()->where('estatus','=', 1);
         $users           = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         $almacens        = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
         // $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto', 'id');
         $proveedors      = Proveedor::where('estatus', 1)->get()->pluck('display_proveedor', 'id');
         $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
-        //$requisicions    = Requisicion::where('estatus', 1)->get()->pluck('correlativo', 'id');
+        // $requisicions    = Requisicion::where('estatus', 1)->get()->pluck('correlativo', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
 
-        $productos=Producto::join('clacificacions','productos.clacificacion_id','clacificacions.id')
-             ->select('productos.id','productos.nombre','productos.marca','productos.observacionp','productos.ubicacion','clacificacions.abreviado as abreviado')
-             ->where('productos.estatus','=','1')
-             ->groupBy('productos.id','productos.marca','productos.observacionp','productos.ubicacion','abreviado')
-             ->get();
+        $productos = Producto::join('clacificacions', 'productos.clacificacion_id', 'clacificacions.id')
+            ->select('productos.id', 'productos.nombre', 'productos.marca', 'productos.observacionp', 'productos.ubicacion', 'clacificacions.abreviado as abreviado')
+            ->where('productos.estatus', '=', '1')
+            ->groupBy('productos.id', 'productos.marca', 'productos.observacionp', 'productos.ubicacion', 'abreviado')
+            ->get();
 
-
-
-        $requisicions = Requisicion::join('departamentos','requisicions.departamento_id','departamentos.id')
-                                   ->select('requisicions.id','requisicions.correlativo','departamentos.nombre as departamento')
-                                   ->where('requisicions.estatus','=','1')
-                                   ->groupBy('requisicions.id','requisicions.correlativo','departamento')
-                            ->get();;
+        // $requisicions = Requisicion::join('departamentos', 'requisicions.departamento_id', 'departamentos.id')
+        // ->join('empleado')
+        //     ->select('requisicions.id', 'requisicions.correlativo', 'departamentos.nombre as departamento')
+        //     ->where('requisicions.estatus', '=', '1')
+        //     ->groupBy('requisicions.id', 'requisicions.correlativo', 'departamento')
+        //     ->get();
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
@@ -99,6 +105,7 @@ class IngresoController extends Controller
         //return dd($request);
         $request->validate([
             'proveedor_id' => 'required|not_in:0',
+            'correlativo' => 'required'
         ]);
         try {
             DB::beginTransaction();
@@ -152,11 +159,10 @@ class IngresoController extends Controller
                 $p->observacionp = $observacionp[$cont];
                 $p->marca = $marca[$cont];
                 $p->ubicacion = $ubicacion[$cont];
-                
-                if ((AlmacenProducto::where('producto_id','=',$request->get('producto_id')))&&(AlmacenProducto::where('almacen_id','=',$request->get('almacen_id'))))
-                {
+
+                if ((AlmacenProducto::where('producto_id', '=', $request->get('producto_id'))) && (AlmacenProducto::where('almacen_id', '=', $request->get('almacen_id')))) {
                     $p->almacenes()->sync($request->almacen_id);
-                }else {
+                } else {
                     $p->almacenes()->attach($request->almacen_id);
                 }
                 $p->save();
@@ -220,7 +226,7 @@ class IngresoController extends Controller
             ->where('detalle_ingreso.ingreso_id', '=', $id)
             ->orderBy('detalle_ingreso.id', 'desc')->get();
 
-        return view('admin.ingresos.show', compact('ingreso', 'detalles','compra','almacen'));
+        return view('admin.ingresos.show', compact('ingreso', 'detalles', 'compra', 'almacen'));
     }
 
     /**

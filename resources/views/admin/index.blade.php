@@ -4,19 +4,70 @@
 
 @section('content')
     <div class="container">
+        <div class="row mb-1 ">
+            <div class="col-md-3">
+                <a class="text-uppercase text-secondary text-xs font-weight-bolder"
+                    href="{{ route('admin.solicituds.index') }}">
+                    <div class="mx-auto elevation-4 bg-navy btn-sm text-center">
+                        <i class="fas fa-clipboard-list font-weight-bolder text-white"></i>
+                        Solicitudes
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                @can('admin.requisicions.index')
+                    <a class="text-uppercase text-secondary text-xs font-weight-bolder"
+                        href="{{ route('admin.requisicions.index') }}">
+                        <div class="mx-auto elevation-4 bg-navy btn-sm text-center">
+                            <i class="fas fa-clipboard-list text-white"></i>
+                            Requisiciones
+                        </div>
+                    </a>
+                @endcan
+            </div>
+            <div class="col-md-3">
+                @can('admin.ingresos.index')
+                    <a class="text-uppercase text-secondary text-xs font-weight-bolder"
+                        href="{{ route('admin.ingresos.index') }}">
+                        <div class="mx-auto elevation-4 bg-navy btn-sm text-center">
+                            <i class="fas fa-people-carry text-white"></i>
+                            Ingresos
+                        </div>
+                    </a>
+                @endcan
+            </div>
+            <div class="col-md-3">
+                @can('admin.egresos.index')
+                    <a class="text-uppercase text-secondary text-xs font-weight-bolder"
+                        href="{{ route('admin.egresos.index') }}">
+                        <div class="mx-auto elevation-4 bg-navy btn-sm text-center">
+                            <i class="fas fa-dolly text-white"></i>
+                            Egresos
+                        </div>
+                    </a>
+                @endcan
+            </div>
+
+
+
+
+        </div>
+
         <div class="row">
             <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box blue bg-warning darken-3 elevation-4 text-white">
-                    <div class="inner">
-                        <h3 class="text-white">{{ App\Models\User::count() }}</h3>
+                <a href="{{ route('admin.users.index') }}">
+                    <!-- small box -->
+                    <div class="small-box blue bg-warning darken-3 elevation-4 text-white">
+                        <div class="inner">
+                            <h3 class="text-white">{{ App\Models\User::count() }}</h3>
 
-                        <p class="text-white">Usuarios registrados.</p>
+                            <p class="text-white">Usuarios registrados.</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-tie "></i>
+                        </div>
                     </div>
-                    <div class="icon">
-                        <i class="fas fa-user-tie "></i>
-                    </div>
-                </div>
+                </a>
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
@@ -58,8 +109,43 @@
                 </div>
             </div>
         </div>
-        
-        <div class="card card-custom bg-white border-white border-0 elevation-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card elevation-4">
+                    <div class="card-header">
+                        <h3 class="card-title">Ultimas solicitudes</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <ul class="products-list product-list-in-card pl-2 pr-2">
+                            @foreach ($solicituds as $solicitud)
+                                <li class="item">
+                                    <a href="{{route('admin.solicituds.show', $solicitud->id)}}" class="product-title">
+                                        {{$solicitud->user->name .''.$solicitud->user->last_name }}
+                                        <span class="badge badge-warning float-right">{{$solicitud->id}}</span></a>
+                                    <span class="product-description">
+                                        {{$solicitud->departamento->nombre}}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer text-center">
+                        {{-- <a href="{{route('admin.solicituds.index')}}" class="uppercase">View All Products</a> --}}
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+            </div>
+        </div>
+
+        {{-- <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-custom-img"
                 style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">
             </div>
@@ -77,7 +163,7 @@
             <div class="card-footer" style="background: inherit; border-color: inherit;">
 
             </div>
-        </div>
+        </div> --}}
         <!-- Copy until here -->
 
     </div>

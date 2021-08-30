@@ -5,17 +5,19 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-
+            @can('admin.egresos.create')
+                
             <a href="{{ route('admin.egresos.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
-                    class="fas fa-plus mt-2 px-3"></i>
+                class="fas fa-plus mt-2 px-3"></i>
             </a>
+            @endcan
         </div>
     </div>
     <div class="card-body table-responsive">
         @if ($egresos->count())
             <table class="table table-striped table-hover text-nowrap">
                 <thead>
-                    <tr>
+                    <tr class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('correlativo')">
@@ -31,7 +33,7 @@
                             @endif
 
                         </th>
-                        <th scope="col" role="button"
+                        {{-- <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('user_id')">
                             Responsable
@@ -44,11 +46,11 @@
                             @else
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
-                        </th>
+                        </th> --}}
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('empleado_id')">
-                            Proveedor
+                            Solicitante
                             @if ($sort == 'empleado_id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -59,9 +61,14 @@
                                 <i class="fas fa-sort float-right mt-1"></i>
                             @endif
                         </th>
+                        <th>
+                            Departamento
+                        </th>
+                        @can('admin.egresos.estatuegresos')
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Estatus
                         </th>
+                        @endcan
                         <th colspan="2"></th>
                     </tr>
                 </thead>
@@ -71,14 +78,18 @@
 
                             <td> <a
                                     href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->correlativo }}</a>
-                            <td> <a
+                            {{-- <td> <a
                                     href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->user->name . ' - ' . $egreso->user->last_name }}</a>
-                            </td>
+                            </td> --}}
                             <td> <a
                                     href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->empleado->display_empleado }}</a>
                             </td>
+                            <td> <a
+                                href="{{ route('admin.egresos.show', $egreso->id) }}">{{ $egreso->empleado->departamento->nombre }}</a>
+                        </td>
                             <td>
                                 @if ($egreso->estatus == 1)
+                                    @can('admin.egresos.estatuegresos')
                                     <form class="anular" action="{{ route('admin.egresos.estatuegreso', $egreso) }}"
                                         method="get">
                                         @csrf
@@ -86,6 +97,7 @@
                                             <i class="fas fa-check-circle"></i> Procesado
                                         </button>
                                     </form>
+                                    @endcan
                                 @else
                                     <p class="btn  btn-danger btn-sm disabled text-white  elevation-4">
                                         <i class="fas fa-times-circle"></i> Anulado &nbsp; &nbsp;

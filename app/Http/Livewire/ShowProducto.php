@@ -25,6 +25,7 @@ class ShowProducto extends Component
     public function render()
     {
         $productos = Producto::where('nombre', 'like', '%' . $this->search . '%')
+                   ->orWhere('id', 'like', '%' . $this->search . '%')
                    ->orWhere('unidad_medida', 'like', '%' . $this->search . '%')
                    ->orWhere('minimo', 'like', '%' . $this->search . '%')
                    ->orWhere('maximo', 'like', '%' . $this->search . '%')

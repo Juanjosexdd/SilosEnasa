@@ -110,10 +110,12 @@ class SolicitudController extends Controller
 
     public function show($id)
     {
+        
         $empresa=DB::table('empresas as e')
             ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
-
-        $solicitud = Solicitud::find($id);
+            
+            $solicitud = Solicitud::find($id);
+            $this->authorize('author',$solicitud);
 
         $detalles = Detallesolicitud::join('productos','detalle_solicituds.producto_id','=','productos.id')
              ->select('productos.nombre as producto',

@@ -24,6 +24,12 @@ use App\Models\Solicitud;
 
 class RequisicionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.requisicions.index')->only('index');
+        $this->middleware('can:admin.requisicions.create')->only('create', 'store');
+        $this->middleware('can:admin.requisicions.estaturequisicions')->only('estaturequisicions');
+    }
 
     public function index()
     {
@@ -69,6 +75,9 @@ class RequisicionController extends Controller
     {
         //return dd($request);
         //return $request;
+        $request->validate([
+            'empleado_id' => 'required|not_in:0',
+        ]);
              
         try {
             DB::beginTransaction();

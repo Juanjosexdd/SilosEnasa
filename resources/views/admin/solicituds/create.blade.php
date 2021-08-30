@@ -6,21 +6,21 @@
 @section('content')
     @include('sweetalert::alert')
     <x-card-header>
-            <h3 class="text-white">Registrar nueva solicitud</h3>
+        <h3 class="text-white">Registrar nueva solicitud</h3>
         </div>
     </x-card-header>
-    
+
     <div class="container">
 
         <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
-                {!! Form::open(['route' => 'admin.solicituds.store']) !!}
+                {!! Form::open(['route' => 'admin.solicituds.store', 'autocomplete' => 'off', 'class' => 'confirmar']) !!}
                 <div class="row">
                     <div class="col-md-6">
                         {!! Form::label('departamento_id', 'Unidad solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
-                            <input type="text" class="form-control"
-                            value="{{ Auth::user()->departamento->nombre}}" disabled>
+                            <input type="text" class="form-control" value="{{ Auth::user()->departamento->nombre }}"
+                                disabled>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -33,16 +33,18 @@
                             {!! Form::label('correlativo', 'Solicitud Nro. : ', ['class' => 'text-blue ']) !!}
                             <div class="input-group">
                                 @if (count($solicituds) == 0)
-                                    <input type="text" value="00001" class="form-control" name="correlativo" id="correlativo">
+                                    <input type="text" value="00001" class="form-control" name="correlativo"
+                                        id="correlativo">
                                 @else
-                                    <input type="text" value="{{number_format($solicituds->last()->id + 1)}}" class="form-control" name="correlativo" id="correlativo" disabled>
+                                    <input type="text" value="{{ number_format($solicituds->last()->id + 1) }}"
+                                        class="form-control" name="correlativo" id="correlativo" disabled>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="col-md-4">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
@@ -53,7 +55,7 @@
                         <div class="form-group">
                             {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
-                                {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
+                                {!! Form::text('pobservacionp', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Observacion']) !!}
                             </div>
                         </div>
                     </div>
@@ -61,7 +63,7 @@
                         <div class="form-group">
                             {!! Form::label('pcantidad', 'Cantidad ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
-                                {!! Form::number('pcantidad', null, ['class' => 'form-control', 'placeholder' => 'Cantidad']) !!}
+                                {!! Form::number('pcantidad', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Cantidad']) !!}
                             </div>
                         </div>
                     </div>
@@ -101,7 +103,8 @@
                     <div class="col-md-12 guardar" id="guardar">
                         {{-- <input name="_token" value="{{ csrf_token() }}" type="hidden"> --}}
                         {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block elevation-4']) !!}
-                        <a href="{{route('admin.solicituds.index')}}" class="btn btn-danger btn-block elevation-4">Cancelar</a>
+                        <a href="{{ route('admin.solicituds.index') }}"
+                            class="btn btn-danger btn-block elevation-4">Cancelar</a>
                         {{-- {!! Form::reset('Cancelar', ['class' => 'btn btn-danger btn-block elevation-4']) !!} --}}
 
                     </div>
@@ -111,7 +114,7 @@
         </div>
     </div>
 
- 
+
 @stop
 
 @section('footer')
@@ -128,10 +131,23 @@
     <script src="{{ asset('vendor/select2/select2.full.min.js') }}"></script>
     <script src=" {{ asset('vendor/sweetalert2.js') }}  "></script>
     <script src=" {{ asset('vendor/sweetalert-eliminar.js') }} "></script>
+    <script src=" {{ asset('vendor/sweetalert-confirmar.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-estatus.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-estatus2.js') }} "></script>
 
     <script>
+        const $elementos = document.querySelectorAll(".prevenir-envio");
+
+        $elementos.forEach(elemento => {
+            elemento.addEventListener("keydown", (evento) => {
+                if (evento.key == "Enter") {
+                    // Prevenir
+                    evento.preventDefault();
+                    return false;
+                }
+            });
+        });
+        //////////////////////////////////////////////
         $('.select2').select2({
             placeholder: 'Selecciona una opcion'
         });
@@ -142,7 +158,7 @@
             });
         });
 
-        var cont=0;
+        var cont = 0;
         $("#guardar").hide();
 
         function agregar() {
@@ -151,11 +167,13 @@
             cantidad = $("#pcantidad").val();
             observacionp = $("#pobservacionp").val();
 
-            if (producto_id != "" && cantidad > 0 ) {
+            if (producto_id != "" && cantidad > 0) {
                 var fila = '<tr class="selected" id="fila' + cont +
                     '"><td><button type="button" class="btn btn-warning btn-sm" onclick="eliminar(' + cont +
                     ');">X</button></td><td><input type="hidden" name="producto_id[]" value="' + producto_id + '">' +
-                    producto + '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' + cantidad +
+                    producto +
+                    '</td><td><input type="number" class="form-control form-control-sm" name="cantidad[]" value="' +
+                    cantidad +
                     '"></td><td><input type="text" class="form-control form-control-sm" name="observacionp[]" value="' +
                     observacionp +
                     '"></td></tr>';
@@ -173,13 +191,13 @@
         }
 
         function evaluar(cont) {
-            if (cont>0) {
-                $("#guardar").show();   
-            }else{
+            if (cont > 0) {
+                $("#guardar").show();
+            } else {
                 $("#guardar").hide();
             }
         }
-        
+
         function limpiar() {
             $("#pproducto_id").val(" ");
             $("#pcantidad").val("");

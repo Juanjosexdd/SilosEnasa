@@ -164,6 +164,7 @@ return [
         'clacificacion_id' => 'clacificacion',
         'departamento_id' => 'departamento',
         'cargo_id' => 'cargo',
+        'empleado_id' => 'Solicitante',
         'username' => 'nombre de usuario',
         'email'                 => 'correo electrónico',
         'first_name'            => 'nombre',

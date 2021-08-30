@@ -74,6 +74,7 @@
                             </td>
                             <td width="4px">
                                 <div class="btn-group">
+                                    @can('admin.almacens.estatualmacen')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157)">
                                         @if ($almacen->estatus == 1)
@@ -98,10 +99,15 @@
                                             </form>
                                         @endif
                                     </a>
+                                    @endcan
+                                    @can('admin.almacens.edit')
+                                        
                                     <a class="btn btn-default btn-sm"
-                                        style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
-                                        href=" {{ route('admin.almacens.edit', $almacen) }} "><i
-                                            class="fas fa-edit text-blue"></i></a>
+                                    style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
+                                    href=" {{ route('admin.almacens.edit', $almacen) }} "><i
+                                    class="fas fa-edit text-blue"></i></a>
+                                    @endcan
+                                    @can('admin.almacens.destroy')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
                                         <form class="formulario-eliminar"
@@ -113,8 +119,8 @@
                                                     class="fas fa-trash"></i></button>
                                         </form>
                                     </a>
+                                    @endcan
                                 </div>
-
                             </td>
                         </tr>
                     @endforeach

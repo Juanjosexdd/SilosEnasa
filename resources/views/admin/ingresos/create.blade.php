@@ -11,60 +11,68 @@
 
     <x-card-body>
 
-        {!! Form::open(['route' => 'admin.ingresos.store']) !!}
+        {!! Form::open(['route' => 'admin.ingresos.store', 'autocomplete' => 'off', 'class' => 'confirmar']) !!}
         <div class="row">
             <div class="col-md-5">
                 {!! Form::label('proveedor_id', 'Proveedor : ', ['class' => 'text-blue']) !!}
                 <div class="input-group">
-                    {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control  select2' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!} {{-- <button type="button" class="btn bg-navy elevation-4 ml-1" style="border-radius: 100%"><i class="fas fa-plus"></i></button> --}}
+                    {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control  select2' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                     {!! $errors->first('proveedor_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                 </div>
             </div>
-            <div class="col-md-5">
+            {{-- <div class="col-md-5">
                 <label class="text-blue" for="nombre">Requisición nro. :</label>
                 <select class="form-control select2" name="requisicion_id" id="requisicion_id" data-live-search="true"
                     required>
                     <option class="text-muted" value="0">Selecciona una opción</option>
-                    @foreach ($requisicions as $prod)
-                        <option value="{{ $prod->id }}">{{ $prod->correlativo }} - {{ $prod->departamento }}
+                    @foreach ($requisicions as $requisicion)
+                        <option value="{{ $requisicion->id }}">{{ $requisicion->correlativo }} - {{ $requisicion->departamento }}
+                        </option>
+                    @endforeach
+                </select>
+            </div> --}}
+            <div class="col-md-5">
+                <label class="text-blue" for="requisicion_id">Requisición nro. :</label>
+                <select class="form-control select2" name="requisicion_id" id="requisicion_id">
+                    <option class="text-muted" value="0">Selecciona una opción</option>
+                    @foreach ($requisicions as $requisicion)
+                        <option value="{{ $requisicion->id }}">{{ $requisicion->correlativo }} - {{$requisicion->empleado->departamento->nombre}}
                         </option>
                     @endforeach
                 </select>
             </div>
-            
             <div class="col-md-2">
                 <div class="form-group">
                     {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
                     <div class="input-group">
                         @if (count($ingresos) == 0)
-                            <input type="text" value="" class="form-control" name="correlativo" id="correlativo">
+                            <input type="text" value="" class="form-control prevenir-envio" name="correlativo"
+                                id="correlativo">
+                            {!! $errors->first('correlativo', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         @else
                             <input type="text" value="{{ number_format($ingresos->last()->correlativo + 1, 0, '', '') }}"
-                                class="form-control" name="correlativo" id="correlativo">
+                                class="form-control prevenir-envio" name="correlativo" id="correlativo">
                         @endif
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mb-3">
-            {{-- <div class="col-md-6">
-                {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
-                <div class="input-group">
-                    {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'data-live-search' => 'true', 'placeholder' => '']) !!}
-                </div>
-            </div> --}}
             <div class="col-md-3">
                 <label class="text-blue" for="pproducto_id">Producto :</label>
-                <select class="form-control  selectpicker select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
-                <option value="0">Seleccione una opción</option>
-                @foreach($productos as $prod)
-                <option value="{{$prod->id}}_{{$prod->marca}}_{{$prod->observacionp}}_{{$prod->ubicacion}}">{{$prod->abreviado}}{{$prod->id}} - {{$prod->nombre}}</option>
-                @endforeach
+                <select class="form-control  selectpicker select2" name="pproducto_id" id="pproducto_id"
+                    data-live-search="true">
+                    <option value="0">Seleccione una opción</option>
+                    @foreach ($productos as $prod)
+                        <option
+                            value="{{ $prod->id }}_{{ $prod->marca }}_{{ $prod->observacionp }}_{{ $prod->ubicacion }}">
+                            {{ $prod->abreviado }}{{ $prod->id }} - {{ $prod->nombre }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-3">
                 <label class="text-blue" for="pproducto_id">Marca :</label>
-                <input type="text" id="marca" name="marca" class="form-control" placeholder="">
+                <input type="text" id="marca" name="marca" class="form-control prevenir-envio" placeholder="">
             </div>
             <div class="col-md-3">
                 {!! Form::label('palmacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
@@ -85,7 +93,7 @@
                 <div class="form-group">
                     {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
                     <div class="input-group mb-3">
-                        {!! Form::text('pobservacionp', null, ['class' => 'form-control', 'placeholder' => 'Observacion']) !!}
+                        {!! Form::text('pobservacionp', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Observacion']) !!}
                     </div>
                 </div>
             </div>
@@ -93,7 +101,7 @@
                 <div class="form-group">
                     {!! Form::label('pubicacion', 'Ubicación del Producto: ', ['class' => 'text-blue ']) !!}
                     <div class="input-group mb-3">
-                        {!! Form::text('pubicacion', null, ['class' => 'form-control', 'placeholder' => 'Ubicación']) !!}
+                        {!! Form::text('pubicacion', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Ubicación']) !!}
                     </div>
                 </div>
             </div>
@@ -102,7 +110,7 @@
                 <div class="form-group">
                     {!! Form::label('pcantidad', 'Cantidad :', ['class' => 'text-blue ']) !!}
                     <div class="input-group mb-3">
-                        {!! Form::number('pcantidad', null, ['class' => 'form-control', 'placeholder' => 'Cantidad']) !!}
+                        {!! Form::number('pcantidad', null, ['class' => 'form-control prevenir-envio', 'placeholder' => 'Cantidad']) !!}
                     </div>
                 </div>
             </div>
@@ -129,7 +137,7 @@
                         <th></th>
                         <th class="col-1"></th>
                         <th></th>
-                        <th></th>
+                        <th class="col-1"></th>
                         <th></th>
                         <th></th>
                     </tfoot>
@@ -146,7 +154,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 guardar" id="guardar">
-                {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block elevation-4']) !!}
+                {!! Form::submit('Guardar', ['class' => 'btn bg-navy btn-block elevation-4 ']) !!}
                 <button type="reset" class="btn btn-danger btn-block elevation-4">Cancelar</button>
 
             </div>
@@ -176,8 +184,23 @@
     <script src=" {{ asset('vendor/sweetalert-eliminar.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-estatus.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-estatus2.js') }} "></script>
+    <script src=" {{ asset('vendor/sweetalert-anular.js') }} "></script>
+    <script src=" {{ asset('vendor/sweetalert-confirmar.js') }} "></script>
+
 
     <script>
+        const $elementos = document.querySelectorAll(".prevenir-envio");
+
+        $elementos.forEach(elemento => {
+            elemento.addEventListener("keydown", (evento) => {
+                if (evento.key == "Enter") {
+                    // Prevenir
+                    evento.preventDefault();
+                    return false;
+                }
+            });
+        });
+        //////////////////////////////////////////////
         $('.select2').select2({
             placeholder: 'Selecciona una opción'
         });
@@ -192,23 +215,23 @@
         $("#guardar").hide();
         $("#pproducto_id").change(mostrarValores);
 
-     function mostrarValores(){
-         datosProducto = document.getElementById('pproducto_id').value.split('_');
-         $("#marca").val(datosProducto[1]);
-         $("#pobservacionp").val(datosProducto[2]);
-         $("#pubicacion").val(datosProducto[3]);
+        function mostrarValores() {
+            datosProducto = document.getElementById('pproducto_id').value.split('_');
+            $("#marca").val(datosProducto[1]);
+            $("#pobservacionp").val(datosProducto[2]);
+            $("#pubicacion").val(datosProducto[3]);
 
-     }
-     
-     
-     
-     function agregar() {
+        }
+
+
+
+        function agregar() {
             datosProducto = document.getElementById('pproducto_id').value.split('_');
 
             // producto_id = $("#pproducto_id").val();
-            producto_id= datosProducto[0];
+            producto_id = datosProducto[0];
 
-            marca= $("#marca").val();
+            marca = $("#marca").val();
             ubicacion = $("#pubicacion").val();
             producto = $("#pproducto_id option:selected").text();
             almacen = $("#palmacen_id option:selected").text();
