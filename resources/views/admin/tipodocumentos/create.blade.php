@@ -5,7 +5,7 @@
 
 @section('content')
     <x-card-header>
-        <h3 class="text-white">Crear un nuevo tipo de docimento</h3>
+        <h3 class="text-white">Crear un nuevo tipo de documento</h3>
     </x-card-header>
     <x-card-body>
         {!! Form::open(['route' => 'admin.tipodocumentos.store']) !!}

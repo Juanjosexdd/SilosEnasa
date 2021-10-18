@@ -10,10 +10,6 @@
     </x-card-header>
 
     <x-card-body>
-        <a href=" {{ route('admin.almacens.index') }} " class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4"><i
-                class="fas fa-reply"></i> Volver</a>
-        <p class="h3 text-blue">Almacenes</p>
-        <hr>
         {!! Form::open(['route' => 'admin.almacens.store']) !!}
         @include('admin.almacens.partials.form')
         {!! Form::submit('Guardar almacen', ['class' => 'btn bg-navy btn-block']) !!}

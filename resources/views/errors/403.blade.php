@@ -33,7 +33,7 @@
                     <br>
                     <br>
                     <br>
-                    <h3>Estas intentando acceder a una rutaa la que no estas autorizado...</h3>
+                    <h3>Estas intentando acceder a una ruta a la que no estas autorizado...</h3>
                 <h5>Ponte en contacto con la oficina de TI</h5>
                 <h2><a href="{{route('admin.home')}}">Ir al Inicio!</a></h2>
                 </div>

@@ -235,7 +235,7 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Dashboard',
+            'text'        => 'Inicio',
             'url'         => 'admin',
             'icon'        => 'fas fa-tachometer-alt fa-fw text-blue'
         ],

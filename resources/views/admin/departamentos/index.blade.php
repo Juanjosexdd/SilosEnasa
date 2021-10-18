@@ -6,7 +6,7 @@
     @include('sweetalert::alert')
 
     <x-card-header>
-        <h3 class="text-white">Lista de tipos de documentos</h3>
+        <h3 class="text-white">Lista de departamentos</h3>
     </x-card-header>
 
     <div class="container">

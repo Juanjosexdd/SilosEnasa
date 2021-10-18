@@ -12,14 +12,9 @@
 @endsection
 
 @section('content')
-
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body">
-                <h3 class="text-blue h3">Perfil de {{ auth()->user()->display_user }}</h3>
-            </div>
-        </div>
-    </div>
+    <x-card-header>
+        <h3 class="text-white h3">Perfil de {{ auth()->user()->display_user }}</h3>
+    </x-card-header>
     <div class="container">
         <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
             <div class="card-body">
@@ -43,7 +38,7 @@
                             <x-jet-section-border />
                         @endif
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -53,31 +48,30 @@
 @stop
 
 @section('js')
-<script>
-    function sendMarkRequest(id = null) {
-        return $.ajax("{{ route('markNotification') }}", {
-            method: 'POST',
-            data: {
-                _token: "{{ csrf_token() }}",
-                id
-            }
-        });
-    }
-    $(function() {
-        $('.mark-as-read').click(function() {
-            let request = sendMarkRequest($(this).data('id'));
-            request.done(() => {
-                $(this).parents('div.alert').remove();
+    <script>
+        function sendMarkRequest(id = null) {
+            return $.ajax("{{ route('markNotification') }}", {
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id
+                }
+            });
+        }
+        $(function() {
+            $('.mark-as-read').click(function() {
+                let request = sendMarkRequest($(this).data('id'));
+                request.done(() => {
+                    $(this).parents('div.alert').remove();
+                });
+            });
+            $('#mark-all').click(function() {
+                let request = sendMarkRequest();
+
+                request.done(() => {
+                    $('div.alert').remove();
+                })
             });
         });
-        $('#mark-all').click(function() {
-            let request = sendMarkRequest();
-
-            request.done(() => {
-                $('div.alert').remove();
-            })
-        });
-    });
-
-</script>
+    </script>
 @stop
