@@ -74,3 +74,7 @@ Route::get('estatuegreso/{egreso}', [EgresoController::class, 'estatuegreso'])->
 Route::get('estaturequisicion/{requisicion}', [RequisicionController::class, 'estaturequisicion'])->name('admin.requisicions.estaturequisicion');
 Route::get('estatusolicitud/{solicitud}', [SolicitudController::class, 'estatusolicitud'])->name('admin.solicituds.estatusolicitud');
 
+//PDFS
+
+Route::get('pdfIngreso/{ingreso}', [IngresoController::class, 'pdf'])->name('admin.pdfIngreso');
+Route::get('pdfEgreso/{ingreso}', [EgresoController::class, 'pdf'])->name('admin.pdfEgreso');

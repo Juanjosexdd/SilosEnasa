@@ -18,12 +18,14 @@ use Illuminate\Support\Collection;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EgresoFormRequest;
+use App\Models\Cargo;
 use App\Models\Departamento;
 use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
 use App\Models\Solicitud;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class EgresoController extends Controller
 {
@@ -203,5 +205,29 @@ class EgresoController extends Controller
 
             return redirect()->route('admin.egresos.index')->with('success', 'El documento se anuló con éxito!');
         }
+    }
+
+    public function pdf(Request $request,$id){
+
+        $compra = Cargo::find(1);
+        $almacen = Cargo::find(2);
+
+        $egreso = Egreso::find($id);
+        
+
+        $detalles = Detalleegreso::join('productos','detalle_egreso.producto_id','=','productos.id')
+             ->select('productos.nombre as producto',
+                      'detalle_egreso.cantidad',
+                      'detalle_egreso.observacionp',
+                      'detalle_egreso.created_at',
+                      'detalle_egreso.updated_at',)
+             ->where('detalle_egreso.egreso_id','=',$id)
+             ->orderBy('detalle_egreso.id', 'desc')->get();
+
+        $numegreso=Egreso::select('id')->where('id',$id)->get();
+
+        $pdf = PDF::loadView('admin/pdf/egreso',['egreso'=>$egreso,'detalles'=>$detalles,'compra'=>$compra,'almacen'=>$almacen]);
+        return $pdf->stream('admin/egreso-'.$numegreso[0]->id.'.pdf');
+        //return $pdf->download('egreso.pdf');
     }
 }

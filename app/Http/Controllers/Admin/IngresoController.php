@@ -26,6 +26,7 @@ use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
 use App\Models\Requisicion;
 use App\Notifications\IngresoNotification;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 
 class IngresoController extends Controller
@@ -291,5 +292,35 @@ class IngresoController extends Controller
                 return $query->where('id', $request->input('id'));
             })->markAsRead();
         return response()->noContent();
+    }
+
+
+    public function pdf(Request $request,$id){
+
+        $ingreso = Ingreso::find($id);
+
+        $compra = Cargo::find(1);
+        $almacen = Cargo::find(2);
+
+        $detalles = Detalleingreso::join('productos', 'detalle_ingreso.producto_id', '=', 'productos.id')
+            ->join('almacens', 'detalle_ingreso.almacen_id', '=', 'almacens.id')
+            ->select(
+                'productos.nombre as producto',
+                'productos.unidad_medida as unidad',
+                'productos.marca as marca',
+                'almacens.nombre as almacen',
+                'detalle_ingreso.cantidad',
+                'detalle_ingreso.observacionp',
+                'detalle_ingreso.created_at',
+                'detalle_ingreso.updated_at',
+            )
+            ->where('detalle_ingreso.ingreso_id', '=', $id)
+            ->orderBy('detalle_ingreso.id', 'desc')->get();
+
+        $numingreso=Ingreso::select('id')->where('id',$id)->get();
+
+        $pdf = PDF::loadView('admin/pdf/ingreso',['ingreso'=>$ingreso,'detalles'=>$detalles,'compra'=>$compra,'almacen'=>$almacen]);
+        return $pdf->stream('admin/ingreso-'.$numingreso[0]->id.'.pdf');
+        //return $pdf->download('ingreso.pdf');
     }
 }
