@@ -291,6 +291,12 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Reportes',
+            'route'  => 'admin.report.index',
+            'icon' => 'fas fa-clipboard-list text-blue',
+            'active' => ['admin/report*'],
+        ],
         ['header' => 'INVENTARIO',
         'can'  => 'inventariosistema'],
         [

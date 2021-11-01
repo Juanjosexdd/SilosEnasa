@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\IngresoController;
 use App\Http\Controllers\Admin\RequisicionController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\LogsistemaController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SolicitudController;
 
@@ -45,6 +46,7 @@ Route::resource('logins', LoginController::class)->names('admin.logins');
 Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
+Route::resource('report', ReportController::class)->names('admin.report');
 Route::view('backup', 'laravel_backup_panel::layout');
 
 Route::get('markAsRead', function(){
@@ -77,4 +79,9 @@ Route::get('estatusolicitud/{solicitud}', [SolicitudController::class, 'estatuso
 //PDFS
 
 Route::get('pdfIngreso/{ingreso}', [IngresoController::class, 'pdf'])->name('admin.pdfIngreso');
-Route::get('pdfEgreso/{ingreso}', [EgresoController::class, 'pdf'])->name('admin.pdfEgreso');
+Route::get('pdfEgreso/{egreso}', [EgresoController::class, 'pdf'])->name('admin.pdfEgreso');
+Route::get('pdfRequisicion/{requisicion}', [RequisicionController::class, 'pdf'])->name('admin.pdfRequisicion');
+Route::get('pdfSolicitud/{solicitud}', [SolicitudController::class, 'pdf'])->name('admin.pdfSolicitud');
+
+
+Route::get('solicitudes-list-pdf',[SolicitudController::class, 'exportPdf'])->name('admin.solicitudes.pdf');

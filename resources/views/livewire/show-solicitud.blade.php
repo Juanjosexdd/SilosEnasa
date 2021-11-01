@@ -125,6 +125,11 @@
                             </td>
                             <td>
                                 <div class="btn-group">
+                                    <a href="{{url('admin/pdfSolicitud',$solicitud)}}" target="_blank">
+                                        <button type="button" style="border-color: rgb(158, 157, 157);" class="btn btn-default elevation-4 btn-sm">
+                                          <i class="far fa-fw fa-file-pdf text-red"></i>
+                                        </button> &nbsp;
+                                     </a>
                                     <a class="btn btn-default elevation-4 btn-sm"
                                         style="border-color: rgb(158, 157, 157);"
                                         href=" {{ route('admin.solicituds.show', $solicitud->id) }} ">

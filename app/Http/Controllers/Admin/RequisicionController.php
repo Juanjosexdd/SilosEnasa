@@ -21,6 +21,8 @@ use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
 use App\Models\Solicitud;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class RequisicionController extends Controller
 {
@@ -186,5 +188,26 @@ class RequisicionController extends Controller
 
             return redirect()->route('admin.requisicions.index')->with('success', 'El documento se anuló con éxito!');
         }
+    }
+
+    public function pdf(Request $request,$id){
+
+
+        $requisicion = Requisicion::find($id);
+
+        $detalles = Detallerequisicion::join('productos','detalle_requisicion.producto_id','=','productos.id')
+             ->select('productos.nombre as producto',
+                      'detalle_requisicion.cantidad',
+                      'detalle_requisicion.observacionp',
+                      'detalle_requisicion.created_at',
+                      'detalle_requisicion.updated_at')
+             ->where('detalle_requisicion.requisicion_id','=',$id)
+             ->orderBy('detalle_requisicion.id', 'desc')->get();
+
+        $numrequisicion=Requisicion::select('id')->where('id',$id)->get();
+
+        $pdf = PDF::loadView('admin/pdf/requisicion',['requisicion'=>$requisicion,'detalles'=>$detalles]);
+        return $pdf->stream('admin/requisicion-'.$numrequisicion[0]->id.'.pdf');
+        //return $pdf->download('egreso.pdf');
     }
 }

@@ -14,7 +14,11 @@
         </div>
         <div class="col-md-5">
             <div class="float-right">
-
+                <a href="{{url('admin/pdfSolicitud',$solicitud)}}" target="_blank">
+                    <button type="button" style="border-color: rgb(158, 157, 157);" class="btn btn-default btn-sm px-3 py-2 elevation-4">
+                      <i class="far fa-fw fa-file-pdf text-red"></i> Exportar PDF
+                    </button> &nbsp;
+                 </a>
                 <a href=" {{ route('admin.solicituds.index') }} "
                     class="float-right btn btn-default btn-sm px-3 py-2 elevation-4"><i class="fas fa-reply"></i> Volver</a>
             </div>

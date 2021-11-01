@@ -20,10 +20,32 @@ use App\Models\Empleado;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class SolicitudController extends Controller
 {
+    public function exportPdf(Request $request){
 
+        if($request){
+            $sql=trim($request->get('desde'));
+            $sql1=trim($request->get('hasta'));
+            $sql2=trim($request->get('user_id'));
+
+            $solicitudes=Solicitud::whereBetween('created_at',[$sql, $sql1])->get();
+            $detalles = Detallesolicitud::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_solicituds.cantidad',
+                'detalle_solicituds.observacionp',
+                'detalle_solicituds.created_at',
+                'detalle_solicituds.updated_at',
+            )->orderBy('detalle_solicituds.id', 'desc')->get();
+            
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.solicitudes', compact('solicitudes','today','detalles'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-solicitudes.pdf');
+        }
+    }
     public function index()
     {
         $log = new LogSistema();
@@ -34,7 +56,7 @@ class SolicitudController extends Controller
 
         return view('admin.solicituds.index');
     }
-    
+
     public function create()
     {
         $log = new LogSistema();
@@ -45,30 +67,30 @@ class SolicitudController extends Controller
 
         $solicituds     = Solicitud::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
-        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos  = Producto::where('estatus', 1)->get()->pluck('display_product','id');
-        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
-        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
+        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
+        $productos  = Producto::where('estatus', 1)->get()->pluck('display_product', 'id');
+        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento', 'id');
+        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
 
-        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
+        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
 
-        return view('admin.solicituds.create', compact('solicituds','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.solicituds.create', compact('solicituds', 'departamentos', 'users', 'almacens', 'productos', 'clacificaciones', 'tipodocumentos', 'tipomovimientos'));
     }
-    
+
     public function store(Request $request)
     {
         //return dd($request);
         //return $request;
-             
+
         try {
             DB::beginTransaction();
-            
-            $solicitud= new Solicitud();
-            
-            $solicitud->departamento_id= auth()->user()->departamento->id;
-            $solicitud->observacion=$request->get('observacion');
+
+            $solicitud = new Solicitud();
+
+            $solicitud->departamento_id = auth()->user()->departamento->id;
+            $solicitud->observacion = $request->get('observacion');
             $solicitud->user_id = auth()->user()->id;
             $solicitud->save();
 
@@ -77,27 +99,25 @@ class SolicitudController extends Controller
             $observacionp = $request->get('observacionp');
 
             $cont = 0;
-            
-            while($cont < count($producto_id))
-            {
+
+            while ($cont < count($producto_id)) {
                 $detalle = new Detallesolicitud();
-                $detalle->solicitud_id=$solicitud->id;
-                $detalle->producto_id=$producto_id[$cont];
-                $detalle->cantidad=$cantidad[$cont];
-                $detalle->observacionp=$observacionp[$cont];
+                $detalle->solicitud_id = $solicitud->id;
+                $detalle->producto_id = $producto_id[$cont];
+                $detalle->cantidad = $cantidad[$cont];
+                $detalle->observacionp = $observacionp[$cont];
 
                 $detalle->save();
-                
-                $cont = $cont+1;
-            }
-            
-            DB::commit();
 
+                $cont = $cont + 1;
+            }
+
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
         }
 
-        
+
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
@@ -110,40 +130,41 @@ class SolicitudController extends Controller
 
     public function show($id)
     {
-        
-        $empresa=DB::table('empresas as e')
-            ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
-            
-            $solicitud = Solicitud::find($id);
-            $this->authorize('author',$solicitud);
 
-        $detalles = Detallesolicitud::join('productos','detalle_solicituds.producto_id','=','productos.id')
-             ->select('productos.nombre as producto',
-                      'detalle_solicituds.cantidad',
-                      'detalle_solicituds.observacionp',
-                      'detalle_solicituds.created_at',
-                      'detalle_solicituds.updated_at',)
-             ->where('detalle_solicituds.solicitud_id','=',$id)
-             ->orderBy('detalle_solicituds.id', 'desc')->get();
-        return view('admin.solicituds.show', compact('solicitud','detalles'));
+        $empresa = DB::table('empresas as e')
+            ->select('e.id', 'e.nombre', 'e.rif', 'e.descipcion', 'e.direccion');
+
+        $solicitud = Solicitud::find($id);
+        $this->authorize('author', $solicitud);
+
+        $detalles = Detallesolicitud::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_solicituds.cantidad',
+                'detalle_solicituds.observacionp',
+                'detalle_solicituds.created_at',
+                'detalle_solicituds.updated_at',
+            )
+            ->where('detalle_solicituds.solicitud_id', '=', $id)
+            ->orderBy('detalle_solicituds.id', 'desc')->get();
+        return view('admin.solicituds.show', compact('solicitud', 'detalles'));
     }
 
     public function edit(Solicitud $solicitud)
     {
-        $this->authorize('author',$solicitud);
+        $this->authorize('author', $solicitud);
     }
 
     public function update(Request $request, Solicitud $solicitud)
     {
-        
     }
 
     public function destroy($id)
     {
-        $this->authorize('author',$id);
+        $this->authorize('author', $id);
 
-        $solicitud=Solicitud::findOrFail($id);
-        $solicitud->estatus=2;
+        $solicitud = Solicitud::findOrFail($id);
+        $solicitud->estatus = 2;
         $solicitud->update();
         return view('admin.solicituds.index');
     }
@@ -162,5 +183,29 @@ class SolicitudController extends Controller
 
             return redirect()->route('admin.solicituds.index')->with('success', 'El documento se anuló con éxito!');
         }
+    }
+    public function pdf(Request $request, $id)
+    {
+
+
+        $solicitud = Solicitud::find($id);
+        $this->authorize('author', $solicitud);
+
+        $detalles = Detallesolicitud::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_solicituds.cantidad',
+                'detalle_solicituds.observacionp',
+                'detalle_solicituds.created_at',
+                'detalle_solicituds.updated_at',
+            )
+            ->where('detalle_solicituds.solicitud_id', '=', $id)
+            ->orderBy('detalle_solicituds.id', 'desc')->get();
+
+        $numsolicitud = Solicitud::select('id')->where('id', $id)->get();
+
+        $pdf = PDF::loadView('admin/pdf/solicitud', ['solicitud' => $solicitud, 'detalles' => $detalles]);
+        return $pdf->stream('admin/solicitud-' . $numsolicitud[0]->id . '.pdf');
+        //return $pdf->download('egreso.pdf');
     }
 }

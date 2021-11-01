@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ENASA | RECIBO DE EGRESO</title>
+    <title>ENASA | REQUISICIÓN {{$requisicion->correlativo}}</title>
     <link rel="stylesheet" href="adminlte.min.css">
     <style>
         body {
@@ -241,9 +241,12 @@
         .px-5 {
         padding-right: 3rem !important;
         }
+        .px-6 {
+        padding-right: 9rem !important;
+        }
 
         .pr-6,
-        .px-6 {
+        {
         padding-right: 7.8rem !important;
         }
         .mr-6,
@@ -269,50 +272,62 @@
                 <div style="border: 1px solid #dee2e6" class="p-2 rounded-lg text-secondary">
                     <div class="row ">
                         <div class="col-md-6 pl-4">
-                            @if ($egreso->solicitud)
+                            @if ($requisicion->solicitud)
                                 <span class="font-weight-bold">Departamento Solicitante : </span>
-                                {{ $egreso->solicitud->departamento->nombre }}
+                                {{ $requisicion->solicitud->departamento->nombre }}
                                 <br>
                                 <span class="font-weight-bold">Solicitante :</span>
-                                {{ $egreso->solicitud->user->name }}-{{ $egreso->solicitud->user->last_name }}
+                                {{ $requisicion->empleado->nombres }}-{{ $requisicion->empleado->apellidos }}
                                 <br>
                                 <span class="font-weight-bold">Cedula :</span>
-                                {{ $egreso->solicitud->user->tipodocumento->abreviado }}-{{ $egreso->solicitud->user->cedula }}
+                                {{ $requisicion->solicitud->user->tipodocumento->abreviado }}-{{ $requisicion->solicitud->user->cedula }}
                             @else
                                 <span class="font-weight-bold">Departamento Solicitante :</span>
-                                {{ $egreso->empleado->departamento->nombre }}
+                                {{ $requisicion->empleado->departamento->nombre }}
                                 <br>
                                 <span class="font-weight-bold">Solicitante :</span>
-                                {{ $egreso->empleado->nombres }}-{{ $egreso->empleado->apellidos }}
+                                {{ $requisicion->empleado->nombres }} {{ $requisicion->empleado->apellidos }}
                                 <br>
-                                <span class="font-weight-bold">Cedula : </span>
-                                {{ $egreso->empleado->tipodocumento->abreviado }}-{{ $egreso->empleado->cedula }}
-
+                                <span class="font-weight-bold">Cedula :</span>
+                                {{ $requisicion->empleado->tipodocumento->abreviado }}-{{ $requisicion->empleado->cedula }}
                             @endif
-                            <br>
-                            <span class="font-weight-bold">Tipo de movimiento : </span>
-                            {{ $egreso->tipomovimiento->descripcion }}
-                            <br>
+                            
                         </div>
                         <div class="col-md-6 float-right pr-4">
-                            <div class="">
-                                <span class="font-weight-bold">Acarigua,
-                                    {{ $egreso->created_at->format('d-m-Y') }}</span>
-                                <br>
-                                @if ($egreso->correlativo)
-                                    <span class="font-weight-bold">Egreso Nro. :</span>
-                                    {{ $egreso->correlativo }}</a>
+                            <span class="font-weight-bold">Acarigua,
+                                {{ $requisicion->created_at->format('d-m-Y') }}</span>
+                            <br>
+                            @if ($requisicion->solicitud)
+                                @if ($requisicion->solicitud->departamento)
+                                    <span class="font-weight-bold">Requisicion Nro. :</span>
+                                    RBMS-{{ $requisicion->solicitud->departamento->abreviado }}-{{ $requisicion->correlativo }}</a>
                                 @endif
                                 <br>
-                                @if ($egreso->solicitud)
-                                    <span class="font-weight-bold">Solicitud Nro. : </span>
-                                    {{ $egreso->solicitud->id }}
-                                @endif
-                                <br>
-                                <span class="font-weight-bold">Usuario : </span>
-                                {{ $egreso->user->display_user }}
+                                <span class="font-weight-bold">Solicitud Nro. : </span>
+                                
+                                    {{ $requisicion->solicitud->id }}
 
-                            </div>
+                            @else
+                                    <span class="font-weight-bold" target="_blank">Requisición Nro. :</span>
+                                    RBMS-{{ $requisicion->empleado->departamento->abreviado }}-{{ $requisicion->correlativo }}</a>
+                                    
+                            @endif
+                            
+                            <br>
+                            <span class="font-weight-bold">Usuario : </span>
+                            {{ $requisicion->user->display_user }}
+                            <br>
+                            <span class="font-weight-bold">Estatus :</span>
+                            @if ($requisicion->estatus == 0)
+                                Anulada 
+                            @elseif ($requisicion->estatus == 1)
+                               Pendiente 
+                            @elseif ($requisicion->estatus == 2)
+                               Aprobado 
+                        
+                            @elseif ($requisicion->estatus == 3)
+                               Solicitado a compras 
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -338,7 +353,7 @@
                 <hr>
                 <div style="border: 1px solid #dee2e6" class="p-4 rounded-lg">
                     <p class="p-2 text-secondary"><span class=" font-weight-bold">Observación:</span>
-                        {{ $egreso->observacion }}</p>
+                        {{ $requisicion->observacion }}</p>
                 </div>
                 <br>
                 <div class="text-center">
@@ -346,6 +361,7 @@
                         <thead class="p-4">
                             <tr class="p-4 text-secondary font-weight-bold">
                                 <th class=" p-4 px-6">Entrega :
+                                    
                                 </th>
                                 <th class="p-4 px-6">Recibe :
 
@@ -355,8 +371,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="height: 80px"></td>
-                                <td style="height: 80px"></td>
+                                <td height="80" width="200"></td>
+                                <td height="80" width="200"></td>
                             </tr>
                         </tbody>
                     </table>

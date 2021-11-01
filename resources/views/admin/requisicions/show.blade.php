@@ -14,6 +14,11 @@
         </div>
         <div class="col-md-5">
             <div class="float-right">
+                <a href="{{url('admin/pdfRequisicion',$requisicion)}}" target="_blank">
+                    <button type="button" style="border-color: rgb(158, 157, 157);" class="btn btn-default btn-sm px-3 py-2 elevation-4">
+                      <i class="far fa-fw fa-file-pdf text-red"></i> Exportar PDF
+                    </button> &nbsp;
+                 </a>
 
                 <a href=" {{ route('admin.requisicions.index') }} "
                     class="float-right btn btn-default btn-sm px-3 py-2 elevation-4"><i class="fas fa-reply"></i> Volver</a>
@@ -74,7 +79,7 @@
                                         {{ $requisicion->solicitud->id }}</a>
                                 @else
                                         <span class="font-weight-bold" target="_blank">Requisición Nro. :</span>
-                                        RBMS-{{ $requisicion->correlativo }}</a>
+                                    RBMS-{{ $requisicion->empleado->departamento->abreviado }}-{{ $requisicion->correlativo }}
                                 @endif
                                 
                                 <br>

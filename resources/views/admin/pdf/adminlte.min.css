@@ -13728,6 +13728,7 @@ body.text-sm .control-sidebar {
 .nav-tabs.flex-column .nav-link.active,
 .nav-tabs.flex-column .nav-item.show .nav-link {
   border-color: #dee2e6 transparent #dee2e6 #dee2e6;
+  
 }
 
 .nav-tabs.flex-column.nav-tabs-right {
