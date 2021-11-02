@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\LogsistemaController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SolicitudController;
+use App\Http\Controllers\Admin\SolicitudesController;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.home');
 Route::resource('users', UserController::class)->names('admin.users');
@@ -40,6 +41,7 @@ Route::resource('proveedors', ProveedorController::class)->names('admin.proveedo
 Route::resource('ingresos', IngresoController::class)->names('admin.ingresos');
 Route::resource('requisicions', RequisicionController::class)->names('admin.requisicions');
 Route::resource('solicituds', SolicitudController::class)->names('admin.solicituds');
+Route::resource('solicitudes', SolicitudesController::class)->names('admin.solicitudes');
 Route::resource('egresos', EgresoController::class)->names('admin.egresos');
 Route::resource('logs', LogsistemaController::class)->names('admin.logs');
 Route::resource('logins', LoginController::class)->names('admin.logins');
@@ -75,6 +77,7 @@ Route::get('estatuingreso/{ingreso}', [IngresoController::class, 'estatuingreso'
 Route::get('estatuegreso/{egreso}', [EgresoController::class, 'estatuegreso'])->name('admin.egresos.estatuegreso');
 Route::get('estaturequisicion/{requisicion}', [RequisicionController::class, 'estaturequisicion'])->name('admin.requisicions.estaturequisicion');
 Route::get('estatusolicitud/{solicitud}', [SolicitudController::class, 'estatusolicitud'])->name('admin.solicituds.estatusolicitud');
+Route::get('estatusolicitudes/{solicitudes}', [SolicitudesController::class, 'estatusolicitudes'])->name('admin.solicitudes.estatusolicitudes');
 
 //PDFS
 

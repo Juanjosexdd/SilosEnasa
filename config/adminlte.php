@@ -245,7 +245,7 @@ return [
             'icon'        => 'fas fa-user text-blue'
         ],
         [
-            'text' => 'Solicitudes',
+            'text' => 'Mis solicitudes',
             'route'  => 'admin.solicituds.index',
             'icon' => 'fas fa-clipboard-list text-blue',
             'active' => ['admin/solicituds*'],
@@ -288,6 +288,12 @@ return [
                     'icon' => 'fas fa-clipboard-list text-blue',
                     'active' => ['admin/requisicions*'],
                     'can'  => 'admin.requisicions.index',
+                ],
+                [
+                    'text' => 'Solicitudes',
+                    'route'  => 'admin.solicitudes.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/solicitudes*'],
                 ],
             ],
         ],

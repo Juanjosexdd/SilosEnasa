@@ -42,7 +42,7 @@ class SolicitudController extends Controller
             )->orderBy('detalle_solicituds.id', 'desc')->get();
             
             $today = Carbon::now()->format('d/m/Y');
-            $pdf = PDF::loadView('admin.pdf.solicitudes', compact('solicitudes','today','detalles'))->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('admin.pdf.solicitudes', compact('solicitudes','today'))->setPaper('a4', 'landscape');
             return $pdf->stream('listado-solicitudes.pdf');
         }
     }

@@ -10,7 +10,7 @@
         </div>
     </x-card-header>
 
-    <div class="container">
+    <div class="container m-2">
 
         <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
