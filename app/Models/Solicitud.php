@@ -34,4 +34,16 @@ class Solicitud extends Model
     {
         return $this->hasMany(Egreso::class);
     }
+
+    //Query Scope
+    public function scopeEstatus($query, $estatus)
+    {
+        if($estatus)
+            return $query->where('estatus','LIKE',"%$estatus%");
+    }
+    public function scopeUser($query, $user)
+    {
+        if($user)
+            return $query->where('user_id','LIKE',"%$user%");
+    }
 }

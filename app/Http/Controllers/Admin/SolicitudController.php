@@ -27,11 +27,16 @@ class SolicitudController extends Controller
     public function exportPdf(Request $request){
 
         if($request){
-            $sql=trim($request->get('desde'));
-            $sql1=trim($request->get('hasta'));
-            $sql2=trim($request->get('user_id'));
+            $sql=$request->get('desde');
+            $sql1=$request->get('hasta');
+            $user=$request->get('user_id');
+            $estatus=$request->get('estatus');
 
-            $solicitudes=Solicitud::whereBetween('created_at',[$sql, $sql1])->get();
+            $solicitudes=Solicitud::whereBetween('created_at',[$sql, $sql1])
+                                  ->estatus($estatus)
+                                  ->user($user)
+                                  ->get();
+            $users = User::all();
             $detalles = Detallesolicitud::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
             ->select(
                 'productos.nombre as producto',
@@ -42,7 +47,7 @@ class SolicitudController extends Controller
             )->orderBy('detalle_solicituds.id', 'desc')->get();
             
             $today = Carbon::now()->format('d/m/Y');
-            $pdf = PDF::loadView('admin.pdf.solicitudes', compact('solicitudes','today'))->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('admin.pdf.solicitudes', compact('solicitudes','today','users'))->setPaper('a4', 'landscape');
             return $pdf->stream('listado-solicitudes.pdf');
         }
     }

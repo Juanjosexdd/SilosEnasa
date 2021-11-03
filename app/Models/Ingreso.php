@@ -45,4 +45,17 @@ class Ingreso extends Model
     {
         return $this->hasManyThrough(Producto::class, Detalleingreso::class);
     }
+
+
+    //Query Scope
+    public function scopeEstatus($query, $estatus)
+    {
+        if($estatus)
+            return $query->where('estatus','LIKE',"%$estatus%");
+    }
+    public function scopeUser($query, $user)
+    {
+        if($user)
+            return $query->where('user_id','LIKE',"%$user%");
+    }
 }

@@ -28,7 +28,6 @@
                         <div class="input-group">
                             {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2'. ($errors->has('empleado_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                             {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -144,7 +143,7 @@
 
 
 @section('js')
-    <script src="{{ asset('vendor/select2/select2.full.min.js') }}"></script>
+    <script src=" {{ asset('vendor/select2/select2.full.min.js') }}"></script>
     <script src=" {{ asset('vendor/sweetalert2.js') }}  "></script>
     <script src=" {{ asset('vendor/sweetalert-eliminar.js') }} "></script>
     <script src=" {{ asset('vendor/sweetalert-confirmar.js') }} "></script>

@@ -37,6 +37,34 @@ class IngresoController extends Controller
         $this->middleware('can:admin.ingresos.create')->only('create', 'store');
         $this->middleware('can:admin.ingresos.estatuingresos')->only('estatuingresos');
     }
+
+    public function exportPdf(Request $request){
+
+        if($request){
+            $sql=$request->get('desde');
+            $sql1=$request->get('hasta');
+            $user=$request->get('user_id');
+            $estatus=$request->get('estatus');
+
+            $ingresos=Ingreso::whereBetween('created_at',[$sql, $sql1])
+                                  ->estatus($estatus)
+                                  ->user($user)
+                                  ->get();
+            $users = User::all();
+            // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
+            // ->select(
+            //     'productos.nombre as producto',
+            //     'detalle_solicituds.cantidad',
+            //     'detalle_solicituds.observacionp',
+            //     'detalle_solicituds.created_at',
+            //     'detalle_solicituds.updated_at',
+            // )->orderBy('detalle_solicituds.id', 'desc')->get();
+            
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.ingresos', compact('ingresos','today','users'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-ingresos.pdf');
+        }
+    }
     /**
      * Display a listing of the resource.
      *

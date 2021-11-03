@@ -101,7 +101,7 @@ class User extends Authenticatable
     }
     public function getDisplayUserAttribute()
     {
-        return $this->name . ' ' . $this->last_name;
+        return $this->tipodocumento->abreviado. '-' . $this->cedula . ' ' .$this->name . ' ' . $this->last_name;
     }
 
 }
