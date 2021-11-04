@@ -89,3 +89,5 @@ Route::get('pdfSolicitud/{solicitud}', [SolicitudController::class, 'pdf'])->nam
 
 Route::get('solicitudes-list-pdf',[SolicitudController::class, 'exportPdf'])->name('admin.solicitudes.pdf');
 Route::get('ingresos-list-pdf',[IngresoController::class, 'exportPdf'])->name('admin.ingresos.pdf');
+Route::get('egresos-list-pdf',[EgresoController::class, 'exportPdf'])->name('admin.egresos.pdf');
+Route::get('requisiciones-list-pdf',[RequisicionController::class, 'exportPdf'])->name('admin.requisiciones.pdf');

@@ -33,6 +33,36 @@ class RequisicionController extends Controller
         $this->middleware('can:admin.requisicions.estaturequisicions')->only('estaturequisicions');
     }
 
+    public function exportPdf(Request $request){
+
+        if($request){
+            $sql=$request->get('desde');
+            $sql1=$request->get('hasta');
+            $user=$request->get('user_id');
+            $estatus=$request->get('estatus');
+            $empleados=$request->get('empleados_id');
+
+            $requisiciones=Requisicion::whereBetween('created_at',[$sql, $sql1])
+                                  ->estatus($estatus)
+                                  ->user($user)
+                                  ->empleados($empleados)
+                                  ->get();
+            $users = User::all();
+            // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
+            // ->select(
+            //     'productos.nombre as producto',
+            //     'detalle_solicituds.cantidad',
+            //     'detalle_solicituds.observacionp',
+            //     'detalle_solicituds.created_at',
+            //     'detalle_solicituds.updated_at',
+            // )->orderBy('detalle_solicituds.id', 'desc')->get();
+            
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.requisiciones', compact('requisiciones','today','users'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-requisiciones.pdf');
+        }
+    }
+
     public function index()
     {
         $log = new LogSistema();

@@ -45,4 +45,21 @@ class Egreso extends Model
     {
         return $this->hasManyThrough(Producto::class, Detalleegreso::class);
     }
+
+    //Query Scope
+    public function scopeEstatus($query, $estatus)
+    {
+        if($estatus)
+            return $query->orWhere('estatus','LIKE',"%$estatus%");
+    }
+    public function scopeUser($query, $user)
+    {
+        if($user)
+            return $query->orWhere('user_id','LIKE',"%$user%");
+    }
+    public function scopeEmpleados($query, $empleados)
+    {
+        if($empleados)
+            return $query->orWhere('empleado_id','LIKE',"%$empleados%");
+    }
 }

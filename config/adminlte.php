@@ -250,9 +250,11 @@ return [
             'icon' => 'fas fa-clipboard-list text-blue',
             'active' => ['admin/solicituds*'],
         ],
-        
-        ['header' => 'MOVIMIENTOS',
-         'can' => 'movimientossistema'],
+
+        [
+            'header' => 'MOVIMIENTOS',
+            'can' => 'movimientossistema'
+        ],
         [
             'text'    => 'MOVIMIENTOS',
             'icon'    => 'fas fa-truck-loading text-blue',
@@ -298,13 +300,71 @@ return [
             ],
         ],
         [
-            'text' => 'Reportes',
-            'route'  => 'admin.report.index',
-            'icon' => 'fas fa-clipboard-list text-blue',
-            'active' => ['admin/report*'],
+            'text'    => 'BIENES NACIONALES',
+            'icon'    => 'fas fa-truck-loading text-blue',
+            // 'can'  => 'movimientossistema',
+            'submenu' => [
+                [
+                    'text' => 'Bienes',
+                    'route'  => 'admin.proveedors.index',
+                    'icon' => 'fas fa-user-tie text-blue',
+                    'active' => ['admin/proveedors*'],
+                    // 'can'  => 'admin.proveedors.index',
+
+                ],
+                [
+                    'text' => 'Asignacion',
+                    'route'  => 'admin.ingresos.index',
+                    'icon' => 'fas fa-people-carry text-blue',
+                    'active' => ['admin/ingresos*'],
+                    // 'can'  => 'admin.ingresos.index',
+
+                ]
+            ],
         ],
-        ['header' => 'INVENTARIO',
-        'can'  => 'inventariosistema'],
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'fas fa-truck-loading text-blue',
+            // 'can'  => 'movimientossistema',
+            'submenu' => [
+                [
+                    'text' => 'Movimientos',
+                    'route'  => 'admin.report.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/report*'],
+                    // 'can'  => 'admin.proveedors.index',
+
+                ],
+                [
+                    'text' => 'Inventario',
+                    'route'  => 'admin.ingresos.index',
+                    'icon' => 'fas fa-people-carry text-blue',
+                    'active' => ['admin/ingresos*'],
+                    // 'can'  => 'admin.ingresos.index',
+
+                ],
+                [
+                    'text' => 'Ajustes de sistema',
+                    'route'  => 'admin.report.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/report*'],
+                    // 'can'  => 'admin.proveedors.index',
+
+                ],
+                [
+                    'text' => 'Seguridad',
+                    'route'  => 'admin.report.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/report*'],
+                    // 'can'  => 'admin.proveedors.index',
+
+                ],
+            ],
+        ],
+        [
+            'header' => 'INVENTARIO',
+            'can'  => 'inventariosistema'
+        ],
         [
             'text'    => 'INVENTARIO',
             'icon'    => 'fas fa-warehouse text-blue',
@@ -338,11 +398,22 @@ return [
                     'active' => ['admin/productos*'],
                     'can'  => 'admin.productos.index',
                 ],
-                
+                [
+                    'text' => 'Desincorporacion',
+                    'route'  => 'admin.productos.index',
+                    'icon' => 'fab fa-product-hunt text-blue',
+                    'active' => ['admin/productos*'],
+                    'label'       => 'New',
+                    'label_color' => 'success',
+                    // 'can'  => 'admin.productos.index',
+                ],
+
             ],
         ],
-        ['header' => 'AJUSTES DE SISTEMA',
-        'can'  => 'ajustessistema'],
+        [
+            'header' => 'AJUSTES DE SISTEMA',
+            'can'  => 'ajustessistema'
+        ],
         [
             'text'    => 'AJUSTES EMPRESA',
             'icon'    => 'fas fa-cogs text-blue',
@@ -377,7 +448,7 @@ return [
                     'active' => ['admin/estados*'],
                     'can'  => 'admin.estados.index',
                 ],
-                
+
                 [
                     'text' => 'Municipios',
                     'route'  => 'admin.ciudads.index',
@@ -387,8 +458,10 @@ return [
                 ]
             ],
         ],
-        ['header' => 'SEGURIDAD DEL SISTEMA',
-        'can'  => 'seguridadsistema'],
+        [
+            'header' => 'SEGURIDAD DEL SISTEMA',
+            'can'  => 'seguridadsistema'
+        ],
         [
             'text'    => 'SEGURIDAD SISTEMA',
             'icon'    => 'fas fa-fw fa-user-shield text-blue',
@@ -429,9 +502,9 @@ return [
                     'active' => ['admin/backup*'],
                 ],
             ],
-            
+
         ],
-        
+
     ],
 
     /*

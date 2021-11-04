@@ -93,7 +93,6 @@
                                    Pendiente 
                                 @elseif ($requisicion->estatus == 2)
                                    Aprobado 
-                            
                                 @elseif ($requisicion->estatus == 3)
                                    Solicitado a compras 
                                 @endif

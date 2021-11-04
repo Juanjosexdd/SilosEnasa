@@ -36,6 +36,36 @@ class EgresoController extends Controller
         $this->middleware('can:admin.egresos.estatuegresos')->only('estatuegresos');
     }
 
+    public function exportPdf(Request $request){
+
+        if($request){
+            $sql=$request->get('desde');
+            $sql1=$request->get('hasta');
+            $user=$request->get('user_id');
+            $estatus=$request->get('estatus');
+            $empleados=$request->get('empleados_id');
+
+            $egresos=Egreso::whereBetween('created_at',[$sql, $sql1])
+                                  ->estatus($estatus)
+                                  ->user($user)
+                                  ->empleados($empleados)
+                                  ->get();
+            $users = User::all();
+            // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
+            // ->select(
+            //     'productos.nombre as producto',
+            //     'detalle_solicituds.cantidad',
+            //     'detalle_solicituds.observacionp',
+            //     'detalle_solicituds.created_at',
+            //     'detalle_solicituds.updated_at',
+            // )->orderBy('detalle_solicituds.id', 'desc')->get();
+            
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.egresos', compact('egresos','today','users'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-egresos.pdf');
+        }
+    }
+
     public function index()
     {
         $log = new LogSistema();

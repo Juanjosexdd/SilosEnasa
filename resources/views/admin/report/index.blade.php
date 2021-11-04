@@ -9,7 +9,7 @@
         <h3 class="text-white">Reportes del sistema</h3>
     </x-card-header>
     <x-card-body>
-        <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+        <ul class="nav nav-tabs pb-4" id="custom-content-above-tab" role="tablist">
             <li class="nav-item active">
                 <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill"
                     href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home"
@@ -30,10 +30,16 @@
                     href="#custom-content-above-settings" role="tab" aria-controls="custom-content-above-settings"
                     aria-selected="false">Requisiciones</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="inventario-tab" data-toggle="pill"
+                    href="#inventario" role="tab" aria-controls="inventario"
+                    aria-selected="false">Inventario</a>
+            </li>
         </ul>
 
         <div class="tab-content" id="custom-content-above-tabContent">
-            <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+            <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel"
+                aria-labelledby="custom-content-above-home-tab">
                 <form class="" action="{{ route('admin.solicitudes.pdf') }}">
                     <label class="h4 offset-4">Selercciona el rango de fecha:</label>
                     <div class="row">
@@ -57,7 +63,7 @@
                         <div class="col-md-4 offset-2">
                             <label for="">Estatus :</label>
                             <select class="form-control select2" name="estatus" id="estatus">
-                                <option value ="" selected="selected">Selecciona una opción!</option>
+                                <option value="" selected="selected">Selecciona una opción!</option>
                                 <option value="0">Anuladas</option>
                                 <option value="1">Pendiente</option>
                                 <option value="2">Aprobado</option>
@@ -65,9 +71,9 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                        <label for="">Usuario :</label>
-                                {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2'. ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                                {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                            <label for="">Usuario :</label>
+                            {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
 
                     </div>
@@ -102,15 +108,15 @@
                         <div class="col-md-4 offset-2">
                             <label for="">Estatus :</label>
                             <select class="form-control select2" name="estatus" id="estatus">
-                                <option value ="" selected="selected">Selecciona una opción!</option>
+                                <option value="" selected="selected">Selecciona una opción!</option>
                                 <option value="0">Anuladas</option>
                                 <option value="1">Procesado</option>
                             </select>
                         </div>
                         <div class="col-md-4">
-                        <label for="">Responsable :</label>
-                                {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2'. ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                                {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                            <label for="">Responsable :</label>
+                            {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
 
                     </div>
@@ -122,21 +128,110 @@
             </div>
             <div class="tab-pane fade" id="custom-content-above-messages" role="tabpanel"
                 aria-labelledby="custom-content-above-messages-tab">
-                Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi
-                placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla.
-                Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a,
-                malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus
-                efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae
-                gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus
-                tincidunt eleifend ac ornare magna.
+
+                <form class="" action="{{ route('admin.egresos.pdf') }}">
+                    <label class="h4 offset-4">Selercciona el rango de fecha:</label>
+                    <div class="row">
+                        <br>
+                        <div class="col-md-4 offset-2">
+                            <div class="form-group">
+                                <label>Desde: </label>
+                                <input class="form-control mr-sm-2" name="desde" id="desde" type="date" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Hasta: </label>
+                                <input class="form-control mr-sm-2" name="hasta" id="hasta" type="date" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-4 offset-2">
+                            <label for="">Usuario :</label>
+                            {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Solicitante :</label>
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2' . ($errors->has('empleado_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-2">
+                            <label for="">Estatus :</label>
+                            <select class="form-control select2" name="estatus" id="estatus">
+                                <option value="" selected="selected">Selecciona una opción!</option>
+                                <option value="0">Anuladas</option>
+                                <option value="1">Procesado</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+
+                    <button target="_blank"
+                        class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                        title="Generar reporte" type="submit">BUSCAR </button>
+                </form>
             </div>
             <div class="tab-pane fade" id="custom-content-above-settings" role="tabpanel"
                 aria-labelledby="custom-content-above-settings-tab">
-                Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare
-                sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie
-                tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra.
-                Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim.
-                In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+                <form class="" action="{{ route('admin.requisiciones.pdf') }}">
+                    <label class="h4 offset-4">Selercciona el rango de fecha:</label>
+                    <div class="row">
+                        <br>
+                        <div class="col-md-4 offset-2">
+                            <div class="form-group">
+                                <label>Desde: </label>
+                                <input class="form-control mr-sm-2" name="desde" id="desde" type="date" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Hasta: </label>
+                                <input class="form-control mr-sm-2" name="hasta" id="hasta" type="date" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-4 offset-2">
+                            <label for="">Usuario :</label>
+                            {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Solicitante :</label>
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2' . ($errors->has('empleado_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-2">
+                            <label for="">Estatus :</label>
+                            <select class="form-control select2" name="estatus" id="estatus">
+                                <option value="" selected="selected">Selecciona una opción!</option>
+                                <option value="0">Anuladas</option>
+                                <option value="1">Peniente</option>
+                                <option value="2">Aprobado</option>
+                                <option value="3">Solicitados a compra</option>
+                            </select>
+                        </div>
+                        <button target="_blank"
+                            class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                            title="Generar reporte" type="submit">BUSCAR </button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="inventario" role="tabpanel"
+                aria-labelledby="inventario-tab">
+                Lorem*20    
             </div>
         </div>
 
@@ -174,8 +269,8 @@
 
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('vendor/select2/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/select2/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/select2/select2-bootstrap4.min.css') }}">
     <style>
         .card-custom {
             overflow: hidden;
