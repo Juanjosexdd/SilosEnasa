@@ -10,7 +10,10 @@ use App\Http\Controllers\Admin\EstadoController;
 use App\Http\Controllers\Admin\CiudadController;
 use App\Http\Controllers\Admin\EmpleadoController;
 use App\Http\Controllers\Admin\AlmacenController;
+use App\Http\Controllers\Admin\AsignacionbienController;
 use App\Http\Controllers\Admin\BackupController;
+use App\Http\Controllers\admin\BiennacionalController;
+use App\Http\Controllers\Admin\ClacificacionbienesController;
 use App\Http\Controllers\Admin\ClacificacionController;
 use App\Http\Controllers\Admin\EgresoController;
 use App\Http\Controllers\Admin\EmpresaController;
@@ -24,11 +27,13 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SolicitudController;
 use App\Http\Controllers\Admin\SolicitudesController;
+use App\Models\Asignacionbien;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.home');
 Route::resource('users', UserController::class)->names('admin.users');
 Route::resource('tipodocumentos', TipodocumentoController::class)->names('admin.tipodocumentos');
 Route::resource('cargos', CargoController::class)->names('admin.cargos');
+Route::resource('biennacionals', BiennacionalController::class)->names('admin.biennacionals');
 Route::resource('departamentos', DepartamentoController::class)->names('admin.departamentos');
 Route::resource('estados', EstadoController::class)->names('admin.estados');
 Route::resource('ciudads', CiudadController::class)->names('admin.ciudads');
@@ -36,6 +41,7 @@ Route::resource('empleados', EmpleadoController::class)->names('admin.empleados'
 Route::resource('empresas', EmpresaController::class)->names('admin.empresas');
 Route::resource('almacens', AlmacenController::class)->names('admin.almacens');
 Route::resource('clacificacions', ClacificacionController::class)->names('admin.clacificacions');
+Route::resource('clacificacionbienes', ClacificacionbienesController::class)->names('admin.clacificacionbienes');
 Route::resource('productos', ProductoController::class)->names('admin.productos');
 Route::resource('proveedors', ProveedorController::class)->names('admin.proveedors');
 Route::resource('ingresos', IngresoController::class)->names('admin.ingresos');
@@ -47,6 +53,7 @@ Route::resource('logs', LogsistemaController::class)->names('admin.logs');
 Route::resource('logins', LoginController::class)->names('admin.logins');
 Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('roles', RoleController::class)->names('admin.roles');
+Route::resource('asignacions', AsignacionbienController::class)->names('admin.asignacions');
 Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
 Route::resource('report', ReportController::class)->names('admin.report');
 Route::view('backup', 'laravel_backup_panel::layout');
@@ -67,8 +74,10 @@ Route::get('estatuproveedor/{proveedor}', [ProveedorController::class, 'estatupr
 Route::get('estatuempleado/{empleado}', [EmpleadoController::class, 'estatuempleado'])->name('admin.empleados.estatuempleado');
 Route::get('estatuciudad/{ciudad}', [CiudadController::class, 'estatuciudad'])->name('admin.ciudads.estatuciudad');
 Route::get('estatucargo/{cargo}', [CargoController::class, 'estatucargo'])->name('admin.cargos.estatucargo');
+Route::get('estatubiennacional/{biennacional}', [BiennacionalController::class, 'estatubiennacional'])->name('admin.biennacionals.estatubiennacional');
 Route::get('estatudepartamento/{departamento}', [DepartamentoController::class, 'estatudepartamento'])->name('admin.departamentos.estatudepartamento');
 Route::get('estatuclacificacion/{clacificacion}', [ClacificacionController::class, 'estatuclacificacion'])->name('admin.clacificacions.estatuclacificacion');
+Route::get('estatuclacificacionbien/{clacificacionbien}', [ClacificacionbienesController::class, 'estatuclacificacionbien'])->name('admin.clacificacionbienes.estatuclacificacionbien');
 Route::get('estatutipodocumento/{tipodocumento}', [TipodocumentoController::class, 'estatutipodocumento'])->name('admin.tipodocumentos.estatutipodocumento');
 Route::get('estatuempleado/{empleado}', [EmpleadoController::class, 'estatuempleado'])->name('admin.empleados.estatuempleado');
 Route::get('estatualmacen/{almacen}', [AlmacenController::class, 'estatualmacen'])->name('admin.almacens.estatualmacen');
@@ -78,6 +87,7 @@ Route::get('estatuegreso/{egreso}', [EgresoController::class, 'estatuegreso'])->
 Route::get('estaturequisicion/{requisicion}', [RequisicionController::class, 'estaturequisicion'])->name('admin.requisicions.estaturequisicion');
 Route::get('estatusolicitud/{solicitud}', [SolicitudController::class, 'estatusolicitud'])->name('admin.solicituds.estatusolicitud');
 Route::get('estatusolicitudes/{solicitudes}', [SolicitudesController::class, 'estatusolicitudes'])->name('admin.solicitudes.estatusolicitudes');
+Route::get('estatuasignacion/{asignacionbien}', [AsignacionbienController::class, 'estatuasignacion'])->name('admin.asignacions.estatuasignacion');
 
 //PDFS
 

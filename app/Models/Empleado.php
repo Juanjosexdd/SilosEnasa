@@ -34,6 +34,10 @@ class Empleado extends Model
     {
         return $this->hasMany(Solicitud::class);
     }
+    public function asignacionbienesnacionales()
+    {
+        return $this->hasMany(Asignacionbien::class);
+    }
 
     public function getDisplayEmpleadoAttribute()
     {

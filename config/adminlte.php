@@ -305,18 +305,26 @@ return [
             // 'can'  => 'movimientossistema',
             'submenu' => [
                 [
+                    'text' => 'Clacificación',
+                    'route'  => 'admin.clacificacionbienes.index',
+                    'icon' => 'fas fa-boxes text-blue',
+                    'active' => ['admin/clacificacionbienes*'],
+                    // 'can'  => 'admin.proveedors.index',
+
+                ],
+                [
                     'text' => 'Bienes',
-                    'route'  => 'admin.proveedors.index',
+                    'route'  => 'admin.biennacionals.index',
                     'icon' => 'fas fa-user-tie text-blue',
-                    'active' => ['admin/proveedors*'],
+                    'active' => ['admin/biennacionals*'],
                     // 'can'  => 'admin.proveedors.index',
 
                 ],
                 [
                     'text' => 'Asignacion',
-                    'route'  => 'admin.ingresos.index',
+                    'route'  => 'admin.asignacions.index',
                     'icon' => 'fas fa-people-carry text-blue',
-                    'active' => ['admin/ingresos*'],
+                    'active' => ['admin/asignacions*'],
                     // 'can'  => 'admin.ingresos.index',
 
                 ]
