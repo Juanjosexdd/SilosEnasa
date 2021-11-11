@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Biennacional;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Asignacionbien;
 use App\Models\Clacificacionbienes;
 use App\Models\Log\LogSistema;
 
@@ -38,6 +39,8 @@ class BiennacionalController extends Controller
         $log->user_id = auth()->user()->id;
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear un cargo nuevo a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
+
+        
         $clacificacionbienes  = Clacificacionbienes::where('estatus', 1)->get()->pluck('display_clacificacion','id');
 
         return view('admin.biennacionals.create', compact('clacificacionbienes'));
@@ -51,12 +54,14 @@ class BiennacionalController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver la ficha del usuario: ' . $biennacional->nombre .' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
+        $asignacion = Asignacionbien::where('bienesnacionales_id', $biennacional)
+                    ->first();
         // $departamentos = Departamento::pluck('nombre', 'id');
         // $tipodocumentos = Tipodocumento::pluck('abreviado', 'id');
         // $cargos = Cargo::pluck('nombre', 'id');
         
 
-        return view('admin.biennacionals.show', compact('biennacional'));
+        return view('admin.biennacionals.show', compact('biennacional','asignacion'));
     }
     public function store(Request $request)
     {
@@ -121,7 +126,7 @@ class BiennacionalController extends Controller
         return redirect()->route('admin.biennacionals.index')->with('success', ' ¡Felicidades el cargo se eliminó con éxito!');
     }
 
-    public function estatucargo(Biennacional $biennacional)
+    public function estatubiennacional(Biennacional $biennacional)
     {
         if ($biennacional->estatus == "1") {
 
@@ -131,7 +136,7 @@ class BiennacionalController extends Controller
             $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al cargo: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
-            $biennacional->estatus = '0';
+            $biennacional->estatus = '2';
             $biennacional->save();
             return redirect()->route('admin.biennacionals.index')->with('success', 'El cargo està inactivo con exito...!!!');
         } else {

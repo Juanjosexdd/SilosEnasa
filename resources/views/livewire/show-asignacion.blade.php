@@ -85,7 +85,7 @@
                 <tbody>
                     @foreach ($asignacionbiens as $asignacionbien)
                         <tr class="text-secondary text-sm font-weight-bold">
-                            <td> {{ $asignacionbien->id }}
+                            <td>  {{ $asignacionbien->id }}
                             </td>
                             <td> {{ $asignacionbien->user->name . ' - ' . $asignacionbien->user->last_name }}
                             </td>

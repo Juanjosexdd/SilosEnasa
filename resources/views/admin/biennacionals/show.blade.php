@@ -98,6 +98,23 @@
                         @endif
                     </div>
                 </div>
+                <hr>
+                <div class="row justify-content-around text-center">
+                    <div class="col-sm-3 invoice-col">
+                        <strong class="font-14 text-blue">Descripción</strong>
+                        <br>
+                        <span class="text-muted">{{ $asignacion->nombre }}</span>
+                    </div>
+                    <div class="col-sm-3 invoice-col">
+                        <strong class="font-14 text-blue">Observación</strong><br>
+                        @if ($biennacional->observacion == null)
+                            <span class="text-muted font-italic">*** Falta Información ***</span>
+                        @else 
+                        <span class="text-muted">{{ $biennacional->observacion }}</span>
+                        @endif
+                    </div>
+                </div>
+
                  
             </div>
         </div>
