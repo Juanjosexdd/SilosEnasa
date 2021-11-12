@@ -431,6 +431,84 @@ class RoleSeeder extends Seeder
             'name'        => 'admin.respaldos.index',
             'description' => 'Ver listado de Respaldos'
         ])->syncRoles([$role1]);
+
+        ###################################····CLACIFICACION BIENES····################################
+        //82
+        Permission::create([
+            'name'        => 'bienesnacionales',
+            'description' => 'Acceso a movimientos del sistema'
+        ])->syncRoles([$role1]);
+        //77
+        Permission::create([
+            'name'        => 'admin.clacificacionbienes.index',
+            'description' => 'Ver listado de clacificacion de bienes'
+        ])->syncRoles([$role1]);
+        //78             
+        Permission::create([
+            'name'        => 'admin.clacificacionbienes.create',
+            'description' => 'Crear clacificacion de bienes'
+        ])->syncRoles([$role1]);
+        //79               
+        Permission::create([
+            'name'        => 'admin.clacificacionbienes.edit',
+            'description' => 'Editar clacificacion de bienes'
+        ])->syncRoles([$role1]);
+        //80             
+        Permission::create([
+            'name'        => 'admin.clacificacionbienes.destroy',
+            'description' => 'Eliminar clacificacion de bienes'
+        ])->syncRoles([$role1]);
+        //81
+        Permission::create([
+            'name'        => 'admin.clacificacionbienes.estatuclacificacionbien',
+            'description' => 'Cambiar estatus de clacificacion de bienes'
+        ])->syncRoles([$role1]);
+
+        ###################################····BIENES····################################
+        //83
+        Permission::create([
+            'name'        => 'admin.biennacionals.index',
+            'description' => 'Ver listado de  bienes'
+        ])->syncRoles([$role1]);
+        //84             
+        Permission::create([
+            'name'        => 'admin.biennacionals.create',
+            'description' => 'Crear  bienes'
+        ])->syncRoles([$role1]);
+        //85               
+        Permission::create([
+            'name'        => 'admin.biennacionals.edit',
+            'description' => 'Editar  bienes'
+        ])->syncRoles([$role1]);
+        //86             
+        Permission::create([
+            'name'        => 'admin.biennacionals.destroy',
+            'description' => 'Eliminar almacens'
+        ])->syncRoles([$role1]);
+        //87
+        Permission::create([
+            'name'        => 'admin.biennacionals.estatuclacificacionbien',
+            'description' => 'Cambiar estatus de  bienes'
+        ])->syncRoles([$role1]);
+
+        ###################################····ASIGNACIONBIENES····################################
+        //88
+        Permission::create([
+            'name'        => 'admin.asignacions.index',
+            'description' => 'Ver listado de asignaciones'
+        ])->syncRoles([$role1]);
+        //89              
+        Permission::create([
+            'name'        => 'admin.asignacions.create',
+            'description' => 'Crear asignaciones'
+        ])->syncRoles([$role1]);
+        //90
+        Permission::create([
+            'name'        => 'admin.asignacions.estatuasignacion',
+            'description' => 'Cambiar estatus de asignaciones'
+        ])->syncRoles([$role1]);
+
+
     }
 
 }

@@ -17,7 +17,7 @@ class BiennacionalController extends Controller
     //     $this->middleware('can:admin.biennacionals.create')->only('create', 'store');
     //     $this->middleware('can:admin.biennacionals.edit')->only('edit', 'update');
     //     $this->middleware('can:admin.biennacionals.destroy')->only('destroy');
-    //     $this->middleware('can:admin.biennacionals.estatucargo')->only('estatucargo');
+    //     $this->middleware('can:admin.biennacionals.estatubiennacional')->only('estatubiennacional');
     // }
 
     public function index()
@@ -67,8 +67,10 @@ class BiennacionalController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
+            'slug' => 'required|unique:biennacionals',
             'descripcion' => 'required',
-            'slug' => 'required|unique:biennacionals'
+            'clacificacionbienes_id' => 'required|not_in:0',
+            'codigo' => 'required',
         ]);
 
         $log = new LogSistema();

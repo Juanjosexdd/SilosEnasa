@@ -4,10 +4,10 @@
             <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
         <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-        {{-- @can('admin.clacificacionbienes.create') --}}
+        @can('admin.clacificacionbienes.create')
         <a href="{{ route('admin.clacificacionbienes.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
             class="fas fa-plus mt-2 px-3"></i></a>
-        {{-- @endcan      --}}
+        @endcan     
     </div>
     <div class="card-body table-responsive p-0">
         @if ($clacificacionbienes->count())
@@ -88,7 +88,7 @@
                             </td>
                             <td width="4px">
                                 <div class="btn-group">
-                                    {{-- @can('admin.clacificacionbienes.estatuclacificacion') --}}
+                                    @can('admin.clacificacionbienes.estatuclacificacionbien')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157)">
                                         @if ($clacificacionbiene->estatus == 1)
@@ -113,15 +113,15 @@
                                             </form>
                                         @endif
                                     </a>
-                                    {{-- @endcan --}}
-                                    {{-- @can('admin.clacificacionbienes.edit') --}}
+                                    @endcan
+                                    @can('admin.clacificacionbienes.edit')
                                     <a class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
                                         href=" {{ route('admin.clacificacionbienes.edit', $clacificacionbiene) }} "><i
                                             class="fas fa-edit text-blue"></i></a>
                         
-                                    {{-- @endcan --}}
-                                    {{-- @can('admin.clacificacionbienes.destroy') --}}
+                                    @endcan
+                                    @can('admin.clacificacionbienes.destroy')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
                                         <form class="formulario-eliminar"
@@ -134,7 +134,7 @@
                                                     class="fas fa-trash"></i></button>
                                         </form>
                                     </a>
-                                    {{-- @endcan --}}
+                                    @endcan
                                 </div>
 
                             </td>

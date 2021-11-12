@@ -5,11 +5,11 @@
             <span class="input-group-text"><i class="fas fa-search"></i></span>
         </div>
         <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-        {{-- @can('admin.biennacionals.create') --}}
+        @can('admin.biennacionals.create')
         <a href="{{ route('admin.biennacionals.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
                 class="fas fa-plus mt-2 px-3"></i>
         </a>
-        {{-- @endcan --}}
+        @endcan
     </div>
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
@@ -103,7 +103,7 @@
                             </td>
                             <td width="4px">
                                 <div class="btn-group">
-                                    {{-- @can('admin.biennacionals.estatubiennacional') --}}
+                                    @can('admin.biennacionals.estatubiennacional')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157)">
                                         @if ($biennacional->estatus == 1)
@@ -135,20 +135,20 @@
                                         @endif
                                     </a>
 
-                                    {{-- @endcan --}}
+                                    @endcan
                                     <a class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
                                         href=" {{ route('admin.biennacionals.show', $biennacional) }} "><i
                                             class="fas fa-eye text-yellow"></i>
                                     </a>
-                                    {{-- @can('admin.biennacionals.edit') --}}
+                                    @can('admin.biennacionals.edit')
                                     <a class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;"
                                         href=" {{ route('admin.biennacionals.edit', $biennacional) }} "><i
                                             class="fas fa-edit text-blue"></i>
                                     </a>
-                                    {{-- @endcan --}}
-                                    {{-- @can('admin.biennacionals.destroy') --}}
+                                    @endcan
+                                    @can('admin.biennacionals.destroy')
                                     <a type="button" class="btn btn-default btn-sm"
                                         style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
                                         <form class="formulario-eliminar"
@@ -161,7 +161,7 @@
                                                     class="fas fa-trash"></i></button>
                                         </form>
                                     </a>
-                                    {{-- @endcan --}}
+                                    @endcan
                                 </div>
 
                             </td>

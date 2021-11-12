@@ -301,38 +301,42 @@ return [
         ],
         [
             'text'    => 'BIENES NACIONALES',
-            'icon'    => 'fas fa-truck-loading text-blue',
-            // 'can'  => 'movimientossistema',
+            'icon'    => 'fas fa-archive text-blue',
+            'can'  => 'bienesnacionales',
             'submenu' => [
                 [
                     'text' => 'Clacificación',
                     'route'  => 'admin.clacificacionbienes.index',
                     'icon' => 'fas fa-boxes text-blue',
                     'active' => ['admin/clacificacionbienes*'],
-                    // 'can'  => 'admin.proveedors.index',
+                    'can'  => 'admin.clacificacionbienes.index',
 
                 ],
                 [
                     'text' => 'Bienes',
                     'route'  => 'admin.biennacionals.index',
-                    'icon' => 'fas fa-user-tie text-blue',
+                    'icon' => 'fas fa-archive text-blue',
                     'active' => ['admin/biennacionals*'],
-                    // 'can'  => 'admin.proveedors.index',
+                    'can'  => 'admin.biennacionals.index',
 
                 ],
                 [
                     'text' => 'Asignacion',
                     'route'  => 'admin.asignacions.index',
-                    'icon' => 'fas fa-people-carry text-blue',
+                    'icon' => 'fas fa-child text-blue',
                     'active' => ['admin/asignacions*'],
-                    // 'can'  => 'admin.ingresos.index',
+                    'can'  => 'admin.asignacions.index',
 
                 ]
             ],
         ],
         [
+            'header' => 'REPORTES',
+            // 'can' => 'movimientossistema'
+        ],
+        [
             'text'    => 'Reportes',
-            'icon'    => 'fas fa-truck-loading text-blue',
+            'icon'    => 'far fa-file-pdf text-blue',
             // 'can'  => 'movimientossistema',
             'submenu' => [
                 [
@@ -343,14 +347,14 @@ return [
                     // 'can'  => 'admin.proveedors.index',
 
                 ],
-                [
-                    'text' => 'Inventario',
-                    'route'  => 'admin.ingresos.index',
-                    'icon' => 'fas fa-people-carry text-blue',
-                    'active' => ['admin/ingresos*'],
-                    // 'can'  => 'admin.ingresos.index',
+                // [
+                //     'text' => 'Inventario',
+                //     'route'  => 'admin.report.reportinventario',
+                //     'icon' => 'fas fa-people-carry text-blue',
+                //     // 'active' => ['admin/report/reportinventario'],
+                //     // 'can'  => 'admin.ingresos.index',
 
-                ],
+                // ],
                 [
                     'text' => 'Ajustes de sistema',
                     'route'  => 'admin.report.index',
@@ -406,16 +410,6 @@ return [
                     'active' => ['admin/productos*'],
                     'can'  => 'admin.productos.index',
                 ],
-                [
-                    'text' => 'Desincorporacion',
-                    'route'  => 'admin.productos.index',
-                    'icon' => 'fab fa-product-hunt text-blue',
-                    'active' => ['admin/productos*'],
-                    'label'       => 'New',
-                    'label_color' => 'success',
-                    // 'can'  => 'admin.productos.index',
-                ],
-
             ],
         ],
         [

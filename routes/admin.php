@@ -56,6 +56,9 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('asignacions', AsignacionbienController::class)->names('admin.asignacions');
 Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
 Route::resource('report', ReportController::class)->names('admin.report');
+Route::resource('reportinventario', ReportController::class)->names('admin.report.reportinventario');
+
+
 Route::view('backup', 'laravel_backup_panel::layout');
 
 Route::get('markAsRead', function(){
@@ -67,7 +70,7 @@ Route::post('/mark-as-read',[IngresoController::class, 'markNotification'])->nam
 
 Route::resource('storeproductoingreso',   'ProductoController@storeproductoingreso');
 
-
+//CONTROL DE ESTATUS
 Route::get('UpdateStatus/{user}', [UserController::class, 'UpdateStatus'])->name('admin.users.UpdateStatus');
 Route::get('estatuestado/{estado}', [EstadoController::class, 'estatuestado'])->name('admin.estados.estatuestado');
 Route::get('estatuproveedor/{proveedor}', [ProveedorController::class, 'estatuproveedor'])->name('admin.proveedors.estatuproveedor');
@@ -101,3 +104,10 @@ Route::get('solicitudes-list-pdf',[SolicitudController::class, 'exportPdf'])->na
 Route::get('ingresos-list-pdf',[IngresoController::class, 'exportPdf'])->name('admin.ingresos.pdf');
 Route::get('egresos-list-pdf',[EgresoController::class, 'exportPdf'])->name('admin.egresos.pdf');
 Route::get('requisiciones-list-pdf',[RequisicionController::class, 'exportPdf'])->name('admin.requisiciones.pdf');
+
+
+//CONTROL DE REPORTES
+
+
+
+

@@ -177,6 +177,134 @@
         </div>
     </div>
 </div>
+{{-- Bienesnacionales --}}
+<div id="bienesnacionales">
+    <div class="card card-navy">
+        <div class="card-header">
+            <h4 class="card-title w-100">
+                <a class="d-block w-100 collapsed" data-toggle="collapse" href="#collapsebienes"  aria-expanded="false">
+                    <label class="text-muted d-inline">
+                        {!! Form::checkbox('permissions[]', 82, null, null, ['class' => 'icheckbox_flat-yellow']) !!}
+                    </label> &nbsp; &nbsp;
+                    <i class="fas fa-archive text-blue "></i> Bienes nacionales
+                </a>
+            </h4>
+        </div>
+        <div id="collapsebienes" class="collapse" data-parent="#bienesnacionales">
+            <div class="card-body table-responsive">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+
+                            <th>Modelo</th>
+                            <th>Ver</th>
+                            <th>Registrar</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{-- clacificacion bienes --}}
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-fw fa-users text-blue"></i>&nbsp; clacificacion bienes
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 77, null, null, ['class' => 'icheckbox_flat']) !!} Ver clacificacion bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 78, null, null, ['class' => 'icheckbox_flat']) !!} Registrar clacificacion bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 79, null, null, ['class' => 'icheckbox_flat']) !!} Editar clacificacion bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 80, null, null, ['class' => 'icheckbox_flat']) !!} Eliminar clacificacion bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 81, null, null, ['class' => 'icheckbox_flat']) !!} Estatus clacificacion bienes
+                                </label>
+                            </th>
+                        </tr>
+                        {{-- Bienes --}}
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-fw fa-users text-blue"></i>&nbsp; Bienes
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 83, null, null, ['class' => 'icheckbox_flat']) !!} Ver bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 84, null, null, ['class' => 'icheckbox_flat']) !!} Registrar bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 85, null, null, ['class' => 'icheckbox_flat']) !!} Editar bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 86, null, null, ['class' => 'icheckbox_flat']) !!} Eliminar bienes
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 87, null, null, ['class' => 'icheckbox_flat']) !!} Estatus bienes
+                                </label>
+                            </th>
+                        </tr>
+                        {{-- Asignacion --}}
+                        <tr>
+                            <th class="d-flex">
+                                <i class="fas fa-fw fa-users text-blue"></i>&nbsp; Asignacion
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 88, null, null, ['class' => 'icheckbox_flat']) !!} Ver asignacion
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 89, null, null, ['class' => 'icheckbox_flat']) !!} Registrar asignacion
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline font-italic text-center">
+                                    *** X ***
+                                </label>
+                            </th>
+                            <th>
+                                <label class="text-muted d-inline">
+                                    {!! Form::checkbox('permissions[]', 90, null, null, ['class' => 'icheckbox_flat']) !!} Estatus asignacion
+                                </label>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {{-- Inventario --}}
 <div id="inventario">
     <div class="card card-navy">

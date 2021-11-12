@@ -5,10 +5,11 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input wire:model="search" type="text" class="form-control mr-2" placeholder="Buscar">
-
-            <a href="{{ route('admin.asignacions.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
-                    class="fas fa-plus mt-2 px-3"></i>
-            </a>
+            @can('admin.asignacions.create')
+                <a href="{{ route('admin.asignacions.create') }}" class="btn bg-navy btn-sm px-2 elevation-4"><i
+                        class="fas fa-plus mt-2 px-3"></i>
+                </a>
+            @endcan
         </div>
     </div>
     <div class="card-body table-responsive">
@@ -19,7 +20,7 @@
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('id')">
-                            Codigo
+                            #
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -48,7 +49,7 @@
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('empleado_id')">
-                            Solicitado por:
+                            Asignado a:
                             @if ($sort == 'empleado_id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -111,6 +112,8 @@
                                 @endif
                             </td>
                             <td>
+                            @can('admin.asignacions.estatuasignacion')
+
                                 @if ($asignacionbien->estatus == 1)
                                     <form class="anular"
                                         action="{{ route('admin.asignacions.estatuasignacion', $asignacionbien) }}"
@@ -133,6 +136,7 @@
                                         <i class="fas fa-check-circle"></i> Solicitado a compra
                                     </p>
                                 @endif
+                            @endcan
                             </td>
                             {{-- <td>
                                 <div class="btn-group">

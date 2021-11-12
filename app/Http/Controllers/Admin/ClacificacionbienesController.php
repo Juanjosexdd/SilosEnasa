@@ -10,15 +10,15 @@ use Illuminate\Http\Request;
 
 class ClacificacionbienesController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('can:admin.clacificacions.index')->only('index');
-    //     $this->middleware('can:admin.clacificacions.create')->only('create','store');
-    //     $this->middleware('can:admin.clacificacions.edit')->only('edit','update');
-    //     $this->middleware('can:admin.clacificacions.destroy')->only('destroy');
-    //     $this->middleware('can:admin.clacificacions.estatuclacificacion')->only('estatuclacificacion');
+    public function __construct()
+    {
+        $this->middleware('can:admin.clacificacionbienes.index')->only('index');
+        $this->middleware('can:admin.clacificacionbienes.create')->only('create','store');
+        $this->middleware('can:admin.clacificacionbienes.edit')->only('edit','update');
+        $this->middleware('can:admin.clacificacionbienes.destroy')->only('destroy');
+        $this->middleware('can:admin.clacificacionbienes.estatuclacificacionbien')->only('estatuclacificacionbien');
 
-    // }
+    }
     /**
      * Display a listing of the resource.
      *

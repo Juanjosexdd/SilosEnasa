@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'ENASA | USUARIOS')
+@section('title', 'ENASA | ROLES Y PERMISOS')
 
 @section('content')
     @include('sweetalert::alert')

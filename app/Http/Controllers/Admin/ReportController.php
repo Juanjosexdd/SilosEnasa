@@ -19,4 +19,14 @@ class ReportController extends Controller
 
     	return view('admin.report.index', compact('users','empleados'));
     }
+
+    public function reportinventario()
+    {
+
+        // $users = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
+        $users  = User::where('estatus', 1)->get()->pluck('display_user','id');
+        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
+
+    	return view('admin.report.reportinventario', compact('users','empleados'));
+    }
 }

@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 class AsignacionbienController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.asignacions.index')->only('index');
+        $this->middleware('can:admin.asignacions.create')->only('create', 'store');
+        $this->middleware('can:admin.asignacions.edit')->only('edit', 'update');
+        $this->middleware('can:admin.asignacions.destroy')->only('destroy');
+        $this->middleware('can:admin.asignacions.estatuasignacion')->only('estatuasignacion');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +65,10 @@ class AsignacionbienController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'bienesnacionales_id' => 'required|not_in:0',
+            'empleado_id' => 'required|not_in:0',
+        ]);
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
