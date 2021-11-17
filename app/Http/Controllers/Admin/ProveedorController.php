@@ -60,6 +60,13 @@ class ProveedorController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado un nuevo proveedor : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
+        $request->validate([
+            'nombre' => 'required|max:45',
+            'tipodocumento_id' => 'required|not_in:0',
+            'cedularif' => 'required|min:6|max:9',
+            'correo' => 'required|email',
+        ]);
+
         //return $request;
         $proveedor = Proveedor::create($request->all());
 

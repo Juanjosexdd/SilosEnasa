@@ -19,7 +19,7 @@
         <div class="form-group">
             {!! Form::label('cedularif', 'Cedula / Rif : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
-                {!! Form::text('cedularif', null, ['class' => 'form-control' . ($errors->has('cedularif') ? ' is-invalid' : ''), 'placeholder' => 'Cedula / Rif']) !!}
+                {!! Form::number('cedularif', null, ['class' => 'cedula form-control' . ($errors->has('cedularif') ? ' is-invalid' : ''), 'placeholder' => 'Cedula / Rif']) !!}
                 {!! $errors->first('cedularif', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             {!! Form::label('telefono', 'Telefono : ', ['class' => 'text-blue']) !!}
             <div class="input-group" bis_skin_checked="1">
-                {!! Form::text('telefono', null, ['class' => 'form-control' . ($errors->has('telefono') ? ' is-invalid' : ''), 'placeholder' => 'Telefono']) !!}
+                {!! Form::number('telefono', null, ['class' => 'form-control' . ($errors->has('telefono') ? ' is-invalid' : ''), 'placeholder' => 'Telefono']) !!}
                 {!! $errors->first('telefono', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 
             </div>
@@ -93,5 +93,18 @@
                 space: '-'
             });
         });
+
+        // Limita un mnumero especifico en el input de cedula rif
+        var input = document.getElementById('cedularif');
+        input.addEventListener('input', function() {
+            if (this.value.length > 9)
+                this.value = this.value.slice(0, 9);
+        })
+
+        var input = document.getElementById('telefono');
+        input.addEventListener('input', function() {
+            if (this.value.length > 12)
+                this.value = this.value.slice(0, 13);
+        })
     </script>
 @stop

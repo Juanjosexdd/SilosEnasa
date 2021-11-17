@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-2">
                         <strong class="font-14 text-blue">Depreciacion Mensual</strong>
-                        {{  number_format($biennacional->costo,2) / number_format($biennacional->vidautil,2) }}
+                        {{  $biennacional->costo,2 / $biennacional->vidautil,2 }}
                     </div>
                     <div class="col-sm-2 invoice-col">
                         <strong class="font-14 text-blue">Estatus</strong><br>
