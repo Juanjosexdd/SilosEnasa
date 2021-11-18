@@ -77,6 +77,14 @@
                         </div>
 
                     </div>
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-2">
+                            <label for="">Departamento :</label>
+                            {!! Form::select('departamento_id', $departamentos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('departamento_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('departamento_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+
+                    </div>
 
                     <button target="_blank"
                         class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
@@ -85,22 +93,26 @@
             </div>
             <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel"
                 aria-labelledby="custom-content-above-profile-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Reportes de ingresos:</label>
+                    </div>
+                </div>
                 <form class="" action="{{ route('admin.ingresos.pdf') }}">
-                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
                             <div class="form-group">
                                 <label>Desde: </label>
                                 <input class="form-control mr-sm-2" name="desde" id="desde" type="date" placeholder="Search"
-                                    aria-label="Search">
+                                    aria-label="Search" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Hasta: </label>
                                 <input class="form-control mr-sm-2" name="hasta" id="hasta" type="date" placeholder="Search"
-                                    aria-label="Search">
+                                    aria-label="Search" required>
                             </div>
                         </div>
                     </div>
@@ -115,8 +127,21 @@
                         </div>
                         <div class="col-md-4">
                             <label for="">Responsable :</label>
-                            {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                            {!! Form::select('correlativo', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativo') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('correlativo', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4 offset-2">
+                            <label for="">Desde Ingreso nro :</label>
+                            {!! Form::select('correlativodesde', $ingresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('correlativodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Hasta Ingreso nro :</label>
+                            {!! Form::select('correlativohasta', $ingresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('correlativohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
 
                     </div>

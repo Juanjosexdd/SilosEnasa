@@ -28,7 +28,6 @@
                             <th width="220px" class="">Departamento</th>
                             <th width="300px" class="">Observación</th>
                             <th class="">Fecha</th>
-                            <th class="">Hora</th>
                             <th class="">Estatus</th>
                         </tr>
                     </thead>
@@ -41,7 +40,6 @@
                                 <td class=" ">{{ $ingreso->proveedor->nombre }}</td>
                                 <td class=" ">{{ $ingreso->observacion }}</td>
                                 <td class=" ">{{ $ingreso->created_at->toFormattedDateString() }}</td>
-                                <td class=" ">{{ $ingreso->created_at->toTimeString() }}</td>
                                 <td>
                                     @if ($ingreso->estatus == 0)
                                         Anulada

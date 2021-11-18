@@ -38,18 +38,23 @@ class IngresoController extends Controller
         $this->middleware('can:admin.ingresos.estatuingresos')->only('estatuingresos');
     }
 
-    public function exportPdf(Request $request){
+    public function exportPdf(Request $request)
+    {
 
-        if($request){
-            $sql=$request->get('desde');
-            $sql1=$request->get('hasta');
-            $user=$request->get('user_id');
-            $estatus=$request->get('estatus');
+        if ($request) {
+            $sql = $request->get('desde');
+            $sql1 = $request->get('hasta');
+            $user = $request->get('user_id');
+            $estatus = $request->get('estatus');
+            $correlativodesde = $request->get('correlativodesde');
+            $correlativohasta = $request->get('correlativohasta');
 
-            $ingresos=Ingreso::whereBetween('created_at',[$sql, $sql1])
-                                  ->estatus($estatus)
-                                  ->user($user)
-                                  ->get();
+            $ingresos = Ingreso::whereBetween('created_at', [$sql, $sql1])
+                ->orWhere('correlativo', $correlativodesde)
+                ->orWhere('correlativo', $correlativohasta)
+                ->orWhere('estatus',$estatus)
+                ->orWhere('user_id',$user)
+                ->get();
             $users = User::all();
             // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
             // ->select(
@@ -59,9 +64,9 @@ class IngresoController extends Controller
             //     'detalle_solicituds.created_at',
             //     'detalle_solicituds.updated_at',
             // )->orderBy('detalle_solicituds.id', 'desc')->get();
-            
+
             $today = Carbon::now()->format('d/m/Y');
-            $pdf = PDF::loadView('admin.pdf.ingresos', compact('ingresos','today','users'))->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('admin.pdf.ingresos', compact('ingresos', 'today', 'users'))->setPaper('a4', 'landscape');
             return $pdf->stream('listado-ingresos.pdf');
         }
     }
@@ -95,7 +100,7 @@ class IngresoController extends Controller
         $log->save();
 
         $ingresos        = Ingreso::all();
-        $requisicions        = Requisicion::all()->where('estatus','=', 1);
+        $requisicions        = Requisicion::all()->where('estatus', '=', 1);
         $users           = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
         $almacens        = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
         // $productos       = Producto::where('estatus', 1)->get()->pluck('display_producto', 'id');
@@ -323,7 +328,8 @@ class IngresoController extends Controller
     }
 
 
-    public function pdf(Request $request,$id){
+    public function pdf(Request $request, $id)
+    {
 
         $ingreso = Ingreso::find($id);
 
@@ -345,10 +351,10 @@ class IngresoController extends Controller
             ->where('detalle_ingreso.ingreso_id', '=', $id)
             ->orderBy('detalle_ingreso.id', 'desc')->get();
 
-        $numingreso=Ingreso::select('id')->where('id',$id)->get();
+        $numingreso = Ingreso::select('id')->where('id', $id)->get();
 
-        $pdf = PDF::loadView('admin/pdf/ingreso',['ingreso'=>$ingreso,'detalles'=>$detalles,'compra'=>$compra,'almacen'=>$almacen]);
-        return $pdf->stream('admin/ingreso-'.$numingreso[0]->id.'.pdf');
+        $pdf = PDF::loadView('admin/pdf/ingreso', ['ingreso' => $ingreso, 'detalles' => $detalles, 'compra' => $compra, 'almacen' => $almacen]);
+        return $pdf->stream('admin/ingreso-' . $numingreso[0]->id . '.pdf');
         //return $pdf->download('ingreso.pdf');
     }
 }

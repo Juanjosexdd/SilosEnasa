@@ -31,8 +31,10 @@ class SolicitudController extends Controller
             $sql1=$request->get('hasta');
             $user=$request->get('user_id');
             $estatus=$request->get('estatus');
+            $departamento=$request->get('departamento_id');
 
             $solicitudes=Solicitud::whereBetween('created_at',[$sql, $sql1])
+                                  ->departamento($departamento)
                                   ->estatus($estatus)
                                   ->user($user)
                                   ->get();

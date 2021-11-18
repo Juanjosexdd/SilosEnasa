@@ -51,11 +51,11 @@ class Ingreso extends Model
     public function scopeEstatus($query, $estatus)
     {
         if($estatus)
-            return $query->where('estatus','LIKE',"%$estatus%");
+            return $query->whereIn('estatus','LIKE',"%$estatus%");
     }
     public function scopeUser($query, $user)
     {
         if($user)
-            return $query->where('user_id','LIKE',"%$user%");
+            return $query->orWhere('user_id','LIKE',"%$user%");
     }
 }

@@ -46,4 +46,10 @@ class Solicitud extends Model
         if($user)
             return $query->where('user_id','LIKE',"%$user%");
     }
+
+    public function scopeDepartamento($query, $departamento)
+    {
+        if($departamento)
+            return $query->where('departamento_id','LIKE',"%$departamento%");
+    }
 }
