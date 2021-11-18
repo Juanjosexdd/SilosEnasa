@@ -18,31 +18,32 @@ class CreateDetalleRequisicionTable extends Migration
             $table->unsignedBigInteger("requisicion_id")->nullable();
             $table->unsignedBigInteger("producto_id")->nullable();
             $table->unsignedBigInteger("almacen_id")->nullable();
-            
+
             $table->integer('cantidad');
             $table->text('observacionp')->nullable();
             $table->boolean('estatus')->default(1);
 
-            
+
             $table->foreign('almacen_id')
-                  ->references('id')
-                  ->on('almacens')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('almacens')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('producto_id')
-                  ->references('id')
-                  ->on('productos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('productos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('requisicion_id')
-                  ->references('id')
-                  ->on('requisicions')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-                  
-            $table->timestamps();
+                ->references('id')
+                ->on('requisicions')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

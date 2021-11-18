@@ -17,7 +17,8 @@ class CreateEstatusTable extends Migration
             $table->id();
             $table->string('descripcion');
             $table->string('nombre_documento');
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

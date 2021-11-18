@@ -20,7 +20,8 @@ class CreateDepartamentosTable extends Migration
             $table->string('abreviado')->nullable();
             $table->string('descripcion');
             $table->boolean('estatus')->default(1);
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

@@ -22,18 +22,19 @@ class CreateDetalleEgresoTable extends Migration
             $table->text('observacionp')->nullable();
 
             $table->foreign('producto_id')
-                  ->references('id')
-                  ->on('productos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('productos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('egreso_id')
-                  ->references('id')
-                  ->on('egresos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-                  
-            $table->timestamps();
+                ->references('id')
+                ->on('egresos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->date('created_at');
+            $table->date('updated_at');;
         });
     }
 

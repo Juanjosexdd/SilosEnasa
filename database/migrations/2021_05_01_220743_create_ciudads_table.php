@@ -19,11 +19,12 @@ class CreateCiudadsTable extends Migration
             $table->string('slug');
             $table->unsignedBigInteger('estados_id');
             $table->boolean('estatus')->default(1);
-            
+
             $table->foreign('estados_id')
-                  ->references('id')
-                  ->on('estados');
-            $table->timestamps();
+                ->references('id')
+                ->on('estados');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

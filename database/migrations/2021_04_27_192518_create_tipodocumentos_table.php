@@ -19,7 +19,8 @@ class CreateTipoDocumentosTable extends Migration
             $table->string('slug');
             $table->string('abreviado');
             $table->boolean('estatus')->default(1);
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

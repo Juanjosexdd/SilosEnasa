@@ -24,23 +24,24 @@ class CreateIngresosTable extends Migration
             $table->boolean('estatus')->default(1);
 
             $table->foreign('tipomovimiento_id')
-                  ->references('id')
-                  ->on('tipomovimientos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('tipomovimientos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('proveedor_id')
-                  ->references('id')
-                  ->on('proveedors')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('proveedors')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->timestamps();
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

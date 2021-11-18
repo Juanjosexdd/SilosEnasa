@@ -33,7 +33,8 @@ class CreateProductosTable extends Migration
                   ->on('clacificacions')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->timestamps();
+                  $table->date('created_at');
+                  $table->date('updated_at');
         });
     }
 

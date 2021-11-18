@@ -22,7 +22,8 @@ class CreateLoginsTable extends Migration
             $table->string('ip_address', 40);
             $table->timestamp('login_at')->useCurrent();
             $table->dateTime('logout_at')->nullable();
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

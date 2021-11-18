@@ -29,28 +29,27 @@ class CreateEmpleadosTable extends Migration
             $table->string('observacion')->nullable();
             $table->boolean('estatus')->default(1);
 
-            
+
             $table->foreign('tipodocumento_id')
-                  ->references('id')
-                  ->on('tipodocumentos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-                  
-            
+                ->references('id')
+                ->on('tipodocumentos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+
             $table->foreign('cargo_id')
-                        ->references('id')
-                        ->on('cargos')
-                        ->onDelete('cascade')
-                        ->onUpdate('cascade');
-            
+                ->references('id')
+                ->on('cargos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->foreign('departamento_id')
-                  ->references('id')
-                  ->on('departamentos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->timestamps();
-
-
+                ->references('id')
+                ->on('departamentos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

@@ -24,23 +24,24 @@ class CreateDetalleIngresoTable extends Migration
             $table->text('ubicacion')->nullable();
 
             $table->foreign('almacen_id')
-                  ->references('id')
-                  ->on('almacens')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('almacens')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('producto_id')
-                  ->references('id')
-                  ->on('productos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('productos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ingreso_id')
-                  ->references('id')
-                  ->on('ingresos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->timestamps();
+                ->references('id')
+                ->on('ingresos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->date('created_at');
+            $table->date('updated_at');;
         });
     }
 

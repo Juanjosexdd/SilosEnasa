@@ -18,7 +18,8 @@ class CreateEstadosTable extends Migration
             $table->string('nombre');
             $table->string('slug');
             $table->boolean('estatus')->default(1);
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

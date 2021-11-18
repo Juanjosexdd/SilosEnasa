@@ -19,7 +19,8 @@ class CreateCargosTable extends Migration
             $table->string('slug');
             $table->string('descripcion', 128);
             $table->boolean('estatus')->default(1);
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

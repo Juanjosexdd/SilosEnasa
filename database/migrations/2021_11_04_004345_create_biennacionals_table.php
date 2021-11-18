@@ -24,7 +24,7 @@ class CreateBiennacionalsTable extends Migration
             $table->date('fecha_adquisicion')->nullable();
             $table->date('fecha_desincorporacion')->nullable();
             $table->text('observacion')->nullable();
-            
+
             $table->boolean('estatus')->default();
             $table->unsignedBigInteger("clacificacionbienes_id");
             $table->foreign('clacificacionbienes_id')
@@ -34,7 +34,8 @@ class CreateBiennacionalsTable extends Migration
                 ->onUpdate('cascade');
 
 
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

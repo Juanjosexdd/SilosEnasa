@@ -26,15 +26,16 @@ class CreateDetalleSolicitudsTable extends Migration
                 ->on('solicituds')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-                
+
             $table->foreign('producto_id')
                 ->references('id')
                 ->on('productos')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            
-            $table->timestamps();
+
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

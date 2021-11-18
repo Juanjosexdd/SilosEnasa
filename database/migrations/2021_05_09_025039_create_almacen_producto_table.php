@@ -19,19 +19,20 @@ class CreateAlmacenProductoTable extends Migration
 
             $table->unsignedBigInteger('producto_id')->nullable();
             $table->unsignedBigInteger('almacen_id')->nullable();
-            
+
             $table->foreign('producto_id')
-                  ->references('id')
-                  ->on('productos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->references('id')
+                ->on('productos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('almacen_id')
-                  ->references('id')
-                  ->on('almacens')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->timestamps();
+                ->references('id')
+                ->on('almacens')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

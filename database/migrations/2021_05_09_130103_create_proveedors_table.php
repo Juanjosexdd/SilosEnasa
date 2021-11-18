@@ -27,11 +27,12 @@ class CreateProveedorsTable extends Migration
             $table->boolean('estatus')->default(1);
 
             $table->foreign('tipodocumento_id')
-                  ->references('id')
-                  ->on('tipodocumentos')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->timestamps();
+                ->references('id')
+                ->on('tipodocumentos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 
