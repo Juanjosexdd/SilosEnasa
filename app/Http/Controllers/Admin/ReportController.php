@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Departamento;
+use App\Models\Egreso;
 use App\Models\Empleado;
 use App\Models\Ingreso;
 use App\Models\User;
@@ -20,9 +21,10 @@ class ReportController extends Controller
         $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
         $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
         $ingresos  = Ingreso::where('estatus', 1)->get()->pluck('correlativo','correlativo');
+        $egresos  = Egreso::where('estatus', 1)->get()->pluck('correlativo','correlativo');
         
 
-    	return view('admin.report.index', compact('users','empleados','departamentos','ingresos'));
+    	return view('admin.report.index', compact('users','empleados','departamentos','ingresos','egresos'));
     }
 
     public function reportinventario()

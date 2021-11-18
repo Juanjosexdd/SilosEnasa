@@ -29,7 +29,6 @@
                             <th width="220px" class="">Departamento</th>
                             {{-- <th width="300px" class="">Observación</th> --}}
                             <th class="">Fecha</th>
-                            <th class="">Hora</th>
                             <th class="">Estatus</th>
                         </tr>
                     </thead>
@@ -43,7 +42,6 @@
                                 <td class=" ">{{ $egreso->empleado->departamento->nombre }}</td>
                                 {{-- <td class=" ">{{ $egreso->observacion }}</td> --}}
                                 <td class=" ">{{ $egreso->created_at->toFormattedDateString() }}</td>
-                                <td class=" ">{{ $egreso->created_at->toTimeString() }}</td>
                                 <td>
                                     @if ($egreso->estatus == 0)
                                         Anulada

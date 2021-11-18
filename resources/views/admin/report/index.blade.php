@@ -31,8 +31,8 @@
                     aria-selected="false">Requisiciones</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="inventario-tab" data-toggle="pill"
-                    href="#inventario" role="tab" aria-controls="inventario"
+                <a class="nav-link" id="custom-content-above-inventario-tab" data-toggle="pill"
+                    href="#custom-content-above-inventario" role="tab" aria-controls="custom-content-above-inventario"
                     aria-selected="false">Inventario</a>
             </li>
         </ul>
@@ -174,6 +174,19 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <div class="col-md-4 offset-2">
+                            <label for="">Desde Ingreso nro :</label>
+                            {!! Form::select('correlativodesde', $egresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('correlativodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Hasta Ingreso nro :</label>
+                            {!! Form::select('correlativohasta', $egresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('correlativohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
 
                         <div class="col-md-4 offset-2">
                             <label for="">Usuario :</label>
@@ -226,7 +239,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-
                         <div class="col-md-4 offset-2">
                             <label for="">Usuario :</label>
                             {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
@@ -254,13 +266,11 @@
                             title="Generar reporte" type="submit">BUSCAR </button>
                 </form>
             </div>
-            <div class="tab-pane fade" id="inventario" role="tabpanel"
-                aria-labelledby="inventario-tab">
-                Lorem*20    
+            <div class="tab-pane fade" id="custom-content-above-inventario" role="tabpanel"
+                aria-labelledby="custom-content-above-inventario-tab">
+                hjljh
             </div>
         </div>
-
-
     </x-card-body>
 
 @stop

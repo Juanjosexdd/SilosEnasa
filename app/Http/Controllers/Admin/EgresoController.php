@@ -36,20 +36,25 @@ class EgresoController extends Controller
         $this->middleware('can:admin.egresos.estatuegresos')->only('estatuegresos');
     }
 
-    public function exportPdf(Request $request){
+    public function exportPdf(Request $request)
+    {
 
-        if($request){
-            $sql=$request->get('desde');
-            $sql1=$request->get('hasta');
-            $user=$request->get('user_id');
-            $estatus=$request->get('estatus');
-            $empleados=$request->get('empleados_id');
+        if ($request) {
+            $sql = $request->get('desde');
+            $sql1 = $request->get('hasta');
+            $user = $request->get('user_id');
+            $estatus = $request->get('estatus');
+            $empleados = $request->get('empleados_id');
+            $correlativodesde = $request->get('correlativodesde');
+            $correlativohasta = $request->get('correlativohasta');
 
-            $egresos=Egreso::whereBetween('created_at',[$sql, $sql1])
-                                  ->estatus($estatus)
-                                  ->user($user)
-                                  ->empleados($empleados)
-                                  ->get();
+            $egresos = Egreso::whereBetween('created_at', [$sql, $sql1])
+                ->orWhere('correlativo', $correlativodesde)
+                ->orWhere('correlativo', $correlativohasta)
+                ->estatus($estatus)
+                ->user($user)
+                ->empleados($empleados)
+                ->get();
             $users = User::all();
             // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
             // ->select(
@@ -59,9 +64,9 @@ class EgresoController extends Controller
             //     'detalle_solicituds.created_at',
             //     'detalle_solicituds.updated_at',
             // )->orderBy('detalle_solicituds.id', 'desc')->get();
-            
+
             $today = Carbon::now()->format('d/m/Y');
-            $pdf = PDF::loadView('admin.pdf.egresos', compact('egresos','today','users'))->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('admin.pdf.egresos', compact('egresos', 'today', 'users'))->setPaper('a4', 'landscape');
             return $pdf->stream('listado-egresos.pdf');
         }
     }
@@ -76,7 +81,7 @@ class EgresoController extends Controller
 
         return view('admin.egresos.index');
     }
-    
+
     public function create()
     {
         $log = new LogSistema();
@@ -87,20 +92,20 @@ class EgresoController extends Controller
 
         $egresos     = Egreso::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
-        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
+        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
         //$productos  = Producto::where('stock','>',0 )->where('estatus', 1)->get()->pluck('display_producto','id');
-        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
-        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
+        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado', 'id');
+        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
-        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
+        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento', 'id');
 
-        $productos=DB::table('productos as prod')
-             ->select(DB::raw('CONCAT(prod.nombre) AS producto'),'prod.id','prod.stock')
-             ->where('prod.stock','>',0 )
-             ->groupBy('producto','prod.id','prod.stock')
-             ->get();
+        $productos = DB::table('productos as prod')
+            ->select(DB::raw('CONCAT(prod.nombre) AS producto'), 'prod.id', 'prod.stock')
+            ->where('prod.stock', '>', 0)
+            ->groupBy('producto', 'prod.id', 'prod.stock')
+            ->get();
 
-        
+
         // $empleados = Empleado::join('departamentos','empleados.departamento_id','departamentos.id')
         //                     ->join('cargos','empleados.cargo_id','cargos.id')
         //                     ->join('tipodocumentos','empleados.tipodocumento_id','tipodocumentos.id')
@@ -109,19 +114,19 @@ class EgresoController extends Controller
         //                              ->where('empleados.estatus','=','1')
         //                              ->groupBy('empleados.id')
         //                              ->get();
-        
-        $solicituds = Solicitud::join('departamentos','solicituds.departamento_id','departamentos.id')
-             ->select('solicituds.id','departamentos.nombre as departamento')
-             ->where('solicituds.estatus','=','1')
-             ->groupBy('solicituds.id','departamento')
-      ->get();;
 
-        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
+        $solicituds = Solicitud::join('departamentos', 'solicituds.departamento_id', 'departamentos.id')
+            ->select('solicituds.id', 'departamentos.nombre as departamento')
+            ->where('solicituds.estatus', '=', '1')
+            ->groupBy('solicituds.id', 'departamento')
+            ->get();;
+
+        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
 
-        return view('admin.egresos.create', compact('solicituds','egresos','empleados','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        return view('admin.egresos.create', compact('solicituds', 'egresos', 'empleados', 'departamentos', 'users', 'almacens', 'productos', 'clacificaciones', 'tipodocumentos', 'tipomovimientos'));
     }
-    
+
     public function store(Request $request)
     {
         //return dd($request);
@@ -131,16 +136,16 @@ class EgresoController extends Controller
         ]);
         try {
             DB::beginTransaction();
-            $egreso=new Egreso;
-            
+            $egreso = new Egreso;
+
             //$egreso->departamento_id=$request->get('departamento_id');
             $egreso->tipomovimiento_id = 2;
             if ($request->get('solicitud_id')) {
-                $egreso->solicitud_id=$request->get('solicitud_id');
+                $egreso->solicitud_id = $request->get('solicitud_id');
             }
-            $egreso->empleado_id=$request->get('empleado_id');
-            $egreso->correlativo=$request->get('correlativo');
-            $egreso->observacion=$request->get('observacion');
+            $egreso->empleado_id = $request->get('empleado_id');
+            $egreso->correlativo = $request->get('correlativo');
+            $egreso->observacion = $request->get('observacion');
             $egreso->user_id = auth()->user()->id;
             $egreso->save();
 
@@ -156,25 +161,23 @@ class EgresoController extends Controller
                 $s->estatus = '2';
                 $s->save();
             }
-            
-            while($cont < count($producto_id))
-            {
+
+            while ($cont < count($producto_id)) {
                 $detalle = new Detalleegreso();
-                $detalle->egreso_id=$egreso->id;
-                $detalle->producto_id=$producto_id[$cont];
-                $detalle->cantidad=$cantidad[$cont];
+                $detalle->egreso_id = $egreso->id;
+                $detalle->producto_id = $producto_id[$cont];
+                $detalle->cantidad = $cantidad[$cont];
                 $detalle->observacionp = $observacionp[$cont];
                 $detalle->save();
-                
-                $cont = $cont+1;
-            }
-            
-            DB::commit();
 
+                $cont = $cont + 1;
+            }
+
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
         }
-                
+
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
@@ -187,20 +190,22 @@ class EgresoController extends Controller
 
     public function show($id)
     {
-        $empresa=DB::table('empresas as e')
-            ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
+        $empresa = DB::table('empresas as e')
+            ->select('e.id', 'e.nombre', 'e.rif', 'e.descipcion', 'e.direccion');
         $egreso = Egreso::find($id);
-        
 
-        $detalles = Detalleegreso::join('productos','detalle_egreso.producto_id','=','productos.id')
-             ->select('productos.nombre as producto',
-                      'detalle_egreso.cantidad',
-                      'detalle_egreso.observacionp',
-                      'detalle_egreso.created_at',
-                      'detalle_egreso.updated_at',)
-             ->where('detalle_egreso.egreso_id','=',$id)
-             ->orderBy('detalle_egreso.id', 'desc')->get();
-        return view('admin.egresos.show', compact('egreso','detalles'));
+
+        $detalles = Detalleegreso::join('productos', 'detalle_egreso.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_egreso.cantidad',
+                'detalle_egreso.observacionp',
+                'detalle_egreso.created_at',
+                'detalle_egreso.updated_at',
+            )
+            ->where('detalle_egreso.egreso_id', '=', $id)
+            ->orderBy('detalle_egreso.id', 'desc')->get();
+        return view('admin.egresos.show', compact('egreso', 'detalles'));
     }
 
     public function edit(Egreso $egreso)
@@ -210,13 +215,12 @@ class EgresoController extends Controller
 
     public function update(Request $request, Egreso $egreso)
     {
-        
     }
 
     public function destroy($id)
     {
-        $egreso=Egreso::findOrFail($id);
-        $egreso->estatus=2;
+        $egreso = Egreso::findOrFail($id);
+        $egreso->estatus = 2;
         $egreso->update();
         return view('admin.egresos.index');
     }
@@ -237,27 +241,30 @@ class EgresoController extends Controller
         }
     }
 
-    public function pdf(Request $request,$id){
+    public function pdf(Request $request, $id)
+    {
 
         $compra = Cargo::find(1);
         $almacen = Cargo::find(2);
 
         $egreso = Egreso::find($id);
-        
 
-        $detalles = Detalleegreso::join('productos','detalle_egreso.producto_id','=','productos.id')
-             ->select('productos.nombre as producto',
-                      'detalle_egreso.cantidad',
-                      'detalle_egreso.observacionp',
-                      'detalle_egreso.created_at',
-                      'detalle_egreso.updated_at',)
-             ->where('detalle_egreso.egreso_id','=',$id)
-             ->orderBy('detalle_egreso.id', 'desc')->get();
 
-        $numegreso=Egreso::select('id')->where('id',$id)->get();
+        $detalles = Detalleegreso::join('productos', 'detalle_egreso.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_egreso.cantidad',
+                'detalle_egreso.observacionp',
+                'detalle_egreso.created_at',
+                'detalle_egreso.updated_at',
+            )
+            ->where('detalle_egreso.egreso_id', '=', $id)
+            ->orderBy('detalle_egreso.id', 'desc')->get();
 
-        $pdf = PDF::loadView('admin/pdf/egreso',['egreso'=>$egreso,'detalles'=>$detalles,'compra'=>$compra,'almacen'=>$almacen]);
-        return $pdf->stream('admin/egreso-'.$numegreso[0]->id.'.pdf');
+        $numegreso = Egreso::select('id')->where('id', $id)->get();
+
+        $pdf = PDF::loadView('admin/pdf/egreso', ['egreso' => $egreso, 'detalles' => $detalles, 'compra' => $compra, 'almacen' => $almacen]);
+        return $pdf->stream('admin/egreso-' . $numegreso[0]->id . '.pdf');
         //return $pdf->download('egreso.pdf');
     }
 }
