@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'ENASA | INFORMACION PERSONAL')
+@section('title', 'ENASA | INFORMACION BIENES')
 
 @section('content')
 <x-card-header>
@@ -49,7 +49,10 @@
                     </div>
                     <div class="col-md-2">
                         <strong class="font-14 text-blue">Depreciacion Mensual</strong>
-                        {{  $biennacional->costo,2 / $biennacional->vidautil,2 }}
+                        @if ($biennacional->costo)
+                            
+                        {{  number_format($biennacional['costo'] / $biennacional['vidautil']) }}
+                        @endif
                     </div>
                     <div class="col-sm-2 invoice-col">
                         <strong class="font-14 text-blue">Estatus</strong><br>

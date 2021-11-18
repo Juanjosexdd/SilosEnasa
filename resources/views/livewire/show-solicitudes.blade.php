@@ -125,17 +125,33 @@
                             </td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="{{url('admin/pdfSolicitud',$solicitud)}}" target="_blank">
-                                        <button type="button" style="border-color: rgb(158, 157, 157);" class="btn btn-default elevation-4 btn-sm">
-                                          <i class="far fa-fw fa-file-pdf text-red"></i>
+                                    <a href="{{ url('admin/pdfSolicitud', $solicitud) }}" target="_blank">
+                                        <button type="button" style="border-color: rgb(158, 157, 157);"
+                                            class="btn btn-default elevation-4 btn-sm">
+                                            <i class="far fa-fw fa-file-pdf text-red"></i>
                                         </button> &nbsp;
-                                     </a>
+                                    </a>
                                     <a class="btn btn-default elevation-4 btn-sm"
                                         style="border-color: rgb(158, 157, 157);"
                                         href=" {{ route('admin.solicitudes.show', $solicitud->id) }} ">
                                         <i class="fas fa-eye text-yellow"></i>
                                     </a>
+                                    <a type="button" class="btn btn-default btn-sm"
+                                        style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                        <form class="formulario-eliminar"
+                                            action="{{ route('admin.solicitudes.destroy', $solicitud->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="btn btn-default btn-sm border-0 p-0 text-danger"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </a>
                                 </div>
+                            </td>
+                            <td>
+
                             </td>
                         </tr>
                     @endforeach

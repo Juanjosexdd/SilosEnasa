@@ -305,7 +305,7 @@ return [
             'can'  => 'bienesnacionales',
             'submenu' => [
                 [
-                    'text' => 'Clacificación',
+                    'text' => 'Clasificación',
                     'route'  => 'admin.clacificacionbienes.index',
                     'icon' => 'fas fa-boxes text-blue',
                     'active' => ['admin/clacificacionbienes*'],
@@ -397,7 +397,7 @@ return [
                     'can'  => 'admin.almacens.index',
                 ],
                 [
-                    'text' => 'Clacificación',
+                    'text' => 'Clasificación',
                     'route'  => 'admin.clacificacions.index',
                     'icon' => 'fas fa-boxes text-blue',
                     'active' => ['admin/clacificacions*'],

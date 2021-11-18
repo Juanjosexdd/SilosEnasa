@@ -149,6 +149,11 @@ class AsignacionbienController extends Controller
             $asignacionbien->estatus = '0';
             $asignacionbien->save();
 
+            if ($asignacionbien->bienesnacionales_id) {
+                $b = Biennacional::find($asignacionbien->bienesnacionales_id);
+                $b->estatus = 1;
+                $b->save();
+            }
             return redirect()->route('admin.asignacions.index')->with('success', 'El documento se anuló con éxito!');
         }
     }

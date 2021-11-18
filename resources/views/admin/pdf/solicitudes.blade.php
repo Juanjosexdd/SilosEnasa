@@ -32,7 +32,6 @@
                                 <th class=" pr-6">Dpto solicitante:</th>
                                 <th class=" pr-6">Observación</th>
                                 <th class=" pr-6">Fecha</th>
-                                <th class=" pr-6">Hora S.</th>
                                 <th class=" pr-6">Estatus</th>
                             </tr>
                         </thead>
@@ -44,7 +43,6 @@
                                     <td class=" ">{{ $solicitud->user->departamento->nombre }}</td>
                                     <td class=" ">{{ $solicitud->observacion }}</td>
                                     <td class=" ">{{ $solicitud->created_at->toFormattedDateString() }}</td>
-                                    <td class=" ">{{ $solicitud->created_at->toTimeString() }}</td>
                                     <td>
                                         @if ($solicitud->estatus == 0)
                                             Anulada

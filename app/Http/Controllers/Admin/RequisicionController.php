@@ -199,8 +199,7 @@ class RequisicionController extends Controller
     public function destroy($id)
     {
         $requisicion=Requisicion::findOrFail($id);
-        $requisicion->estatus=2;
-        $requisicion->update();
+        $requisicion->delete();
         return view('admin.requisicions.index');
     }
 

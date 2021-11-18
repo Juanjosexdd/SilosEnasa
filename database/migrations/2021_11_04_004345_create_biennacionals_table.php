@@ -19,13 +19,13 @@ class CreateBiennacionalsTable extends Migration
             $table->string('slug');
             $table->string('descripcion');
             $table->string('codigo');
-            $table->decimal('costo', 11, 2);
-            $table->integer('vidautil');
-            $table->date('fecha_adquisicion');
-            $table->date('fecha_desincorporacion');
+            $table->decimal('costo', 11, 2)->nullable();
+            $table->integer('vidautil')->nullable();
+            $table->date('fecha_adquisicion')->nullable();
+            $table->date('fecha_desincorporacion')->nullable();
             $table->text('observacion')->nullable();
             
-            $table->boolean('estatus')->default(1);
+            $table->boolean('estatus')->default();
             $table->unsignedBigInteger("clacificacionbienes_id");
             $table->foreign('clacificacionbienes_id')
                 ->references('id')

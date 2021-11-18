@@ -31,8 +31,9 @@ class CreateSolicitudsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-                
-            $table->timestamps();
+                $table->date('created_at');
+                $table->date('updated_at');
+            // $table->timestamps();
         });
     }
 

@@ -138,6 +138,18 @@
                                         href=" {{ route('admin.requisicions.show', $requisicion->id) }} ">
                                         <i class="fas fa-eye text-yellow"></i>
                                     </a>
+                                    <a type="button" class="btn btn-default btn-sm"
+                                        style="border-color: rgb(158, 157, 157); border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                                        <form class="formulario-eliminar"
+                                            action="{{ route('admin.requisicions.destroy', $requisicion->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="btn btn-default btn-sm border-0 p-0 text-danger"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

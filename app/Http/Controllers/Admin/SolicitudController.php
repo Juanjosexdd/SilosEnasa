@@ -166,7 +166,6 @@ class SolicitudController extends Controller
 
     public function destroy($id)
     {
-        $this->authorize('author', $id);
 
         $solicitud = Solicitud::findOrFail($id);
         $solicitud->estatus = 2;

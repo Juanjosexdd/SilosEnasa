@@ -41,7 +41,7 @@
             <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel"
                 aria-labelledby="custom-content-above-home-tab">
                 <form class="" action="{{ route('admin.solicitudes.pdf') }}">
-                    <label class="h4 offset-4">Selercciona el rango de fecha:</label>
+                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
@@ -86,7 +86,7 @@
             <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel"
                 aria-labelledby="custom-content-above-profile-tab">
                 <form class="" action="{{ route('admin.ingresos.pdf') }}">
-                    <label class="h4 offset-4">Selercciona el rango de fecha:</label>
+                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
@@ -130,7 +130,7 @@
                 aria-labelledby="custom-content-above-messages-tab">
 
                 <form class="" action="{{ route('admin.egresos.pdf') }}">
-                    <label class="h4 offset-4">Selercciona el rango de fecha:</label>
+                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
@@ -182,7 +182,7 @@
             <div class="tab-pane fade" id="custom-content-above-settings" role="tabpanel"
                 aria-labelledby="custom-content-above-settings-tab">
                 <form class="" action="{{ route('admin.requisiciones.pdf') }}">
-                    <label class="h4 offset-4">Selercciona el rango de fecha:</label>
+                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">

@@ -128,11 +128,11 @@ class UserTableSeeder extends Seeder
             'tipodocumento_id' => '1',
             'cedula' => '255635698',
             'name' => 'Juan Manuel',
-            'username' => 'juan-manuel',
+            'username' => 'juanmanuel',
             'slug' => 'luis',
             'last_name' => 'Jimenez',
             'email' => 'juanmanuel@gmail.com',
-            'password' => 'juan'
+            'password' => 'juanmanuel'
         ])->assignRole('ADMINISTRADOR');
        // User::factory(99)->create();
     }

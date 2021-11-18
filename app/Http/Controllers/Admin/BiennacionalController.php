@@ -11,14 +11,14 @@ use App\Models\Log\LogSistema;
 
 class BiennacionalController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('can:admin.biennacionals.index')->only('index');
-    //     $this->middleware('can:admin.biennacionals.create')->only('create', 'store');
-    //     $this->middleware('can:admin.biennacionals.edit')->only('edit', 'update');
-    //     $this->middleware('can:admin.biennacionals.destroy')->only('destroy');
-    //     $this->middleware('can:admin.biennacionals.estatubiennacional')->only('estatubiennacional');
-    // }
+    public function __construct()
+    {
+        $this->middleware('can:admin.biennacionals.index')->only('index');
+        $this->middleware('can:admin.biennacionals.create')->only('create', 'store');
+        $this->middleware('can:admin.biennacionals.edit')->only('edit', 'update');
+        $this->middleware('can:admin.biennacionals.destroy')->only('destroy');
+        $this->middleware('can:admin.biennacionals.estatubiennacional')->only('estatubiennacional');
+    }
 
     public function index()
     {
@@ -70,7 +70,7 @@ class BiennacionalController extends Controller
             'slug' => 'required|unique:biennacionals',
             'descripcion' => 'required',
             'clacificacionbienes_id' => 'required|not_in:0',
-            'codigo' => 'required',
+            'codigo' => 'required|unique:biennacionals',
         ]);
 
         $log = new LogSistema();
@@ -101,7 +101,8 @@ class BiennacionalController extends Controller
         $request->validate([
             'nombre' => 'required',
             'slug' => "required|unique:biennacionals,slug,$biennacional->id",
-            'descripcion' => 'required'
+            'descripcion' => 'required',
+
         ]);
 
         $log = new LogSistema();

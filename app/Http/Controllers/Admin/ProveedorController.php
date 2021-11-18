@@ -145,7 +145,7 @@ class ProveedorController extends Controller
 
         $proveedor->delete();
 
-        return redirect()->route('admin.proveedors.index')->with('info', 'El municipio se eliminó con exito...');
+        return redirect()->route('admin.proveedors.index')->with('info', 'El proveedor se eliminó con exito...');
     }
 
     public function estatuproveedor(Proveedor $proveedor)
