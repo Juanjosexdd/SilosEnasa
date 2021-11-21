@@ -11,37 +11,48 @@
     <x-card-body>
         <ul class="nav nav-tabs pb-4" id="custom-content-above-tab" role="tablist">
             <li class="nav-item active">
-                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill"
-                    href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home"
-                    aria-selected="true">Solicitudes</a>
+                <a class="nav-link active" id="solicitudes-tab" data-toggle="pill" href="#solicitudes" role="tab"
+                    aria-controls="solicitudes" aria-selected="true">Solicitudes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill"
-                    href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile"
-                    aria-selected="false">Ingresos</a>
+                <a class="nav-link" id="ingresos-tab" data-toggle="pill" href="#ingresos" role="tab"
+                    aria-controls="ingresos" aria-selected="false">Ingresos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="custom-content-above-messages-tab" data-toggle="pill"
-                    href="#custom-content-above-messages" role="tab" aria-controls="custom-content-above-messages"
-                    aria-selected="false">Egresos</a>
+                <a class="nav-link" id="egresos-tab" data-toggle="pill" href="#egresos" role="tab"
+                    aria-controls="egresos" aria-selected="false">Egresos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="custom-content-above-settings-tab" data-toggle="pill"
-                    href="#custom-content-above-settings" role="tab" aria-controls="custom-content-above-settings"
+                <a class="nav-link" id="requisicion-tab" data-toggle="pill"
+                    href="#requisicion" role="tab" aria-controls="requisicion"
                     aria-selected="false">Requisiciones</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="custom-content-above-inventario-tab" data-toggle="pill"
-                    href="#custom-content-above-inventario" role="tab" aria-controls="custom-content-above-inventario"
-                    aria-selected="false">Inventario</a>
+                <a class="nav-link" id="inventario-tab" data-toggle="pill" href="#inventario" role="tab"
+                    aria-controls="inventario" aria-selected="false">Inventario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="trabajador-tab" data-toggle="pill" href="#trabajador" role="tab"
+                    aria-controls="trabajador" aria-selected="false">Empleados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="bienes-tab" data-toggle="pill" href="#bienes" role="tab"
+                    aria-controls="bienes" aria-selected="false">Bienes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="asignacion-tab" data-toggle="pill" href="#asignacion" role="tab"
+                    aria-controls="asignacion" aria-selected="false">Asignacion de bienes</a>
             </li>
         </ul>
 
         <div class="tab-content" id="custom-content-above-tabContent">
-            <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel"
-                aria-labelledby="custom-content-above-home-tab">
+            <div class="tab-pane fade show active" id="solicitudes" role="tabpanel" aria-labelledby="solicitudes-tab">
                 <form class="" action="{{ route('admin.solicitudes.pdf') }}">
-                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="h4 offset-4">Reportes de Solicitudes:</label>
+                        </div>
+                    </div>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
@@ -91,8 +102,7 @@
                         title="Generar reporte" type="submit">BUSCAR </button>
                 </form>
             </div>
-            <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel"
-                aria-labelledby="custom-content-above-profile-tab">
+            <div class="tab-pane fade" id="ingresos" role="tabpanel" aria-labelledby="ingresos-tab">
                 <div class="row">
                     <div class="col-md-12">
                         <label class="h4 offset-4">Reportes de ingresos:</label>
@@ -143,7 +153,6 @@
                             {!! Form::select('correlativohasta', $ingresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                             {!! $errors->first('correlativohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
-
                     </div>
 
                     <button target="_blank"
@@ -151,11 +160,13 @@
                         title="Generar reporte" type="submit">BUSCAR </button>
                 </form>
             </div>
-            <div class="tab-pane fade" id="custom-content-above-messages" role="tabpanel"
-                aria-labelledby="custom-content-above-messages-tab">
-
+            <div class="tab-pane fade" id="egresos" role="tabpanel" aria-labelledby="egresos-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Reportes de egresos:</label>
+                    </div>
+                </div>
                 <form class="" action="{{ route('admin.egresos.pdf') }}">
-                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
@@ -217,10 +228,14 @@
                         title="Generar reporte" type="submit">BUSCAR </button>
                 </form>
             </div>
-            <div class="tab-pane fade" id="custom-content-above-settings" role="tabpanel"
-                aria-labelledby="custom-content-above-settings-tab">
+            <div class="tab-pane fade" id="requisicion" role="tabpanel"
+                aria-labelledby="requisicion-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Report de requisiciones :</label>
+                    </div>
+                </div>
                 <form class="" action="{{ route('admin.requisiciones.pdf') }}">
-                    <label class="h4 offset-4">Selecciona el rango de fecha:</label>
                     <div class="row">
                         <br>
                         <div class="col-md-4 offset-2">
@@ -261,14 +276,134 @@
                                 <option value="3">Solicitados a compra</option>
                             </select>
                         </div>
-                        <button target="_blank"
-                            class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
-                            title="Generar reporte" type="submit">BUSCAR </button>
+                    </div>
+                    <button target="_blank"
+                        class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                        title="Generar reporte" type="submit">BUSCAR </button>
                 </form>
             </div>
-            <div class="tab-pane fade" id="custom-content-above-inventario" role="tabpanel"
-                aria-labelledby="custom-content-above-inventario-tab">
-                hjljh
+            <div class="tab-pane fade" id="inventario" role="tabpanel" aria-labelledby="inventario-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Reportes de inventario :</label>
+                    </div>
+                </div>
+                <form class="" action="{{ route('admin.inventarios.pdf') }}">
+                    
+                    <div class="form-group row">
+                        <div class="col-md-4 offset-2">
+                            <label for="">Clasificación :</label>
+                            {!! Form::select('clacificacion_id', $clacificaciones, null, ['class' => 'form-control selectpicker select2' . ($errors->has('clacificacion_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('clacificacion_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Ubicación :</label>
+                            {!! Form::select('ubicacion', $ubicacions, null, ['class' => 'form-control selectpicker select2' . ($errors->has('ubicacion') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('ubicacion', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <button target="_blank"
+                        class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                        title="Generar reporte" type="submit">BUSCAR </button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="trabajador" role="tabpanel" aria-labelledby="trabajador-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Reporte de Empleados:</label>
+                    </div>
+                </div>
+                <form class="" action="{{ route('admin.trabajadors.pdf') }}">
+                    <div class="form-group row">
+                        <div class="col-md-4 offset-2">
+                            <label for="">Departamento :</label>
+                            {!! Form::select('departamento_id', $departamentos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('departamento_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('departamento_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Cargo :</label>
+                            {!! Form::select('cargo_id', $cargos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('cargo_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('cargo_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <button target="_blank"
+                        class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                        title="Generar reporte" type="submit">BUSCAR </button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="bienes" role="tabpanel" aria-labelledby="bienes-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Reportes de bienes:</label>
+                    </div>
+                </div>
+                <form class="" action="{{ route('admin.biennacionals.pdf') }}">
+                    <div class="row">
+                        <br>
+                        <div class="col-md-4 offset-2">
+                            <div class="form-group">
+                                <label>Adquirido desde: </label>
+                                <input class="form-control mr-sm-2" name="desde" id="desde" type="date" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Hasta: </label>
+                                <input class="form-control mr-sm-2" name="hasta" id="hasta" type="date" placeholder="Search"
+                                    aria-label="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4 offset-2">
+                            <label for="">Desde codigo :</label>
+                            {!! Form::select('codigodesde', $bienes, null, ['class' => 'form-control selectpicker select2' . ($errors->has('codigodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('codigodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Hasta codigo :</label>
+                            {!! Form::select('codigohasta', $bienes, null, ['class' => 'form-control selectpicker select2' . ($errors->has('codigohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('codigohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <button target="_blank"
+                        class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                        title="Generar reporte" type="submit">BUSCAR </button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="asignacion" role="tabpanel" aria-labelledby="asignacion-tab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="h4 offset-4">Reportes de asignacion de bienes:</label>
+                    </div>
+                </div>
+                <form class="" action="{{ route('admin.asignacions.pdf') }}">
+                    <div class="form-group row">
+
+                        <div class="col-md-4 offset-2">
+                            <label for="">Usuario responsable :</label>
+                            {!! Form::select('user_id', $users, null, ['class' => 'form-control selectpicker select2' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('user_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Asignado a :</label>
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2' . ($errors->has('empleado_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-2">
+                            <label for="">Bien nacional :</label>
+                            {!! Form::select('biennacional_id', $biennacionals, null, ['class' => 'form-control selectpicker select2' . ($errors->has('biennacional_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('biennacional_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <button target="_blank"
+                        class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
+                        title="Generar reporte" type="submit">BUSCAR </button>
+                </form>
             </div>
         </div>
     </x-card-body>

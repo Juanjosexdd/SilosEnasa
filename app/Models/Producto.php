@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    protected $guarded = ['id','created_at','updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function getRouteKeyName()
     {
@@ -32,11 +32,20 @@ class Producto extends Model
 
     public function getDisplayProductoAttribute()
     {
-        return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre . '  - stock    (' . $this->stock .')';
+        return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre . '  - stock    (' . $this->stock . ')';
     }
 
     public function getDisplayProductAttribute()
     {
         return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre;
+    }
+
+
+
+    //Query Scope
+    public function scopeClacificacion($query, $clacificacion)
+    {
+        if ($clacificacion)
+            return $query->orWhere('clacificacion_id', 'LIKE', "%$clacificacion%");
     }
 }

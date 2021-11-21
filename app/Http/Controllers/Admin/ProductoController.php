@@ -8,17 +8,36 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Log\LogSistema;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ProductoController extends Controller
 {
     public function __construct()
     {
         $this->middleware('can:admin.productos.index')->only('index');
-        $this->middleware('can:admin.productos.create')->only('create','store');
-        $this->middleware('can:admin.productos.edit')->only('edit','update');
+        $this->middleware('can:admin.productos.create')->only('create', 'store');
+        $this->middleware('can:admin.productos.edit')->only('edit', 'update');
         $this->middleware('can:admin.productos.destroy')->only('destroy');
         $this->middleware('can:admin.productos.estatuproducto')->only('estatuproducto');
+    }
 
+    public function exportPdf(Request $request)
+    {
+
+        if ($request) {
+            $clacificacion = $request->get('clacificacion_id');
+            $ubicacion = $request->get('ubicacion');
+
+            $inventarios = Producto::where('clacificacion_id', 'LIKE', "%$clacificacion%")
+                ->orWhere('ubicacion', 'LIKE', "%$ubicacion%")
+                ->get();
+
+
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.inventarios', compact('inventarios', 'today'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-inventarios.pdf');
+        }
     }
     /**
      * Display a listing of the resource.
@@ -50,11 +69,11 @@ class ProductoController extends Controller
         $log->save();
 
         // $clacificaciones = Clacificacion::pluck('abreviado','id');
-        $clacificaciones  = Clacificacion::where('estatus', 1)->get()->pluck('display_clacificacion','id');
+        $clacificaciones  = Clacificacion::where('estatus', 1)->get()->pluck('display_clacificacion', 'id');
 
         // $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('display_clacificacion' , 'id');
-        
-        
+
+
         return view('admin.productos.create', compact('clacificaciones'));
     }
 
@@ -93,7 +112,7 @@ class ProductoController extends Controller
         $log->save();
 
         // $tipodocumentos = Tipodocumento::pluck('abreviado', 'id');
-        return view('admin.productos.show' , compact('producto'));
+        return view('admin.productos.show', compact('producto'));
     }
 
     /**
@@ -111,12 +130,12 @@ class ProductoController extends Controller
         $log->save();
 
         // $clacificaciones = Clacificacion::pluck('abreviado','id');
-        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
+        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
-        return view('admin.productos.edit', compact('producto','clacificaciones'));
+        return view('admin.productos.edit', compact('producto', 'clacificaciones'));
     }
 
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -165,7 +184,7 @@ class ProductoController extends Controller
 
     public function estatuproducto(Producto $producto)
     {
-        if($producto->estatus=="1"){
+        if ($producto->estatus == "1") {
 
             $log = new LogSistema();
 
@@ -173,11 +192,10 @@ class ProductoController extends Controller
             $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al producto: ' . $producto->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
-            $producto->estatus= '0';
+            $producto->estatus = '0';
             $producto->save();
             return redirect()->route('admin.productos.index')->with('success', 'El producto está inactivo con éxito!');
-
-       }else{
+        } else {
 
             $log = new LogSistema();
 
@@ -185,10 +203,9 @@ class ProductoController extends Controller
             $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado el producto : ' . $producto->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
-            $producto->estatus= '1';
+            $producto->estatus = '1';
             $producto->save();
             return redirect()->route('admin.productos.index')->with('success', 'El producto se activó con éxito!');
-
         }
     }
 }

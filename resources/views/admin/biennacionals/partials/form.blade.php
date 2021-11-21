@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-2">
         <div >
-            {!! Form::label('clacificacionbienes_id', 'Clacificacion : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
+            {!! Form::label('clacificacionbienes_id', 'Clasificacion : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             {!! Form::select('clacificacionbienes_id', $clacificacionbienes, null, ['class' => 'form-control select2 '. ($errors->has('clacificacionbienes_id') ? ' is-invalid' : ''), 'placeholder' => '' ]) !!}
             {!! $errors->first('clacificacionbienes_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 

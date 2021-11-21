@@ -31,7 +31,7 @@
                             </th>
                             <th scope="col" role="button"
                                 wire:click="order('nombre')">
-                                nombre
+                                Nombre
                                 @if ($sort == 'nombre')
                                     @if ($direction == 'asc')
                                         <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -44,7 +44,7 @@
                             </th>
                             <th scope="col" role="button"
                                 wire:click="order('descripcion')">
-                                Deescripción
+                                Descripción
                                 @if ($sort == 'descripcion')
                                     @if ($direction == 'asc')
                                         <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>

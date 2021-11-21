@@ -340,31 +340,7 @@ return [
             // 'can'  => 'movimientossistema',
             'submenu' => [
                 [
-                    'text' => 'Movimientos',
-                    'route'  => 'admin.report.index',
-                    'icon' => 'fas fa-clipboard-list text-blue',
-                    'active' => ['admin/report*'],
-                    // 'can'  => 'admin.proveedors.index',
-
-                ],
-                // [
-                //     'text' => 'Inventario',
-                //     'route'  => 'admin.report.reportinventario',
-                //     'icon' => 'fas fa-people-carry text-blue',
-                //     // 'active' => ['admin/report/reportinventario'],
-                //     // 'can'  => 'admin.ingresos.index',
-
-                // ],
-                [
-                    'text' => 'Ajustes de sistema',
-                    'route'  => 'admin.report.index',
-                    'icon' => 'fas fa-clipboard-list text-blue',
-                    'active' => ['admin/report*'],
-                    // 'can'  => 'admin.proveedors.index',
-
-                ],
-                [
-                    'text' => 'Seguridad',
+                    'text' => 'Reportes',
                     'route'  => 'admin.report.index',
                     'icon' => 'fas fa-clipboard-list text-blue',
                     'active' => ['admin/report*'],

@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'ENASA | CREAR NUEVA CLACIFICACIÓN')
+@section('title', 'ENASA | CREAR NUEVA CLASIFICACIÓN')
 
 
 @section('content')
     @include('sweetalert::alert')
 
     <x-card-header>
-        <h3 class="text-white">Crear una nueva clacificacion de bienes</h3>
+        <h3 class="text-white">Crear una nueva clasificacion de bienes</h3>
     </x-card-header>
 
     <x-card-body>

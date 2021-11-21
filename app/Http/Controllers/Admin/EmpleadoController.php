@@ -11,6 +11,8 @@ use App\Models\Departamento;
 use App\Models\Tipodocumento;
 use App\Models\Log\LogSistema;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class EmpleadoController extends Controller
 {
@@ -22,6 +24,24 @@ class EmpleadoController extends Controller
         $this->middleware('can:admin.empleados.edit')->only('edit', 'update');
         $this->middleware('can:admin.empleados.destroy')->only('destroy');
         $this->middleware('can:admin.empleados.estatuempleado')->only('estatuempleado');
+    }
+
+    public function exportPdf(Request $request)
+    {
+
+        if ($request) {
+            $departamento = $request->get('departamento_id');
+            $cargo = $request->get('cargo_id');
+
+            $empleados = Empleado::where('departamento_id', 'LIKE', "%$departamento%")
+                ->orWhere('cargo_id', 'LIKE', "%$cargo%")
+                ->get();
+
+
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.trabajadors', compact('empleados', 'today'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-trabajadors.pdf');
+        }
     }
     /**
      * Display a listing of the resource.

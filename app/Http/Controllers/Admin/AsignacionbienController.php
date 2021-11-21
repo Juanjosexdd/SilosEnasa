@@ -8,6 +8,8 @@ use App\Models\Biennacional;
 use App\Models\Empleado;
 use App\Models\Log\LogSistema;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class AsignacionbienController extends Controller
 {
@@ -19,6 +21,26 @@ class AsignacionbienController extends Controller
         $this->middleware('can:admin.asignacions.edit')->only('edit', 'update');
         $this->middleware('can:admin.asignacions.destroy')->only('destroy');
         $this->middleware('can:admin.asignacions.estatuasignacion')->only('estatuasignacion');
+    }
+
+    public function exportPdf(Request $request)
+    {
+
+        if ($request) {
+
+            $empleado = $request->get('empleado_id');
+            $user = $request->get('user_id');
+            $biennacional = $request->get('biennacional_id');
+
+            $asignacionbiens = Asignacionbien::orWhere('empleado_id', 'LIKE', "%$empleado%")
+                ->orWhere('user_id', 'LIKE', "%$user%")
+                ->orWhere('bienesnacionales_id', 'LIKE', "%$biennacional%")
+                ->get();
+
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.asignacions', compact('asignacionbiens', 'today'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-asignacions.pdf');
+        }
     }
     /**
      * Display a listing of the resource.
@@ -49,12 +71,11 @@ class AsignacionbienController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a realizar una asignacion de bienes a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
-        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
-        $biennacionals  = Biennacional::where('estatus', 1)->get()->pluck('display_bienes','id');
+        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado', 'id');
+        $biennacionals  = Biennacional::where('estatus', 1)->get()->pluck('display_bienes', 'id');
 
 
-        return view('admin.asignacions.create', compact('empleados','biennacionals'));
-
+        return view('admin.asignacions.create', compact('empleados', 'biennacionals'));
     }
 
     /**
@@ -85,7 +106,7 @@ class AsignacionbienController extends Controller
             $p->save();
             $cont = $cont + 1;
         }
-        
+
         // $asignacionbien->user_id = auth()->user()->id;
         $asignacionbien = Asignacionbien::create($request->all());
 

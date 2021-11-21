@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Asignacionbien;
 use App\Models\Clacificacionbienes;
 use App\Models\Log\LogSistema;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class BiennacionalController extends Controller
 {
@@ -18,6 +20,27 @@ class BiennacionalController extends Controller
         $this->middleware('can:admin.biennacionals.edit')->only('edit', 'update');
         $this->middleware('can:admin.biennacionals.destroy')->only('destroy');
         $this->middleware('can:admin.biennacionals.estatubiennacional')->only('estatubiennacional');
+    }
+
+    public function exportPdf(Request $request)
+    {
+
+        if ($request) {
+            $sql = $request->get('desde');
+            $sql1 = $request->get('hasta');
+            $codigodesde = $request->get('codigodesde');
+            $codigohasta = $request->get('codigohasta');
+
+            $biennacionals = Biennacional::whereBetween('codigo', [$codigodesde, $codigohasta])
+                ->orWhere('fecha_adquisicion', 'LIKE', "%$sql%")
+                ->orWhere('fecha_adquisicion', 'LIKE', "%$sql1%")
+                ->get();
+
+
+            $today = Carbon::now()->format('d/m/Y');
+            $pdf = PDF::loadView('admin.pdf.biennacionals', compact('biennacionals', 'today'))->setPaper('a4', 'landscape');
+            return $pdf->stream('listado-biennacionals.pdf');
+        }
     }
 
     public function index()
@@ -37,11 +60,11 @@ class BiennacionalController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear un cargo nuevo a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear un bien nacional nuevo a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
-        
-        $clacificacionbienes  = Clacificacionbienes::where('estatus', 1)->get()->pluck('display_clacificacion','id');
+
+        $clacificacionbienes  = Clacificacionbienes::where('estatus', 1)->get()->pluck('display_clacificacion', 'id');
 
         return view('admin.biennacionals.create', compact('clacificacionbienes'));
     }
@@ -51,17 +74,17 @@ class BiennacionalController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver la ficha del usuario: ' . $biennacional->nombre .' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver la ficha del usuario: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $asignacion = Asignacionbien::where('bienesnacionales_id', $biennacional)
-                    ->first();
+            ->first();
         // $departamentos = Departamento::pluck('nombre', 'id');
         // $tipodocumentos = Tipodocumento::pluck('abreviado', 'id');
-        // $cargos = Cargo::pluck('nombre', 'id');
-        
+        // $bien nacionals = Cargo::pluck('nombre', 'id');
 
-        return view('admin.biennacionals.show', compact('biennacional','asignacion'));
+
+        return view('admin.biennacionals.show', compact('biennacional', 'asignacion'));
     }
     public function store(Request $request)
     {
@@ -76,12 +99,12 @@ class BiennacionalController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado un nuevo cargo : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado un nuevo bien nacional : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $biennacional = Biennacional::create($request->all());
 
-        return redirect()->route('admin.biennacionals.edit', $biennacional)->with('success', ' ¡Felicidades el cargo se creo con éxito!');
+        return redirect()->route('admin.biennacionals.edit', $biennacional)->with('success', ' ¡Felicidades el bien nacional se creo con éxito!');
     }
 
     public function edit(Biennacional $biennacional)
@@ -89,11 +112,11 @@ class BiennacionalController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a editar el cargo : ' . $biennacional->nombre . ' a las ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a editar el bien nacional : ' . $biennacional->nombre . ' a las ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
-        $clacificacionbienes  = Clacificacionbienes::where('estatus', 1)->get()->pluck('display_clacificacion','id');
+        $clacificacionbienes  = Clacificacionbienes::where('estatus', 1)->get()->pluck('display_clacificacion', 'id');
 
-        return view('admin.biennacionals.edit', compact('biennacional','clacificacionbienes'));
+        return view('admin.biennacionals.edit', compact('biennacional', 'clacificacionbienes'));
     }
 
     public function update(Request $request, Biennacional $biennacional)
@@ -108,12 +131,12 @@ class BiennacionalController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha actualizado el cargo : ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha actualizado el bien nacional : ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $biennacional->update($request->all());
 
-        return redirect()->route('admin.biennacionals.edit', $biennacional)->with('success', ' ¡Felicidades el cargo se actualizó con éxito!');
+        return redirect()->route('admin.biennacionals.edit', $biennacional)->with('success', ' ¡Felicidades el bien nacional se actualizó con éxito!');
     }
 
     public function destroy(Biennacional $biennacional)
@@ -121,12 +144,12 @@ class BiennacionalController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha eliminado el cargo : ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha eliminado el bien nacional : ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $biennacional->delete();
 
-        return redirect()->route('admin.biennacionals.index')->with('success', ' ¡Felicidades el cargo se eliminó con éxito!');
+        return redirect()->route('admin.biennacionals.index')->with('success', ' ¡Felicidades el bien nacional se eliminó con éxito!');
     }
 
     public function estatubiennacional(Biennacional $biennacional)
@@ -136,23 +159,23 @@ class BiennacionalController extends Controller
             $log = new LogSistema();
 
             $log->user_id = auth()->user()->id;
-            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al cargo: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al bien nacional: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
             $biennacional->estatus = '2';
             $biennacional->save();
-            return redirect()->route('admin.biennacionals.index')->with('success', 'El cargo està inactivo con exito...!!!');
+            return redirect()->route('admin.biennacionals.index')->with('success', 'El bien nacional està inactivo con exito...!!!');
         } else {
 
             $log = new LogSistema();
 
             $log->user_id = auth()->user()->id;
-            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado al cargo: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado al bien nacional: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
             $biennacional->estatus = '1';
             $biennacional->save();
-            return redirect()->route('admin.biennacionals.index')->with('success', 'El cargo se activó con exito...!!!');
+            return redirect()->route('admin.biennacionals.index')->with('success', 'El bien nacional se activó con exito...!!!');
         }
     }
 }

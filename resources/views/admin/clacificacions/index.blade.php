@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'ENASA | CLACIFICACIÓN')
+@section('title', 'ENASA | CLASIFICACIÓN')
 
 
 @section('content')
     @include('sweetalert::alert')
 
     <x-card-header>
-        <h3 class="text-white">Lista de clacificaciones</h3>
+        <h3 class="text-white">Lista de clasificaciones</h3>
     </x-card-header>
 
     <div class="container">

@@ -22,7 +22,7 @@ class Asignacionbien extends Model
         return $this->belongsTo(Empleado::class);
     }
 
-    public function biennacional()
+    public function bienesnacionales()
     {
         return $this->belongsTo(Biennacional::class);
     }

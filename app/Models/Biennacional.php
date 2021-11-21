@@ -15,7 +15,7 @@ class Biennacional extends Model
     {
         return "slug";
     }
-    public function clacificacion()
+    public function clacificacionbien()
     {
         return $this->belongsTo(Clacificacionbienes::class);
     }
@@ -27,7 +27,7 @@ class Biennacional extends Model
 
     public function getDisplayBienesAttribute()
     {
-        return $this->codigo. ' - ' . $this->nombre;
+        return $this->codigo . ' - ' . $this->nombre;
     }
     
 }

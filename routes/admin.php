@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SolicitudController;
 use App\Http\Controllers\Admin\SolicitudesController;
 use App\Models\Asignacionbien;
+use App\Models\Biennacional;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.home');
 Route::resource('users', UserController::class)->names('admin.users');
@@ -56,7 +57,7 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 Route::resource('asignacions', AsignacionbienController::class)->names('admin.asignacions');
 Route::resource('respaldos', BackupController::class)->names('admin.respaldos');
 Route::resource('report', ReportController::class)->names('admin.report');
-Route::resource('reportinventario', ReportController::class)->names('admin.report.reportinventario');
+Route::resource('reportinventario', ReportController::class)->names('admin.reportinventario');
 
 
 Route::view('backup', 'laravel_backup_panel::layout');
@@ -104,6 +105,10 @@ Route::get('solicitudes-list-pdf',[SolicitudController::class, 'exportPdf'])->na
 Route::get('ingresos-list-pdf',[IngresoController::class, 'exportPdf'])->name('admin.ingresos.pdf');
 Route::get('egresos-list-pdf',[EgresoController::class, 'exportPdf'])->name('admin.egresos.pdf');
 Route::get('requisiciones-list-pdf',[RequisicionController::class, 'exportPdf'])->name('admin.requisiciones.pdf');
+Route::get('inventarios-list-pdf',[ProductoController::class, 'exportPdf'])->name('admin.inventarios.pdf');
+Route::get('trabajadors-list-pdf',[EmpleadoController::class, 'exportPdf'])->name('admin.trabajadors.pdf');
+Route::get('biennacionals-list-pdf',[BiennacionalController::class, 'exportPdf'])->name('admin.biennacionals.pdf');
+Route::get('asignacions-list-pdf',[ AsignacionbienController::class , 'exportPdf'])->name('admin.asignacions.pdf');
 
 
 //CONTROL DE REPORTES
