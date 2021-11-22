@@ -20,7 +20,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EgresoFormRequest;
 use App\Models\Cargo;
 use App\Models\Departamento;
+use App\Models\DetalleInventario;
 use App\Models\Empleado;
+use App\Models\Inventario;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
@@ -149,6 +151,15 @@ class EgresoController extends Controller
             $egreso->user_id = auth()->user()->id;
             $egreso->save();
 
+            $inventario = new Inventario();
+            $inventario->tipo_movimiento = 2;
+            $inventario->referencia = $request->get('correlativo');
+            $inventario->empleado_id = $request->get('empleado_id');
+            $inventario->user_id = auth()->user()->id;
+            $inventario->save();
+
+            
+
             $producto_id = $request->get('producto_id');
             $cantidad = $request->get('cantidad');
             $observacionp = $request->get('observacionp');
@@ -169,6 +180,12 @@ class EgresoController extends Controller
                 $detalle->cantidad = $cantidad[$cont];
                 $detalle->observacionp = $observacionp[$cont];
                 $detalle->save();
+
+                $detalleinventario= new DetalleInventario();
+                $detalleinventario->inventario_id = $inventario->id;
+                $detalleinventario->producto_id = $producto_id[$cont];
+                $detalleinventario->cantidad = $cantidad[$cont];
+                $detalleinventario->save();
 
                 $cont = $cont + 1;
             }

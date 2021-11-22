@@ -111,6 +111,8 @@ class ProductoController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->name . ' Ha ingresado a ver la ficha del producto: ' . $producto->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
+        
+
         // $tipodocumentos = Tipodocumento::pluck('abreviado', 'id');
         return view('admin.productos.show', compact('producto'));
     }

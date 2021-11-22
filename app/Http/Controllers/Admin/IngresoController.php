@@ -21,6 +21,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\IngresoFormRequest;
 use App\Models\AlmacenProducto;
 use App\Models\Cargo;
+use App\Models\DetalleInventario;
+use App\Models\Inventario;
 use App\Models\Producto;
 use App\Models\Tipomovimiento;
 use App\Models\Log\LogSistema;
@@ -52,8 +54,8 @@ class IngresoController extends Controller
             $ingresos = Ingreso::whereBetween('created_at', [$sql, $sql1])
                 ->orWhere('correlativo', $correlativodesde)
                 ->orWhere('correlativo', $correlativohasta)
-                ->orWhere('estatus',$estatus)
-                ->orWhere('user_id',$user)
+                ->orWhere('estatus', $estatus)
+                ->orWhere('user_id', $user)
                 ->get();
             $users = User::all();
             // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
@@ -115,12 +117,6 @@ class IngresoController extends Controller
             ->groupBy('productos.id', 'productos.marca', 'productos.observacionp', 'productos.ubicacion', 'abreviado')
             ->get();
 
-        // $requisicions = Requisicion::join('departamentos', 'requisicions.departamento_id', 'departamentos.id')
-        // ->join('empleado')
-        //     ->select('requisicions.id', 'requisicions.correlativo', 'departamentos.nombre as departamento')
-        //     ->where('requisicions.estatus', '=', '1')
-        //     ->groupBy('requisicions.id', 'requisicions.correlativo', 'departamento')
-        //     ->get();
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
@@ -144,8 +140,13 @@ class IngresoController extends Controller
         try {
             DB::beginTransaction();
 
-            $ingreso = new Ingreso;
+            $inventario = new Inventario;
+            $inventario->tipo_movimiento = 1;
+            $inventario->referencia = $request->get('correlativo');
+            $inventario->user_id = auth()->user()->id;
+            $inventario->save();
 
+            $ingreso = new Ingreso;
             $ingreso->tipomovimiento_id = 1;
             if ($request->get('requisicion_id')) {
                 $ingreso->requisicion_id = $request->get('requisicion_id');
@@ -155,6 +156,8 @@ class IngresoController extends Controller
             $ingreso->observacion = $request->get('observacion');
             $ingreso->user_id = auth()->user()->id;
             $ingreso->save();
+
+
 
             $requisicion_id = $request->get('requisicion_id');
 
@@ -182,6 +185,13 @@ class IngresoController extends Controller
                 $detalle->observacionp = $observacionp[$cont];
                 $detalle->cantidad = $cantidad[$cont];
                 $detalle->save();
+
+                $detalleinventario= new DetalleInventario();
+                $detalleinventario->inventario_id = $inventario->id;
+                $detalleinventario->producto_id = $producto_id[$cont];
+                $detalleinventario->cantidad = $cantidad[$cont];
+                $detalleinventario->save();
+
 
 
                 $almacenProducto = new AlmacenProducto();

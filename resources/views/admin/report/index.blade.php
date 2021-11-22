@@ -186,12 +186,12 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-4 offset-2">
-                            <label for="">Desde Ingreso nro :</label>
+                            <label for="">Desde Egreso nro :</label>
                             {!! Form::select('correlativodesde', $egresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                             {!! $errors->first('correlativodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
                         <div class="col-md-4">
-                            <label for="">Hasta Ingreso nro :</label>
+                            <label for="">Hasta Egreso nro :</label>
                             {!! Form::select('correlativohasta', $egresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                             {!! $errors->first('correlativohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>

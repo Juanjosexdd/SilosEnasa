@@ -30,6 +30,11 @@ class Producto extends Model
         return $this->belongsTo(Detalleingreso::class);
     }
 
+    public function detalleinventarios()
+    {
+        return $this->hasMany(DetalleInventario::class);
+    }
+
     public function getDisplayProductoAttribute()
     {
         return $this->id . '' . $this->clacificacion->abreviado . ' ' . $this->nombre . '  - stock    (' . $this->stock . ')';
