@@ -331,25 +331,6 @@ return [
             ],
         ],
         [
-            'header' => 'REPORTES',
-            // 'can' => 'movimientossistema'
-        ],
-        [
-            'text'    => 'Reportes',
-            'icon'    => 'far fa-file-pdf text-blue',
-            // 'can'  => 'movimientossistema',
-            'submenu' => [
-                [
-                    'text' => 'Reportes',
-                    'route'  => 'admin.report.index',
-                    'icon' => 'fas fa-clipboard-list text-blue',
-                    'active' => ['admin/report*'],
-                    // 'can'  => 'admin.proveedors.index',
-
-                ],
-            ],
-        ],
-        [
             'header' => 'INVENTARIO',
             'can'  => 'inventariosistema'
         ],
@@ -385,6 +366,25 @@ return [
                     'icon' => 'fab fa-product-hunt text-blue',
                     'active' => ['admin/productos*'],
                     'can'  => 'admin.productos.index',
+                ],
+            ],
+        ],
+        [
+            'header' => 'REPORTES',
+            // 'can' => 'movimientossistema'
+        ],
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'far fa-file-pdf text-blue',
+            // 'can'  => 'movimientossistema',
+            'submenu' => [
+                [
+                    'text' => 'Reportes',
+                    'route'  => 'admin.report.index',
+                    'icon' => 'fas fa-clipboard-list text-blue',
+                    'active' => ['admin/report*'],
+                    // 'can'  => 'admin.proveedors.index',
+
                 ],
             ],
         ],

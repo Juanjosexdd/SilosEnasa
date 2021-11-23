@@ -65,6 +65,12 @@
 @stop
 
 @section('adminlte_js')
+<script src="session-timeout.js"></script>
+<script src=" {{ asset('vendor/session-timeout.js') }}  "></script>
+    <script src=" {{ asset('vendor/time.js') }}  "></script>
+
+
     @stack('js')
     @yield('js')
 @stop
+

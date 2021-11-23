@@ -95,6 +95,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Log\LogSistema');
     }
+    public function asignacionbienes()
+    {
+        return $this->hasMany(Asignacionbien::class);
+    }
     public function ingresos()
     {
         return $this->hasMany(Ingreso::class);

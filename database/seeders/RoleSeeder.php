@@ -487,7 +487,7 @@ class RoleSeeder extends Seeder
         ])->syncRoles([$role1]);
         //87
         Permission::create([
-            'name'        => 'admin.biennacionals.estatuclacificacionbien',
+            'name'        => 'admin.biennacionals.estatubiennacional',
             'description' => 'Cambiar estatus de  bienes'
         ])->syncRoles([$role1]);
 

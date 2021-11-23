@@ -9,7 +9,7 @@
     <div class="container">
         <div class="card elevation-5 col-md-12 col-sm-12 pt-3" style="border-radius: 0.95rem">
 
-            <div class="card-body">
+            <div class="card-body table-responsive" style="height: 300px;">
                 <a href=" {{ route('admin.productos.edit', $producto) }} "
                     class="float-right btn bg-navy btn-sm px-3 py-2 elevation-4 ml-2"><i class="fas fa-edit"></i>
                     Editar </a>
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel"
+                    <div class="tab-pane fade" id="custom-content-below-profile" style="height: 400px;" role="tabpanel"
                         aria-labelledby="custom-content-below-profile-tab">
 
                         <table class="table table-striped table-head-fixed table-bordered table-hover table-sm text-nowrap">

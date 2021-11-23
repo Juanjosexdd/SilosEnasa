@@ -79,6 +79,7 @@ Route::get('estatuempleado/{empleado}', [EmpleadoController::class, 'estatuemple
 Route::get('estatuciudad/{ciudad}', [CiudadController::class, 'estatuciudad'])->name('admin.ciudads.estatuciudad');
 Route::get('estatucargo/{cargo}', [CargoController::class, 'estatucargo'])->name('admin.cargos.estatucargo');
 Route::get('estatubiennacional/{biennacional}', [BiennacionalController::class, 'estatubiennacional'])->name('admin.biennacionals.estatubiennacional');
+Route::get('desincorporar/{biennacional}', [BiennacionalController::class, 'desincorporar'])->name('admin.biennacionals.desincorporar');
 Route::get('estatudepartamento/{departamento}', [DepartamentoController::class, 'estatudepartamento'])->name('admin.departamentos.estatudepartamento');
 Route::get('estatuclacificacion/{clacificacion}', [ClacificacionController::class, 'estatuclacificacion'])->name('admin.clacificacions.estatuclacificacion');
 Route::get('estatuclacificacionbien/{clacificacionbien}', [ClacificacionbienesController::class, 'estatuclacificacionbien'])->name('admin.clacificacionbienes.estatuclacificacionbien');
@@ -92,6 +93,8 @@ Route::get('estaturequisicion/{requisicion}', [RequisicionController::class, 'es
 Route::get('estatusolicitud/{solicitud}', [SolicitudController::class, 'estatusolicitud'])->name('admin.solicituds.estatusolicitud');
 Route::get('estatusolicitudes/{solicitudes}', [SolicitudesController::class, 'estatusolicitudes'])->name('admin.solicitudes.estatusolicitudes');
 Route::get('estatuasignacion/{asignacionbien}', [AsignacionbienController::class, 'estatuasignacion'])->name('admin.asignacions.estatuasignacion');
+Route::get('movilizarbien/{asignacionbien}', [AsignacionbienController::class, 'movilizarbien'])->name('admin.asignacions.movilizarbien');
+Route::get('movilizarbien/{asignacionbien}', [AsignacionbienController::class, 'movilizarbien'])->name('admin.asignacions.movilizarbien');
 
 //PDFS
 
@@ -99,6 +102,7 @@ Route::get('pdfIngreso/{ingreso}', [IngresoController::class, 'pdf'])->name('adm
 Route::get('pdfEgreso/{egreso}', [EgresoController::class, 'pdf'])->name('admin.pdfEgreso');
 Route::get('pdfRequisicion/{requisicion}', [RequisicionController::class, 'pdf'])->name('admin.pdfRequisicion');
 Route::get('pdfSolicitud/{solicitud}', [SolicitudController::class, 'pdf'])->name('admin.pdfSolicitud');
+Route::get('pdfAsignacionbien/{asignacionbien}', [AsignacionbienController::class, 'pdf'])->name('admin.pdfAsignacionbien');
 
 
 Route::get('solicitudes-list-pdf',[SolicitudController::class, 'exportPdf'])->name('admin.solicitudes.pdf');

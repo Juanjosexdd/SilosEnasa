@@ -80,7 +80,9 @@
                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                             Anular
                         </th>
-                        <th colspan="2"></th>
+                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                            Movilización
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,7 +105,7 @@
                                     </p>
                                 @elseif ($asignacionbien->estatus == 2)
                                     <p class="badge badge-success  text-white  elevation-4">
-                                        <i class="fas fa-times-circle"></i> Procesada
+                                        <i class="fas fa-check-circle"></i> Movilizado
                                     </p>
                                 @elseif ($asignacionbien->estatus == 3)
                                     <p class="badge badge-info  text-white  elevation-4">
@@ -128,9 +130,14 @@
                                         <i class="fas fa-times-circle"></i> Anulada
                                     </p>
                                 @elseif ($asignacionbien->estatus == 2)
-                                    <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
-                                        <i class="fas fa-check-circle"></i> Asignado
-                                    </p>
+                                <form class="anular"
+                                        action="{{ route('admin.asignacions.estatuasignacion', $asignacionbien) }}"
+                                        method="get">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning text-white btn-sm elevation-4">
+                                            <i class="fas fa-times-circle"></i> Anular &nbsp; &nbsp;
+                                        </button>
+                                    </form>
                                 @elseif ($asignacionbien->estatus == 3)
                                     <p class="btn  btn-info btn-sm disabled text-white  elevation-4">
                                         <i class="fas fa-check-circle"></i> Solicitado a compra
@@ -138,20 +145,41 @@
                                 @endif
                             @endcan
                             </td>
-                            {{-- <td>
+                            <td>
+                                @if ($asignacionbien->estatus == 1)
+                                    <form class="formulario-eliminar"
+                                            action="{{ route('admin.asignacions.movilizarbien', $asignacionbien->id) }}"
+                                            method="get">
+                                            @csrf
+                                        <button type="submit" class="btn btn-success text-white btn-sm elevation-4">
+                                            <i class="fas fa-check-circle"></i> Movilizar &nbsp; &nbsp;
+                                        </button>
+                                    </form>
+                                @elseif ($asignacionbien->estatus == 0)
+                                <button type="submit" class="btn btn-secondary text-white btn-sm elevation-4">
+                                            <i class="fas fa-times-circle"></i> Anulado &nbsp; &nbsp;
+                                        </button>
+                                @elseif ($asignacionbien->estatus == 2)
+                                <p class="btn  btn-success btn-sm disabled text-white  elevation-4">
+                                        <i class="fas fa-check-circle"></i> Movilizado
+                                    </p>
+                                @endif
+                            
+                            </td>
+                            <td>
                                 <div class="btn-group">
-                                    <a href="{{url('admin/pdfSolicitud',$asignacionbien)}}" target="_blank">
+                                    {{-- <a href="{{url('admin/pdfAsignacionbien',$asignacionbien)}}" target="_blank">
                                         <button type="button" style="border-color: rgb(158, 157, 157);" class="btn btn-default elevation-4 btn-sm">
                                           <i class="far fa-fw fa-file-pdf text-red"></i>
                                         </button> &nbsp;
-                                     </a>
-                                    <a class="btn btn-default elevation-4 btn-sm"
+                                     </a> --}}
+                                    {{-- <a class="btn btn-default elevation-4 btn-sm"
                                         style="border-color: rgb(158, 157, 157);"
                                         href=" {{ route('admin.asignacionbiens.show', $asignacionbien->id) }} ">
                                         <i class="fas fa-eye text-yellow"></i>
-                                    </a>
+                                    </a> --}}
                                 </div>
-                            </td> --}}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

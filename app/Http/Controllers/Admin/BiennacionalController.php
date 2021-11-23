@@ -162,7 +162,7 @@ class BiennacionalController extends Controller
             $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al bien nacional: ' . $biennacional->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
-            $biennacional->estatus = '2';
+            $biennacional->estatus = '0';
             $biennacional->save();
             return redirect()->route('admin.biennacionals.index')->with('success', 'El bien nacional està inactivo con exito...!!!');
         } else {
@@ -177,5 +177,12 @@ class BiennacionalController extends Controller
             $biennacional->save();
             return redirect()->route('admin.biennacionals.index')->with('success', 'El bien nacional se activó con exito...!!!');
         }
+    }
+
+    public function desincorporar(Biennacional $biennacional)
+    {
+        $biennacional->estatus = '3';
+        $biennacional->save();
+        return redirect()->route('admin.biennacionals.index')->with('success', 'El bien nacional se ha desincorporado!');
     }
 }

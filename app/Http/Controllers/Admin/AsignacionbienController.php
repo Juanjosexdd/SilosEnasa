@@ -160,22 +160,63 @@ class AsignacionbienController extends Controller
 
     public function estatuasignacion(Asignacionbien $asignacionbien)
     {
+        $log = new LogSistema();
+        $log->user_id = auth()->user()->id;
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al asignacionbien: ' . $asignacionbien->codigo . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->save();
+
+        $asignacionbien->estatus = '0';
+        $asignacionbien->save();
+
+        if ($asignacionbien->bienesnacionales_id) {
+            $b = Biennacional::find($asignacionbien->bienesnacionales_id);
+            $b->estatus = 1;
+            $b->save();
+        }
+        return redirect()->route('admin.asignacions.index')->with('success', 'El documento se anuló con éxito!');
+    }
+
+    public function movilizarbien(Asignacionbien $asignacionbien)
+    {
         if ($asignacionbien->estatus == "1") {
-
-            $log = new LogSistema();
-            $log->user_id = auth()->user()->id;
-            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado al asignacionbien: ' . $asignacionbien->codigo . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
-            $log->save();
-
-            $asignacionbien->estatus = '0';
+            $asignacionbien->estatus = '2';
             $asignacionbien->save();
 
             if ($asignacionbien->bienesnacionales_id) {
                 $b = Biennacional::find($asignacionbien->bienesnacionales_id);
-                $b->estatus = 1;
+                $b->estatus = 2;
                 $b->save();
             }
-            return redirect()->route('admin.asignacions.index')->with('success', 'El documento se anuló con éxito!');
+            return redirect()->route('admin.asignacions.index')->with('success', 'El documento se moviliz con éxito!');
+        } else {
+            $asignacionbien->estatus = '2';
+            $asignacionbien->save();
         }
+    }
+
+
+    public function pdf(Request $request, $id)
+    {
+
+        $asignacionbien = Asignacionbien::join('users', 'asignacionbiens.user_id', '=', 'users.id')
+            ->join('empleados', 'asignacionbiens.empleado_id', '=', 'empleados.id')
+            ->join('biennacionals', 'asignacionbiens.bienesnacionales_id', '=', 'biennacionals.id')
+            ->select(
+                'users.name as username',
+                'users.last_name as userlastname',
+                'empleados.nombres as empleadosnombres',
+                'empleados.apellidos as empleadosapellidos',
+                'biennacionals.nombre as biennacional',
+                'asignacionbiens.created_at',
+                'asignacionbiens.updated_at',
+            )
+            ->where('asignacionbiens.id', '=', $id)
+            ->orderBy('asignacionbiens.id', 'desc')->get();
+
+        // $asignacionbien = Asignacionbien::findOrFail($id);
+        $numasignacionbien = Asignacionbien::select('id')->where('id', $id)->get();
+        
+        $pdf = PDF::loadView('admin/pdf/asignacionbien', ['asignacionbien' => $asignacionbien]);
+        return $pdf->stream('admin/asignacionbien-' . $numasignacionbien[0]->id . '.pdf');
     }
 }
