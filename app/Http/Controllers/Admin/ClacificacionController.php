@@ -28,7 +28,7 @@ class ClacificacionController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver el listado de las clacificaciones a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver el listado de las clasificaciones a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         return view('admin.clacificacions.index');
@@ -44,7 +44,7 @@ class ClacificacionController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear una clacificacion nueva a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear una clasificacion nueva a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         return view ('admin.clacificacions.create');
@@ -68,7 +68,7 @@ class ClacificacionController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado una nueva clacificación : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado una nueva clasificación : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $clacificacion = Clacificacion::create($request->all());
@@ -87,7 +87,7 @@ class ClacificacionController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a editar la clacificación : ' . $clacificacion->nombre . ' a las ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a editar la clasificación : ' . $clacificacion->nombre . ' a las ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         return view('admin.clacificacions.edit', compact('clacificacion'));
@@ -112,11 +112,11 @@ class ClacificacionController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha actualizado la clacificacion : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha actualizado la clasificacion : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $clacificacion->update($request->all());
-        return redirect()->route('admin.clacificacions.edit', $clacificacion)->with('success', ' ¡Felicidades el clacificacion se actualizó con éxito!');
+        return redirect()->route('admin.clacificacions.edit', $clacificacion)->with('success', ' ¡Felicidades el clasificacion se actualizó con éxito!');
     }
 
     /**
@@ -130,7 +130,7 @@ class ClacificacionController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha eliminado la clacificacion : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha eliminado la clasificacion : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $clacificacion->delete();
@@ -146,24 +146,24 @@ class ClacificacionController extends Controller
             $log = new LogSistema();
 
             $log->user_id = auth()->user()->id;
-            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado la clacificación : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado la clasificación : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
             $clacificacion->estatus= '0';
             $clacificacion->save();
-            return redirect()->route('admin.clacificacions.index')->with('success', 'La clacificación se inactivo con éxito!');
+            return redirect()->route('admin.clacificacions.index')->with('success', 'La clasificación se inactivo con éxito!');
 
        }else{
 
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado la clacificación : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado la clasificación : ' . $clacificacion->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
             $clacificacion->estatus= '1';
             $clacificacion->save();
-            return redirect()->route('admin.clacificacions.index')->with('success', 'La clacificación se activó con éxito!');
+            return redirect()->route('admin.clacificacions.index')->with('success', 'La clasificación se activó con éxito!');
 
         }
     }

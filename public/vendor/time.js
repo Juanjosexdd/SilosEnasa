@@ -1,4 +1,3 @@
-
 sessionTimeout({
     //El texto en el botón de cierre de sesión.
     logOutBtnText:'Cerrar sesion ahora!' ,

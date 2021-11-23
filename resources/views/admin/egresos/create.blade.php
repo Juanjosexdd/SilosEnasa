@@ -49,9 +49,11 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <label class="text-blue">Usuario :</label>
-                        <input type="text" class="form-control"
-                            value="{{ Auth::user()->name . ' ' . Auth::user()->last_name }}" disabled>
+                        {!! Form::label('fecha_original', 'Fecha Org. : ', ['class' => 'text-blue ']) !!}
+                        <div class="form-group">
+                            <input class="form-control mr-sm-2" name="fecha_original" id="fecha_original" type="date" placeholder="Search"
+                                aria-label="Search">
+                        </div>
                     </div>
                 </div>
                 <div class="row">

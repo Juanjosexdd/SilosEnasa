@@ -19,6 +19,7 @@ class CreateEgresosTable extends Migration
             $table->unsignedBigInteger("user_id")->nullable();
             $table->unsignedBigInteger("empleado_id")->nullable();
             $table->text('observacion')->nullable();
+            $table->date('fecha_original')->nullable();
             $table->string("correlativo")->unique()->nullable();
 
             $table->boolean('estatus')->default(1);

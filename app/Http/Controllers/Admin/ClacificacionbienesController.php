@@ -29,7 +29,7 @@ class ClacificacionbienesController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver el listado de las clacificaciones de bienes a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a ver el listado de las clasificaciones de bienes a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         return view('admin.clacificacionbienes.index');
@@ -45,7 +45,7 @@ class ClacificacionbienesController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear una clacificacion de bienes nueva a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a crear una clasificacion de bienes nueva a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         return view ('admin.clacificacionbienes.create');
@@ -69,12 +69,12 @@ class ClacificacionbienesController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado una nueva clacificación de bienes : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado una nueva clasificación de bienes : ' . $request->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $clacificacionbiene = Clacificacionbienes::create($request->all());
 
-        return redirect()->route('admin.clacificacionbienes.edit', $clacificacionbiene)->with('success', ' ¡Felicidades la clacificacion se creo con éxito!');
+        return redirect()->route('admin.clacificacionbienes.edit', $clacificacionbiene)->with('success', ' ¡Felicidades la clasificacion se creo con éxito!');
     }
 
     /**
@@ -99,7 +99,7 @@ class ClacificacionbienesController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a editar la clacificación de bienes : ' . $clacificacionbiene->nombre . ' a las ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha ingresado a editar la clasificación de bienes : ' . $clacificacionbiene->nombre . ' a las ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         return view('admin.clacificacionbienes.edit', compact('clacificacionbiene'));
@@ -124,11 +124,11 @@ class ClacificacionbienesController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha actualizado la clacificacion de bienes : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha actualizado la clasificacion de bienes : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $clacificacionbiene->update($request->all());
-        return redirect()->route('admin.clacificacionbienes.edit', $clacificacionbiene)->with('success', ' ¡Felicidades el clacificacion se actualizó con éxito!');
+        return redirect()->route('admin.clacificacionbienes.edit', $clacificacionbiene)->with('success', ' ¡Felicidades el clasificacion se actualizó con éxito!');
 
     }
 
@@ -145,7 +145,7 @@ class ClacificacionbienesController extends Controller
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha eliminado la clacificacion de bienes : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha eliminado la clasificacion de bienes : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
         $clacificacionbiene->delete();
@@ -160,24 +160,24 @@ class ClacificacionbienesController extends Controller
             $log = new LogSistema();
 
             $log->user_id = auth()->user()->id;
-            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado la clacificación : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+            $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha inactivado la clasificación : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
             $log->save();
 
             $clacificacionbiene->estatus= '0';
             $clacificacionbiene->save();
-            return redirect()->route('admin.clacificacionbienes.index')->with('success', 'La clacificación se inactivo con éxito!');
+            return redirect()->route('admin.clacificacionbienes.index')->with('success', 'La clasificación se inactivo con éxito!');
 
        }else{
 
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
-        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado la clacificación : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
+        $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha activado la clasificación : ' . $clacificacionbiene->nombre . ' a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
             $clacificacionbiene->estatus= '1';
             $clacificacionbiene->save();
-            return redirect()->route('admin.clacificacionbienes.index')->with('success', 'La clacificación se activó con éxito!');
+            return redirect()->route('admin.clacificacionbienes.index')->with('success', 'La clasificación se activó con éxito!');
 
         }
     }

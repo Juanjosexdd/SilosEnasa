@@ -13,7 +13,7 @@
 
         {!! Form::open(['route' => 'admin.ingresos.store', 'autocomplete' => 'off', 'class' => 'confirmar']) !!}
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 {!! Form::label('proveedor_id', 'Proveedor : ', ['class' => 'text-blue']) !!}
                 <div class="input-group">
                     {!! Form::select('proveedor_id', $proveedors, null, ['class' => 'form-control  select2' . ($errors->has('proveedor_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
@@ -31,7 +31,7 @@
                     @endforeach
                 </select>
             </div> --}}
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <label class="text-blue" for="requisicion_id">Requisición nro. :</label>
                 <select class="form-control select2" name="requisicion_id" id="requisicion_id">
                     <option class="text-muted" value="0">Selecciona una opción</option>
@@ -54,6 +54,13 @@
                                 class="form-control prevenir-envio" name="correlativo" id="correlativo">
                         @endif
                     </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                {!! Form::label('fecha_original', 'Fecha Org. : ', ['class' => 'text-blue ']) !!}
+                <div class="form-group">
+                    <input class="form-control mr-sm-2" name="fecha_original" id="fecha_original" type="date" placeholder="Search"
+                        aria-label="Search">
                 </div>
             </div>
         </div>

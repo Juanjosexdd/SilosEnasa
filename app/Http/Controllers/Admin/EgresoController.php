@@ -58,14 +58,6 @@ class EgresoController extends Controller
                 ->empleados($empleados)
                 ->get();
             $users = User::all();
-            // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
-            // ->select(
-            //     'productos.nombre as producto',
-            //     'detalle_solicituds.cantidad',
-            //     'detalle_solicituds.observacionp',
-            //     'detalle_solicituds.created_at',
-            //     'detalle_solicituds.updated_at',
-            // )->orderBy('detalle_solicituds.id', 'desc')->get();
 
             $today = Carbon::now()->format('d/m/Y');
             $pdf = PDF::loadView('admin.pdf.egresos', compact('egresos', 'today', 'users'))->setPaper('a4', 'landscape');
@@ -106,17 +98,6 @@ class EgresoController extends Controller
             ->where('prod.stock', '>', 0)
             ->groupBy('producto', 'prod.id', 'prod.stock')
             ->get();
-
-
-        // $empleados = Empleado::join('departamentos','empleados.departamento_id','departamentos.id')
-        //                     ->join('cargos','empleados.cargo_id','cargos.id')
-        //                     ->join('tipodocumentos','empleados.tipodocumento_id','tipodocumentos.id')
-        //                     ->select('empleados.id','departamentos.nombre as departamento','cargos.nombre as cargo','tipodocumentos.abreviado as tipodocumentos',
-        //                              'empleados.nombres','empleados.apellidos','empleados.cedula')
-        //                              ->where('empleados.estatus','=','1')
-        //                              ->groupBy('empleados.id')
-        //                              ->get();
-
         $solicituds = Solicitud::join('departamentos', 'solicituds.departamento_id', 'departamentos.id')
             ->select('solicituds.id', 'departamentos.nombre as departamento')
             ->where('solicituds.estatus', '=', '1')
@@ -147,6 +128,7 @@ class EgresoController extends Controller
             }
             $egreso->empleado_id = $request->get('empleado_id');
             $egreso->correlativo = $request->get('correlativo');
+            $egreso->fecha_original = $request->get('fecha_original');
             $egreso->observacion = $request->get('observacion');
             $egreso->user_id = auth()->user()->id;
             $egreso->save();
@@ -158,7 +140,7 @@ class EgresoController extends Controller
             $inventario->user_id = auth()->user()->id;
             $inventario->save();
 
-            
+
 
             $producto_id = $request->get('producto_id');
             $cantidad = $request->get('cantidad');
@@ -181,7 +163,7 @@ class EgresoController extends Controller
                 $detalle->observacionp = $observacionp[$cont];
                 $detalle->save();
 
-                $detalleinventario= new DetalleInventario();
+                $detalleinventario = new DetalleInventario();
                 $detalleinventario->inventario_id = $inventario->id;
                 $detalleinventario->producto_id = $producto_id[$cont];
                 $detalleinventario->cantidad = $cantidad[$cont];

@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-6 float-right">
                             <div class="float-right">
-                                <span class="font-weight-bold">Acarigua</span>, {{ $ingreso->created_at->format('d-m-Y') }}
+                                <span class="font-weight-bold">Acarigua</span>, {{ $ingreso->fecha_original }}
                                 <br>
                                 @if ($ingreso->correlativo)
                                 <span class="font-weight-bold">Ingreso Nro. :</span> {{ $ingreso->correlativo }}

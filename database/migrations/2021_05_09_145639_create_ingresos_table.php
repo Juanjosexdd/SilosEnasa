@@ -20,6 +20,7 @@ class CreateIngresosTable extends Migration
             $table->unsignedBigInteger("proveedor_id")->nullable();
             $table->text('observacion')->nullable();
             $table->string("correlativo")->unique()->nullable();
+            $table->date('fecha_original')->nullable();
 
             $table->boolean('estatus')->default(1);
 

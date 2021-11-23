@@ -153,6 +153,7 @@ class IngresoController extends Controller
             }
             $ingreso->proveedor_id = $request->get('proveedor_id');
             $ingreso->correlativo = $request->get('correlativo');
+            $ingreso->fecha_original = $request->get('fecha_original');
             $ingreso->observacion = $request->get('observacion');
             $ingreso->user_id = auth()->user()->id;
             $ingreso->save();
