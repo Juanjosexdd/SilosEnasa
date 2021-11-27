@@ -15,9 +15,8 @@ class Almacen extends Model
     {
         return "slug";
     }
-
     public function productos()
     {
-        return $this->belongsToMany(Producto::class)->withTimestamps();
+        return $this->hasMany(Producto::class);
     }
 }

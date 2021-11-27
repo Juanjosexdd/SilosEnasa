@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ENASA | RECIBO DE INGRESO</title>
     <link rel="stylesheet" href="adminlte.min.css">
+    <link rel="stylesheet" href="adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
     <style>
         body {
             margin: 0;
@@ -230,9 +232,9 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="card elevation-4 col-md-12 col-sm-12" style="border-radius: 0.95rem">
-            <div class="card-body table-responsive ">
+    <div class="">
+        <div class="card " style="border-radius: 0.95rem">
+            <div class="card-body ">
                 <div class="row mb-2">
                     <div class="justify-content">
                         <img src="vendor/adminlte/dist/img/banner.png" alt="ENASA"
@@ -242,7 +244,7 @@
                 <br>
                 <div style="border: 1px solid #dee2e6" class="p-2 my-2  rounded-lg text-secondary">
                     <div class="row  pr-2">
-                        <div class="col-md-6 pl-4">
+                        <div class="col-md-6 pl-4 pr-4">
                             <span class="font-weight-bold">Departamento :</span>
                             {{ $ingreso->proveedor->nombre }}
                             <br>
@@ -256,7 +258,7 @@
                             <span class="font-weight-bold">Tipo de movimiento : </span>
                             {{ $ingreso->tipomovimiento->descripcion }}
                         </div>
-                        <div class="col-md-6 float-right pr-4">
+                        <div class="col-md-6 float-right  pl-4">
                             <div class="">
                                 <span class="font-weight-bold">Acarigua</span>,
                                 {{ $ingreso->created_at->format('d-m-Y') }}

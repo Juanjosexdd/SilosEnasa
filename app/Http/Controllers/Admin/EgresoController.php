@@ -99,7 +99,8 @@ class EgresoController extends Controller
             ->groupBy('producto', 'prod.id', 'prod.stock')
             ->get();
         $solicituds = Solicitud::join('departamentos', 'solicituds.departamento_id', 'departamentos.id')
-            ->select('solicituds.id', 'departamentos.nombre as departamento')
+            ->join('users', 'solicituds.user_id', 'users.id')
+            ->select('solicituds.id', 'departamentos.nombre as departamento','users.name as nombre','users.last_name as apellido','users.cedula as cedula')
             ->where('solicituds.estatus', '=', '1')
             ->groupBy('solicituds.id', 'departamento')
             ->get();;

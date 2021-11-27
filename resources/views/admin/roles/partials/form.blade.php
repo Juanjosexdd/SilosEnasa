@@ -464,6 +464,21 @@
         </div>
     </div>
 </div>
+{{-- Reportes --}}
+<div id="Reportes">
+    <div class="card card-navy">
+        <div class="card-header">
+            <h4 class="card-title w-100">
+                <a class="d-block w-100 collapsed" data-toggle="collapse" href=""  aria-expanded="false">
+                    <label class="text-muted d-inline">
+                        {!! Form::checkbox('permissions[]', 91, null, null, ['class' => 'icheckbox_flat-yellow']) !!}
+                    </label> &nbsp; &nbsp;
+                    <i class="far fa-file-pdf text-blue"></i> Reportes
+                </a>
+            </h4>
+        </div>
+    </div>
+</div>
 
 {{-- Ajustes --}}
 <div id="ajustes">

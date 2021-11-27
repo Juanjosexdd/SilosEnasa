@@ -19,6 +19,10 @@ class Producto extends Model
     {
         return $this->belongsToMany(Almacen::class);
     }
+    public function almacen()
+    {
+        return $this->belongsTo(AlmacenProducto::class);
+    }
 
     public function clacificacion()
     {

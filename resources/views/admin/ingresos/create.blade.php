@@ -46,11 +46,11 @@
                     {!! Form::label('correlativo', 'Correlativo : ', ['class' => 'text-blue ']) !!}
                     <div class="input-group">
                         @if (count($ingresos) == 0)
-                            <input type="text" value="" class="form-control prevenir-envio" name="correlativo"
+                            <input type="number" value="" class="form-control prevenir-envio" name="correlativo"
                                 id="correlativo">
                             {!! $errors->first('correlativo', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         @else
-                            <input type="text" value="{{ number_format($ingresos->last()->correlativo + 1, 0, '', '') }}"
+                            <input type="number" value="{{ number_format($ingresos->last()->correlativo + 1, 0, '', '') }}"
                                 class="form-control prevenir-envio" name="correlativo" id="correlativo">
                         @endif
                     </div>

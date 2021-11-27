@@ -11,4 +11,6 @@ class AlmacenProducto extends Model
     protected $table = 'almacen_producto';
 
     protected $guarded = ['id','created_at','updated_at'];
+
+    
 }

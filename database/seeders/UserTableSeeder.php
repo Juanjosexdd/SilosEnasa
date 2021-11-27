@@ -69,19 +69,6 @@ class UserTableSeeder extends Seeder
         ])->assignRole('ADMINISTRADOR');
 
         User::create([
-            'tipodocumento_id' => '1',
-            'departamento_id' => '4',
-            'cargo_id' => '3',
-            'cedula' => '45645645',
-            'name' => 'Betania',
-            'username' => 'Betania',
-            'slug' => 'usuario',
-            'last_name' => 'Paez',
-            'email' => 'Betaniapaez@mail.com',
-            'password' => 'betania'
-        ])->assignRole('ADMINISTRADOR');
-
-        User::create([
             'departamento_id'  => '4',
             'cargo_id'         => '3',
             'tipodocumento_id' => '1',

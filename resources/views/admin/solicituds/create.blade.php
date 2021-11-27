@@ -33,10 +33,10 @@
                             {!! Form::label('correlativo', 'Solicitud Nro. : ', ['class' => 'text-blue ']) !!}
                             <div class="input-group">
                                 @if (count($solicituds) == 0)
-                                    <input type="text" value="00001" class="form-control" name="correlativo"
+                                    <input type="number" disabled value="00001" class="form-control" name="correlativo"
                                         id="correlativo">
                                 @else
-                                    <input type="text" value="{{ number_format($solicituds->last()->id + 1) }}"
+                                    <input type="number" disabled value="{{ number_format($solicituds->last()->id + 1) }}"
                                         class="form-control" name="correlativo" id="correlativo" disabled>
                                 @endif
                             </div>

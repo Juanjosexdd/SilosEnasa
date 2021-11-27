@@ -11,37 +11,41 @@
 
     <div class="container">
 
+
+
+    
         <div class="card card-custom bg-white border-white border-0 elevation-5">
             <div class="card-body" style="overflow-y: auto">
                 {!! Form::open(['route' => 'admin.egresos.store', 'class' => 'confirmar', 'autocomplete' => 'off']) !!}
                 <div class="row">
-                    <div class="col-md-4">
-                        <label class="text-blue" for="nombre">Solicitud nro. :</label>
+                    <div class="col-md-8">
+                        {!! Form::label('solicitud_id', 'Solicitud nro. :', ['class' => 'text-blue ']) !!}
                         <select class="form-control select2" name="solicitud_id" id="solicitud_id" data-live-search="true"
                             required>
                             <option class="text-muted" value="0">Selecciona una opción</option>
                             @foreach ($solicituds as $solicitud)
-                                <option value="{{ $solicitud->id }}">{{ $solicitud->id }} -
-                                    {{ $solicitud->departamento }}</option>
+                                <option value="{{ $solicitud->id }}">Nro.: {{ $solicitud->id }} -
+                                    {{ $solicitud->departamento }}  Solicitado por : {{ $solicitud->cedula . " - " . $solicitud->nombre . " - " . $solicitud->apellido }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2' . ($errors->has('empleado_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!}
                             {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-2">
                         <div class="form-group">
                             {!! Form::label('correlativo', 'Correlativo: ', ['class' => 'text-blue ']) !!}
                             <div class="input-group">
                                 @if (count($egresos) == 0)
-                                    <input type="text" value="" class="form-control prevenir-envio" name="correlativo" id="correlativo">
+                                    <input type="number" value="" class="form-control prevenir-envio" name="correlativo" id="correlativo">
                                 @else
-                                    <input type="text"
+                                    <input type="number"
                                         value="{{ number_format($egresos->last()->correlativo + 1, 0, '', '') }}"
                                         class="form-control prevenir-envio" name="correlativo" id="correlativo">
                                 @endif

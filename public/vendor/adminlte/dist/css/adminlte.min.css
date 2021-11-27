@@ -7001,7 +7001,11 @@ button.bg-dark:focus {
   display: -ms-inline-flexbox !important;
   display: inline-flex !important;
 }
-
+@media (min-width: 356px) {
+  .d-xs-none {
+    display: none !important;
+  }
+}
 @media (min-width: 576px) {
   .d-sm-none {
     display: none !important;
@@ -18747,17 +18751,17 @@ html.maximized-card {
 }
 
 .btn-app {
-  border-radius: 3px;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  color: #6c757d;
-  font-size: 12px;
-  height: 60px;
-  margin: 0 0 10px 10px;
-  min-width: 80px;
-  padding: 15px 5px;
-  position: relative;
-  text-align: center;
+  border-radius: 6px;
+    background-color: #f8f9fa;
+    border: 0px solid #ddd;
+    color: #6c757d;
+    font-size: 12px;
+    height: 45px;
+    margin: 0 0 0px 0px;
+    min-width: 90px;
+    padding: 6px 6px;
+    position: relative;
+    text-align: center;
 }
 
 .btn-app > .fa,
@@ -18767,7 +18771,7 @@ html.maximized-card {
 .btn-app > .glyphicon,
 .btn-app > .ion {
   display: block;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .btn-app:hover {
@@ -19208,7 +19212,7 @@ html.maximized-card {
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 1rem;
-  min-height: 80px;
+  min-height: 60px;
   padding: .5rem;
   position: relative;
   width: 100%;
@@ -19230,7 +19234,7 @@ html.maximized-card {
   align-items: center;
   display: -ms-flexbox;
   display: flex;
-  font-size: 1.875rem;
+  font-size: 1.2rem;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
@@ -28105,7 +28109,7 @@ blockquote.quote-gray-dark h6 {
 
 .bg-warning,
 .bg-warning > a {
-  color: #1F2D3D !important;
+  color: #ffffff !important;
 }
 
 .bg-warning.btn:hover {

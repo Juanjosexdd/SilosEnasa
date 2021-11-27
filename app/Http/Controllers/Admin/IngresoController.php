@@ -203,6 +203,7 @@ class IngresoController extends Controller
                 $p = Producto::find($producto_id[$cont]);
                 $p->observacionp = $observacionp[$cont];
                 $p->marca = $marca[$cont];
+                $p->almacen_id = $almacen_id[$cont];
                 $p->ubicacion = $ubicacion[$cont];
 
                 if ((AlmacenProducto::where('producto_id', '=', $request->get('producto_id'))) && (AlmacenProducto::where('almacen_id', '=', $request->get('almacen_id')))) {

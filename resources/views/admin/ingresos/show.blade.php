@@ -38,7 +38,7 @@
                 <br>
                 <div style="border: 1px solid #dee2e6" class="p-4 rounded-lg text-secondary">
                     <div class="row">
-                        <div class="col-m-6">
+                        <div class="col-md-7 ">
                             <span class="font-weight-bold">Departamento :</span> 
                             {{ $ingreso->proveedor->nombre }}
                             <br>
@@ -51,8 +51,8 @@
                             <span class="font-weight-bold">Tipo de movimiento : </span>
                             {{$ingreso->tipomovimiento->descripcion}}
                         </div>
-                        <div class="col-md-6 float-right">
-                            <div class="float-right">
+                        <div class="col-md-5 pl-5">
+                            <div class="">
                                 <span class="font-weight-bold">Acarigua</span>, {{ $ingreso->fecha_original }}
                                 <br>
                                 @if ($ingreso->correlativo)

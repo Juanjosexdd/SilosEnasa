@@ -46,9 +46,9 @@
                             <div class="input-group">
 
                                 @if (count($requisicions) == 0)
-                                    <input type="text" value="" class="form-control prevenir-envio" name="correlativo" id="correlativo">
+                                    <input type="number" value="" class="form-control prevenir-envio" name="correlativo" id="correlativo">
                                 @else
-                                    <input type="text"
+                                    <input type="number"
                                         value="{{ number_format($requisicions->last()->correlativo + 1, 0, '', '') }}"
                                         class="form-control prevenir-envio" name="correlativo" id="correlativo">
                                 @endif

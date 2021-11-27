@@ -507,8 +507,11 @@ class RoleSeeder extends Seeder
             'name'        => 'admin.asignacions.estatuasignacion',
             'description' => 'Cambiar estatus de asignaciones'
         ])->syncRoles([$role1]);
-
-
+        //91
+        Permission::create([
+            'name'        => 'admin.report.index',
+            'description' => 'Reportes'
+        ])->syncRoles([$role1]);
     }
 
 }
