@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             {!! Form::label('nombre', 'Nombre & ',['class' => 'text-blue ']) !!}       {!! Form::label('slug', 'slug :',['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             <div class="input-group mb-3">
@@ -10,14 +10,20 @@
         </div>
     </div>
     <div class="col-md-3">
-        <div>
+                {!! Form::label('almacen_id', 'Almacen : ', ['class' => 'text-blue']) !!}
+                <div class="input-group">
+                {!! Form::select('almacen_id', $almacens, null, ['class' => 'form-control select2', 'placeholder' => '']) !!}
+                </div>
+            </div>
+    <div class="col-md-3">
+        <div class="form-group">
             {!! Form::label('clacificacion_id', 'Clacificacion : ', ['class' => 'text-blue']) !!} <span class="text-danger">*</span>
             {!! Form::select('clacificacion_id', $clacificaciones, null, ['class' => 'form-control select2 '. ($errors->has('clacificacion_id') ? ' is-invalid' : ''), 'placeholder' => '' ]) !!}
             {!! $errors->first('clacificacion_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
 
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             {!! Form::label('unidad_medida', 'Unidad de medida : ',['class' => 'text-blue']) !!}
             <div class="input-group mb-3">

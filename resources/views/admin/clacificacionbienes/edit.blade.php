@@ -12,7 +12,7 @@
     <x-card-body>
         {!! Form::model($clacificacionbiene, ['route' => ['admin.clacificacionbienes.update', $clacificacionbiene], 'method' => 'PUT', 'autocomplete' => 'off']) !!}
         @include('admin.clacificacionbienes.partials.form')
-        {!! Form::submit('Guardar clacificación', ['class' => 'btn bg-navy btn-block']) !!}
+        {!! Form::submit('Guardar clasificación', ['class' => 'btn bg-navy btn-block']) !!}
         {!! Form::close() !!}
     </x-card-body>
 

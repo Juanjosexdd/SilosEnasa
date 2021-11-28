@@ -61,15 +61,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                         <label class="form-control-label text-blue" for="tipomovimiento_id">Tipo Movimiento :</label>
 
                         <select class="form-control selectpicker" disabled name="tipomovimiento_id" id="tipomovimiento_id"
                             data-live-search="true" required>
                             <option value="2" selected>Salida del almacen</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="col-md-4">
+                        {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
+                        <div class="input-group">
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2' . ($errors->has('empleado_id') ? ' is-invalid' : ''), 'data-live-search' => 'true', 'placeholder' => '']) !!}
+                            {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         {!! Form::label('pproducto_id', 'Materiales : ', ['class' => 'text-blue ']) !!}
                         <select class="form-control select2" name="pproducto_id" id="pproducto_id" data-live-search="true">
                             <option value="0">Seleccione una opción</option>
@@ -79,7 +86,7 @@
                         </select>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">

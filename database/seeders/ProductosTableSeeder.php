@@ -19,6 +19,7 @@ class ProductosTableSeeder extends Seeder
             'nombre' => 'Extintor CO2',
             'slug' => 'extintor-co2',
             'descripcion' => 'Extintor CO2',
+            'almacen_id' => '2'
         ]);
 
         Producto::create([
@@ -26,6 +27,7 @@ class ProductosTableSeeder extends Seeder
             'nombre' => 'Extintor PQS',
             'slug' => 'extintor-pqs',
             'descripcion' => 'Extintor PQS',
+            'almacen_id' => '1'
         ]);
 
         Producto::create([
@@ -33,6 +35,7 @@ class ProductosTableSeeder extends Seeder
             'nombre' => 'Guaraña 83-BC-5200',
             'slug' => 'guarana',
             'descripcion' => 'Guaraña 83-BC-5200',
+            'almacen_id' => '1'
         ]);
 
         Producto::create([
@@ -40,6 +43,7 @@ class ProductosTableSeeder extends Seeder
             'nombre' => 'Motosierra SPM 7200G',
             'slug' => 'motosierra-spm-7200g',
             'descripcion' => 'Motosierra SPM 7200G',
+            'almacen_id' => '2'
         ]);
     }
 }

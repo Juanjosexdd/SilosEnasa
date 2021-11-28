@@ -13,7 +13,7 @@
     <x-card-body>
         {!! Form::open(['route' => 'admin.clacificacionbienes.store']) !!}
         @include('admin.clacificacionbienes.partials.form')
-        {!! Form::submit('Guardar clacificación', ['class' => 'btn bg-navy btn-block']) !!}
+        {!! Form::submit('Guardar clasificación', ['class' => 'btn bg-navy btn-block']) !!}
         {!! Form::close() !!}
     </x-card-body>
 @stop

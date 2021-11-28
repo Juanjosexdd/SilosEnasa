@@ -111,9 +111,7 @@ class EgresoController extends Controller
     {
         //return dd($request);
         //return $request;
-        $request->validate([
-            'empleado_id' => 'required|not_in:0',
-        ]);
+        
         try {
             DB::beginTransaction();
             $egreso = new Egreso;

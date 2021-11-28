@@ -27,6 +27,7 @@ class CreateProductosTable extends Migration
             $table->string('minimo')->nullable();
             $table->integer('stock')->default(0);
             $table->boolean('estatus')->default(1);
+            $table->boolean('almacen_id');
 
             $table->foreign('clacificacion_id')
                   ->references('id')

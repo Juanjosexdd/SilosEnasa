@@ -187,7 +187,7 @@ class AsignacionbienController extends Controller
                 $b->estatus = 2;
                 $b->save();
             }
-            return redirect()->route('admin.asignacions.index')->with('success', 'El documento se moviliz con éxito!');
+            return redirect()->route('admin.asignacions.index')->with('success', 'Movilizado con exito!');
         } else {
             $asignacionbien->estatus = '2';
             $asignacionbien->save();

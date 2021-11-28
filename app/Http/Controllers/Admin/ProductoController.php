@@ -70,11 +70,12 @@ class ProductoController extends Controller
 
         // $clacificaciones = Clacificacion::pluck('abreviado','id');
         $clacificaciones  = Clacificacion::where('estatus', 1)->get()->pluck('display_clacificacion', 'id');
+        $almacens        = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
 
         // $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('display_clacificacion' , 'id');
 
 
-        return view('admin.productos.create', compact('clacificaciones'));
+        return view('admin.productos.create', compact('clacificaciones','almacens'));
     }
 
     /**
@@ -99,7 +100,7 @@ class ProductoController extends Controller
         $log->save();
 
         $producto = Producto::create($request->all());
-
+        
         return redirect()->route('admin.productos.index', $producto)->with('success', ' ¡Felicidades el producto se creo con éxito!');
     }
 
