@@ -42,10 +42,10 @@
                         <div class="col-md-6">
                             @if ($requisicion->solicitud)
                                 <span class="font-weight-bold">Departamento Solicitante : </span>
-                                {{ $requisicion->solicitud->departamento->nombre }}
+                                {{ $requisicion->solicitud->user->departamento->nombre }}
                                 <br>
                                 <span class="font-weight-bold">Solicitante :</span>
-                                {{ $requisicion->empleado->nombres }}-{{ $requisicion->empleado->apellidos }}
+                                {{ $requisicion->solicitud->user->display_user }}
                                 <br>
                                 <span class="font-weight-bold">Cedula :</span>
                                 {{ $requisicion->solicitud->user->tipodocumento->abreviado }}-{{ $requisicion->solicitud->user->cedula }}
