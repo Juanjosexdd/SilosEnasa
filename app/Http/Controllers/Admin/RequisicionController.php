@@ -33,20 +33,21 @@ class RequisicionController extends Controller
         $this->middleware('can:admin.requisicions.estaturequisicions')->only('estaturequisicions');
     }
 
-    public function exportPdf(Request $request){
+    public function exportPdf(Request $request)
+    {
 
-        if($request){
-            $sql=$request->get('desde');
-            $sql1=$request->get('hasta');
-            $user=$request->get('user_id');
-            $estatus=$request->get('estatus');
-            $empleados=$request->get('empleados_id');
+        if ($request) {
+            $sql = $request->get('desde');
+            $sql1 = $request->get('hasta');
+            $user = $request->get('user_id');
+            $estatus = $request->get('estatus');
+            $empleados = $request->get('empleados_id');
 
-            $requisiciones=Requisicion::whereBetween('created_at',[$sql, $sql1])
-                                  ->estatus($estatus)
-                                  ->user($user)
-                                  ->empleados($empleados)
-                                  ->get();
+            $requisiciones = Requisicion::whereBetween('created_at', [$sql, $sql1])
+                ->estatus($estatus)
+                ->user($user)
+                ->empleados($empleados)
+                ->get();
             $users = User::all();
             // $detalles = Detalleingreso::join('productos', 'detalle_solicituds.producto_id', '=', 'productos.id')
             // ->select(
@@ -56,9 +57,9 @@ class RequisicionController extends Controller
             //     'detalle_solicituds.created_at',
             //     'detalle_solicituds.updated_at',
             // )->orderBy('detalle_solicituds.id', 'desc')->get();
-            
+
             $today = Carbon::now()->format('d/m/Y');
-            $pdf = PDF::loadView('admin.pdf.requisiciones', compact('requisiciones','today','users'))->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('admin.pdf.requisiciones', compact('requisiciones', 'today', 'users'))->setPaper('a4', 'landscape');
             return $pdf->stream('listado-requisiciones.pdf');
         }
     }
@@ -73,7 +74,7 @@ class RequisicionController extends Controller
 
         return view('admin.requisicions.index');
     }
-    
+
     public function create()
     {
         $log = new LogSistema();
@@ -84,44 +85,46 @@ class RequisicionController extends Controller
 
         $requisicions     = Requisicion::all();
         $users      = DB::table('users')->where('estatus', 1)->pluck('name', 'id');
-        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre' , 'id');
-        $productos  = Producto::where('estatus', 1)->get()->pluck('display_product','id');
-        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento','id');
-        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado','id');
+        $almacens   = DB::table('almacens')->where('estatus', 1)->pluck('nombre', 'id');
+        $productos  = Producto::where('estatus', 1)->get()->pluck('display_product', 'id');
+        $departamentos  = Departamento::where('estatus', 1)->get()->pluck('display_departamento', 'id');
+        $tipodocumentos  = Tipodocumento::where('estatus', 1)->get()->pluck('abreviado', 'id');
         $tipomovimientos = Tipomovimiento::pluck('descripcion', 'id');
-        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado','id');
+        $empleados  = Empleado::where('estatus', 1)->get()->pluck('display_empleado', 'id');
 
-        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado' , 'id');
-
-        $solicituds = Solicitud::join('departamentos','solicituds.departamento_id','departamentos.id')
-             ->select('solicituds.id','departamentos.nombre as departamento')
-             ->where('solicituds.estatus','=','1')
-             ->groupBy('solicituds.id','departamento')
-             ->get();;
+        $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 
 
-        return view('admin.requisicions.create', compact('empleados','solicituds','requisicions','departamentos','users','almacens','productos','clacificaciones','tipodocumentos','tipomovimientos'));
+        $solicituds = Solicitud::join('departamentos', 'solicituds.departamento_id', 'departamentos.id')
+            ->join('users', 'solicituds.user_id', 'users.id')
+            ->select('solicituds.id', 'departamentos.nombre as departamento', 'users.name as nombre', 'users.last_name as apellido', 'users.cedula as cedula')
+            ->where('solicituds.estatus', '=', '1')
+            ->groupBy('solicituds.id', 'departamento')
+            ->get();
+
+
+        return view('admin.requisicions.create', compact('empleados', 'solicituds', 'requisicions', 'departamentos', 'users', 'almacens', 'productos', 'clacificaciones', 'tipodocumentos', 'tipomovimientos'));
     }
-    
+
     public function store(Request $request)
     {
         //return dd($request);
         //return $request;
-        $request->validate([
-            'empleado_id' => 'required|not_in:0',
-        ]);
-             
+        // $request->validate([
+        //     'empleado_id' => 'required|not_in:0',
+        // ]);
+
         try {
             DB::beginTransaction();
-            
-            $requisicion= new Requisicion();
+
+            $requisicion = new Requisicion();
             if ($request->get('solicitud_id')) {
-                $requisicion->solicitud_id=$request->get('solicitud_id');
+                $requisicion->solicitud_id = $request->get('solicitud_id');
             }
-            $requisicion->empleado_id=$request->get('empleado_id');
-            $requisicion->departamento_id=$request->get('departamento_id');
-            $requisicion->correlativo=$request->get('correlativo');
-            $requisicion->observacion=$request->get('observacion');
+            $requisicion->empleado_id = $request->get('empleado_id');
+            $requisicion->departamento_id = $request->get('departamento_id');
+            $requisicion->correlativo = $request->get('correlativo');
+            $requisicion->observacion = $request->get('observacion');
             $requisicion->user_id = auth()->user()->id;
             $requisicion->save();
 
@@ -138,27 +141,25 @@ class RequisicionController extends Controller
             $observacionp = $request->get('observacionp');
 
             $cont = 0;
-            
-            while($cont < count($producto_id))
-            {
+
+            while ($cont < count($producto_id)) {
                 $detalle = new Detallerequisicion();
-                $detalle->requisicion_id=$requisicion->id;
-                $detalle->producto_id=$producto_id[$cont];
-                $detalle->cantidad=$cantidad[$cont];
-                $detalle->observacionp=$observacionp[$cont];
+                $detalle->requisicion_id = $requisicion->id;
+                $detalle->producto_id = $producto_id[$cont];
+                $detalle->cantidad = $cantidad[$cont];
+                $detalle->observacionp = $observacionp[$cont];
 
                 $detalle->save();
-                
-                $cont = $cont+1;
-            }
-            
-            DB::commit();
 
+                $cont = $cont + 1;
+            }
+
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
         }
 
-        
+
         $log = new LogSistema();
 
         $log->user_id = auth()->user()->id;
@@ -171,19 +172,21 @@ class RequisicionController extends Controller
 
     public function show($id)
     {
-        $empresa=DB::table('empresas as e')
-            ->select('e.id','e.nombre','e.rif','e.descipcion','e.direccion');
+        $empresa = DB::table('empresas as e')
+            ->select('e.id', 'e.nombre', 'e.rif', 'e.descipcion', 'e.direccion');
         $requisicion = Requisicion::find($id);
 
-        $detalles = Detallerequisicion::join('productos','detalle_requisicion.producto_id','=','productos.id')
-             ->select('productos.nombre as producto',
-                      'detalle_requisicion.cantidad',
-                      'detalle_requisicion.observacionp',
-                      'detalle_requisicion.created_at',
-                      'detalle_requisicion.updated_at')
-             ->where('detalle_requisicion.requisicion_id','=',$id)
-             ->orderBy('detalle_requisicion.id', 'desc')->get();
-        return view('admin.requisicions.show', compact('requisicion','detalles'));
+        $detalles = Detallerequisicion::join('productos', 'detalle_requisicion.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_requisicion.cantidad',
+                'detalle_requisicion.observacionp',
+                'detalle_requisicion.created_at',
+                'detalle_requisicion.updated_at'
+            )
+            ->where('detalle_requisicion.requisicion_id', '=', $id)
+            ->orderBy('detalle_requisicion.id', 'desc')->get();
+        return view('admin.requisicions.show', compact('requisicion', 'detalles'));
     }
 
     public function edit(Requisicion $requisicion)
@@ -193,12 +196,11 @@ class RequisicionController extends Controller
 
     public function update(Request $request, Requisicion $requisicion)
     {
-        
     }
 
     public function destroy($id)
     {
-        $requisicion=Requisicion::findOrFail($id);
+        $requisicion = Requisicion::findOrFail($id);
         $requisicion->delete();
         return view('admin.requisicions.index');
     }
@@ -219,24 +221,27 @@ class RequisicionController extends Controller
         }
     }
 
-    public function pdf(Request $request,$id){
+    public function pdf(Request $request, $id)
+    {
 
 
         $requisicion = Requisicion::find($id);
 
-        $detalles = Detallerequisicion::join('productos','detalle_requisicion.producto_id','=','productos.id')
-             ->select('productos.nombre as producto',
-                      'detalle_requisicion.cantidad',
-                      'detalle_requisicion.observacionp',
-                      'detalle_requisicion.created_at',
-                      'detalle_requisicion.updated_at')
-             ->where('detalle_requisicion.requisicion_id','=',$id)
-             ->orderBy('detalle_requisicion.id', 'desc')->get();
+        $detalles = Detallerequisicion::join('productos', 'detalle_requisicion.producto_id', '=', 'productos.id')
+            ->select(
+                'productos.nombre as producto',
+                'detalle_requisicion.cantidad',
+                'detalle_requisicion.observacionp',
+                'detalle_requisicion.created_at',
+                'detalle_requisicion.updated_at'
+            )
+            ->where('detalle_requisicion.requisicion_id', '=', $id)
+            ->orderBy('detalle_requisicion.id', 'desc')->get();
 
-        $numrequisicion=Requisicion::select('id')->where('id',$id)->get();
+        $numrequisicion = Requisicion::select('id')->where('id', $id)->get();
 
-        $pdf = PDF::loadView('admin/pdf/requisicion',['requisicion'=>$requisicion,'detalles'=>$detalles]);
-        return $pdf->stream('admin/requisicion-'.$numrequisicion[0]->id.'.pdf');
+        $pdf = PDF::loadView('admin/pdf/requisicion', ['requisicion' => $requisicion, 'detalles' => $detalles]);
+        return $pdf->stream('admin/requisicion-' . $numrequisicion[0]->id . '.pdf');
         //return $pdf->download('egreso.pdf');
     }
 }

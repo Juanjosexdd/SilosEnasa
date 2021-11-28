@@ -142,18 +142,6 @@
                         </div>
 
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-4 offset-2">
-                            <label for="">Desde Ingreso nro :</label>
-                            {!! Form::select('correlativodesde', $ingresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('correlativodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">Hasta Ingreso nro :</label>
-                            {!! Form::select('correlativohasta', $ingresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('correlativohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-                        </div>
-                    </div>
 
                     <button target="_blank"
                         class="btn elevation-2 my-2 my-sm-0 bg-navy btn-md rounded btn-block col-md-8 offset-2"
@@ -183,19 +171,6 @@
                                     aria-label="Search">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-4 offset-2">
-                            <label for="">Desde Egreso nro :</label>
-                            {!! Form::select('correlativodesde', $egresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('correlativodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">Hasta Egreso nro :</label>
-                            {!! Form::select('correlativohasta', $egresos, null, ['class' => 'form-control selectpicker select2' . ($errors->has('correlativohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('correlativohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-                        </div>
-
                     </div>
                     <div class="form-group row">
 
@@ -353,18 +328,6 @@
                                 <input class="form-control mr-sm-2" name="hasta" id="hasta" type="date" placeholder="Search"
                                     aria-label="Search">
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-4 offset-2">
-                            <label for="">Desde codigo :</label>
-                            {!! Form::select('codigodesde', $bienes, null, ['class' => 'form-control selectpicker select2' . ($errors->has('codigodesde') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('codigodesde', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">Hasta codigo :</label>
-                            {!! Form::select('codigohasta', $bienes, null, ['class' => 'form-control selectpicker select2' . ($errors->has('codigohasta') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
-                            {!! $errors->first('codigohasta', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
                     </div>
                     <button target="_blank"

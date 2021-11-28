@@ -47,12 +47,8 @@ class EgresoController extends Controller
             $user = $request->get('user_id');
             $estatus = $request->get('estatus');
             $empleados = $request->get('empleados_id');
-            $correlativodesde = $request->get('correlativodesde');
-            $correlativohasta = $request->get('correlativohasta');
 
             $egresos = Egreso::whereBetween('created_at', [$sql, $sql1])
-                ->orWhere('correlativo', $correlativodesde)
-                ->orWhere('correlativo', $correlativohasta)
                 ->estatus($estatus)
                 ->user($user)
                 ->empleados($empleados)
@@ -103,7 +99,7 @@ class EgresoController extends Controller
             ->select('solicituds.id', 'departamentos.nombre as departamento','users.name as nombre','users.last_name as apellido','users.cedula as cedula')
             ->where('solicituds.estatus', '=', '1')
             ->groupBy('solicituds.id', 'departamento')
-            ->get();;
+            ->get();
 
         $clacificaciones  = DB::table('clacificacions')->where('estatus', 1)->pluck('abreviado', 'id');
 

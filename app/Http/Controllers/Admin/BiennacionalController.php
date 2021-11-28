@@ -28,12 +28,7 @@ class BiennacionalController extends Controller
         if ($request) {
             $sql = $request->get('desde');
             $sql1 = $request->get('hasta');
-            $codigodesde = $request->get('codigodesde');
-            $codigohasta = $request->get('codigohasta');
-
-            $biennacionals = Biennacional::whereBetween('codigo', [$codigodesde, $codigohasta])
-                ->orWhere('fecha_adquisicion', 'LIKE', "%$sql%")
-                ->orWhere('fecha_adquisicion', 'LIKE', "%$sql1%")
+            $biennacionals = Biennacional::whereBetween('created_at', [$sql, $sql1])
                 ->get();
 
 

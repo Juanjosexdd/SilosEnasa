@@ -20,7 +20,7 @@
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('correlativo')">
-                            Correlativo
+                            Nro.
                             @if ($sort == 'correlativo')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -35,7 +35,7 @@
                         <th scope="col" role="button"
                             class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2"
                             wire:click="order('user_id')">
-                            Responsable
+                            Solicitante
                             @if ($sort == 'user_id')
                                 @if ($direction == 'asc')
                                     <i class="fas fas fa-sort-amount-down-alt float-right mt-1"></i>
@@ -76,17 +76,33 @@
                     @foreach ($requisicions as $requisicion)
                         <tr class="text-secondary text-sm font-weight-bold">
 
-                            <td> <a
-                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->correlativo }}</a>
-                            {{-- <td> <a
-                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->created_at->toDateString() . '-' . $requisicion->id }}</a>
-                            </td> --}}
-                            <td> <a
-                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->empleado->nombres . ' - ' . $requisicion->empleado->apellidos }}</a>
+                            <td> <a href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->correlativo }}</a>
                             </td>
-                            <td> <a
-                                    href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->empleado->departamento->nombre }}</a>
+                            <td>
+                                @if($requisicion->solicitud_id == true)
+
+                                    <a href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->solicitud->user->display_user }}</a>
+
+                                @elseif($requisicion->empleado_id == true)
+
+                                    <a href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->empleado->display_empleado }}</a>
+
+
+                                @endif
                             </td>
+                            <td>
+                                @if($requisicion->solicitud_id == true)
+
+                                    <a href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->solicitud->user->departamento->nombre }}</a>
+                                 
+                                @elseif($requisicion->empleado_id == true)
+
+                                    <a href="{{ route('admin.requisicions.show', $requisicion->id) }}">{{ $requisicion->empleado->departamento->nombre }}</a>
+                                    
+                                @endif
+                                
+                            </td>
+                            
                             <td>
                                 @if ($requisicion->estatus == 1)
                                 <p class="badge badge-warning text-white  elevation-4">

@@ -2,7 +2,7 @@
         class="fas fa-reply"></i>
     Volver </a>
 
-<p class="h3 text-blue mt-1">Clacificación</p>
+<p class="h3 text-blue mt-1">Clasificación</p>
 <hr>
 <div class="row">
     <div class="col-md-6">

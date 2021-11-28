@@ -23,20 +23,32 @@
 
                         </div>
                     </div> --}}
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2'. ($errors->has('empleado_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
                             {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
                         </div>
-                    </div>
-                    <div class="col-md-4">
+                    </div> -->
+                    <!-- <div class="col-md-4">
                         <label class="text-blue" for="nombre">Solicitud nro. :</label>
                         <select class="form-control select2" name="solicitud_id" id="solicitud_id" data-live-search="true"
                             required>
                             <option class="text-muted" value="0">Selecciona una opción</option>
                             @foreach ($solicituds as $solicitud)
                                 <option value="{{ $solicitud->id }}">{{$solicitud->id}} - {{ $solicitud->departamento }}</option>
+                            @endforeach
+                        </select>
+                    </div> -->
+                    <div class="col-md-8">
+                        {!! Form::label('solicitud_id', 'Solicitud nro. :', ['class' => 'text-blue ']) !!}
+                        <select class="form-control select2" name="solicitud_id" id="solicitud_id" data-live-search="true"
+                            required>
+                            <option class="text-muted" value="0">Selecciona una opción</option> 
+                            @foreach ($solicituds as $solicitud)
+                                <option value="{{ $solicitud->id }}">Nro.: {{ $solicitud->id }} -
+                                    {{ $solicitud->departamento }}  Solicitado por : {{ $solicitud->cedula . " - " . $solicitud->nombre . " - " . $solicitud->apellido }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -62,14 +74,21 @@
                     </div>
                 </div>
                 <div class="row">
+                <div class="col-md-4">
+                        {!! Form::label('empleado_id', 'Trabajador solicitante : ', ['class' => 'text-blue']) !!}
+                        <div class="input-group">
+                            {!! Form::select('empleado_id', $empleados, null, ['class' => 'form-control selectpicker select2'. ($errors->has('empleado_id') ? ' is-invalid' : ''), 'placeholder' => '']) !!}
+                            {!! $errors->first('empleado_id', ' <div class="invalid-feedback text-center"><strong>:message</strong></div>') !!}
+                        </div>
+                    </div>
                     
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         {!! Form::label('pproducto_id', 'Productos : ', ['class' => 'text-blue']) !!}
                         <div class="input-group">
                             {!! Form::select('pproducto_id', $productos, null, ['class' => 'form-control selectpicker select2', 'placeholder' => '']) !!}
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('pobservacionp', 'Observacion del Producto: ', ['class' => 'text-blue ']) !!}
                             <div class="input-group mb-3">
