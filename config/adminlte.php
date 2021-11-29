@@ -371,19 +371,19 @@ return [
         ],
         [
             'header' => 'REPORTES',
-            // 'can' => 'movimientossistema'
+            'can' => 'admin.report.index'
         ],
         [
             'text'    => 'Reportes',
             'icon'    => 'far fa-file-pdf text-blue',
-            // 'can'  => 'movimientossistema',
+            'can'  => 'admin.report.index',
             'submenu' => [
                 [
                     'text' => 'Reportes',
                     'route'  => 'admin.report.index',
                     'icon' => 'fas fa-clipboard-list text-blue',
                     'active' => ['admin/report*'],
-                    // 'can'  => 'admin.proveedors.index',
+                    'can'  => 'admin.report.index',
 
                 ],
             ],

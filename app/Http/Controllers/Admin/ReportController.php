@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.report.index')->only('index');
+        
+    }
     public function index()
     {
 

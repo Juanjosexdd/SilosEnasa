@@ -11,6 +11,14 @@ use App\Models\Log\LogSistema;
 
 class ProveedorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.proveedors.index')->only('index');
+        $this->middleware('can:admin.proveedors.create')->only('create', 'store');
+        $this->middleware('can:admin.proveedors.edit')->only('edit', 'update');
+        $this->middleware('can:admin.proveedors.destroy')->only('destroy');
+        $this->middleware('can:admin.proveedors.estatuproveedor')->only('estatuproveedor');
+    }
     /**
      * Display a listing of the resource.
      *
