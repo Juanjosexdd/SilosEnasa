@@ -23,14 +23,15 @@
           @endif
     </a>
     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-        <a href=" {{ route('markAsRead')}} " class="dropdown-item dropdown-footer">Marcar todas como leidas</a>
+        <a href=" {{ route('markAsRead')}} " class="btn text-align-center elevation-4 btn-block mx-2 my-2 bg-success">Marcar todas como leidas</a>
         <div class="dropdown-divider"></div>
-        <span class="dropdown-header">Notificaciones sin leer</span>
+        <span class="dropdown-header text-cyan">Notificaciones sin leer</span>
         @forelse (auth()->user()->unreadNotifications as $notification )
         <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
             realizó la solicitud nro.: {{ $notification->data['id']}}
             <span class="float-right text-muted text-sm">{{ $notification->updated_at}}</span>
+            <br>
         </a>
         @empty
         <span class="text-muted text-sm text-center p-3 ml-3">*******</span> 
