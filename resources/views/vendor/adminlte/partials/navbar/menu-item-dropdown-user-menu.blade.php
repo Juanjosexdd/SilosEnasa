@@ -12,6 +12,8 @@
     @php( $profile_url = $profile_url ? url($profile_url) : '' )
     @php( $logout_url = $logout_url ? url($logout_url) : '' )
 @endif
+@can('movimientossistema')
+    
 
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -49,8 +51,8 @@
         @endforelse
         
     </div>
-  </li>
-
+</li>
+@endcan
 <li class="nav-item dropdown user-menu">
 
     {{-- User menu toggler --}}
