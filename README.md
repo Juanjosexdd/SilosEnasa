@@ -1,62 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+![ENASA](public/vendor/adminlte/dist/banner.png "ENASA")
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+# Instalación
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Nota: Para el funcionamiento del proyecto dirigido a ENASA se debe instalar [LARAGON](https://laragon.org/) y para ellos invitamo a seguir la [documentación oficial](https://laragon.org/docs/install.html) é invitamos a consultar el manual ubicado en la raiz del proyecto titulado __Manual de instalacion__.
+### 1. Descargar
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Descargue y siga las instrucciones anteriores y colóquelos en su servidor. (Este proyecto fue desarrollado en Php y le recomiendo encarecidamente que siga las instruciones del __Manual de instalacion__,para obtener la configuración óptima del servidor y sin errores a través de la instalación).
 
-## Learning Laravel
+### 2. Archivos de entorno
+Este paquete se suministra con un archivo .env.example en la raíz del proyecto.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Debe cambiar el nombre de este archivo a solo .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Nota: Asegúrese de que se muestran los archivos ocultos en su sistema.
 
-## Laravel Sponsors
+### 3. Compositor
+Las dependencias del proyecto se gestionan a través de la herramienta PHP Composer. El primer paso es instalar las depencencies navegando en su proyecto en terminal y escribiendo este comando:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+composer install
 
-### Premium Partners
+### 4. NPM/Hilo
+Para instalar los paquetes Javascript para el desarrollo frontend, necesitará el Node Package Managery, opcionalmente, el Yarn Package Manager de Facebook (Recomendado)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+Si solo tienes NPM(Viene por defecto al instalar laragon) instalado tienes que ejecutar este comando desde la raíz del proyecto:
 
-## Contributing
+    npm install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+### 5. Crear base de datos
+Debe crear la base de datos en el servidor y en el archivo .env actualizar las siguientes líneas:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=silosenaa
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-## Security Vulnerabilities
+Cambie estas líneas para reflejar la nueva configuración de la base de datos.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 6. Comandos artesanales
+Lo primero que vamos a hacer es establecer la clave que Laravel usará al hacer cifrado.
 
-## License
+php artisan key:generate
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Debería ver un mensaje verde que indica que su clave se generó correctamente. Así como debería ver reflejada la variable APP_KEY en su archivo .env.
+
+Es hora de ver si las credenciales de su base de datos son correctas.
+
+Vamos a ejecutar las migraciones integradas para crear las tablas de base de datos:
+
+php artisan migrate
+
+Debería ver un mensaje para cada tabla migrada, si no lo hace y ve errores, lo más probable es que sus credenciales no sean correctas.
+
+Ahora vamos a establecer la información de la cuenta de administrador. Para hacer esto, debe navegar a este archivo y cambiar el nombre / correo electrónico / contraseña de la cuenta de administrador.
+
+Puede eliminar los otros usuarios ficticios, pero no elimine la cuenta de administrador o no podrá acceder al backend.
+
+Ahora sellen la base de datos con:
+
+php artisan db:seed
+
+Debería recibir un mensaje para cada archivo sembrado, debería ver la información en las tablas de su base de datos.
+
+### 7. Ejecución de NPM '*'
+Ahora que tiene las tablas de base de datos y las filas predeterminadas, debe crear los estilos y scripts.
+
+Estos archivos se generan utilizando Laravel Mix,que es un envoltorio alrededor de muchas herramientas, y funciona fuera de webpack.mix.js en la raíz del proyecto.
+
+Puedes construir con:
+
+npm run <command>
+
+Los comandos disponibles se enumeran en la parte superior del archivo package.json bajo la tecla 'scripts'.
+
+Verá una gran cantidad de información parpadear en la pantalla y luego se le proporcionará una tabla al final que explica lo que se compiló y dónde viven los archivos.
+
+En este punto, debería poder presionar el proyecto en su navegador local y ver el proyecto, así como poder iniciar sesión con el administrador y ver el backend.
+
+
+### 8. Almacenamiento: enlace
+Una vez instalado el proyecto, debe ejecutar este comando para vincular la carpeta de almacenamiento público para las cargas de avatares de usuario:
+
+php artisan storage:link
