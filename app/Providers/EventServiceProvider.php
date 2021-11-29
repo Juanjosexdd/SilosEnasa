@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\IngresoEvent;
-use App\Listeners\IngresoListener;
+use App\Events\SolicitudEvent;
+use App\Listeners\SolicitudListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,8 +27,8 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\LogSuccessFullLogout',
         ],
-        IngresoEvent::class => [
-            IngresoListener::class,
+        SolicitudEvent::class => [
+            SolicitudListener::class,
         ],
     ];
 

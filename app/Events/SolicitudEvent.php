@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class IngresoEvent
+class SolicitudEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,11 +20,11 @@ class IngresoEvent
      * @return void
      */
 
-    public $ingreso;
+    public $solicitud;
 
-    public function __construct($ingreso)
+    public function __construct($solicitud)
     {
-        $this->ingreso = $ingreso;   //
+        $this->solicitud = $solicitud;   //
     }
 
     /**

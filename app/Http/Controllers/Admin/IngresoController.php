@@ -236,7 +236,7 @@ class IngresoController extends Controller
         //              $user->notify(new IngresoNotification($ingreso));
         //            });
 
-        event(new IngresoEvent($ingreso));
+        //event(new IngresoEvent($ingreso));
 
 
         return redirect()->route('admin.ingresos.index')->with('success', 'Guardado con exito');

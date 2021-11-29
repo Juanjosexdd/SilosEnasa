@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Almacen;
 use App\Models\Solicitud;
+use App\Events\SolicitudEvent;
 use Illuminate\Http\Request;
 use App\Models\Detallesolicitud;
 use App\Models\Tipodocumento;
@@ -131,6 +132,8 @@ class SolicitudController extends Controller
         $log->tx_descripcion = 'El usuario: ' . auth()->user()->username . ' Ha registrado el solicitud a las: ' . date('H:m:i') . ' del día: ' . date('d/m/Y');
         $log->save();
 
+        event(new SolicitudEvent($solicitud));
+
 
         return redirect()->route('admin.solicituds.index')->with('success', 'Guardado con exito');
     }
@@ -173,6 +176,15 @@ class SolicitudController extends Controller
         $solicitud->estatus = 2;
         $solicitud->update();
         return view('admin.solicituds.index');
+    }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })->markAsRead();
+        return response()->noContent();
     }
 
     public function estatusolicitud(Solicitud $solicitud)

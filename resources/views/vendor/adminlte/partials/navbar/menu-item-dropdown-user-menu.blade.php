@@ -25,16 +25,11 @@
         <div class="dropdown-divider"></div>
         <span class="dropdown-header">Notificaciones sin leer</span>
         @forelse (auth()->user()->unreadNotifications as $notification )
-            <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i>{{ $notification->data['user_id']}}
-                registró el documento de
-                @if ( $notification->data['tipomovimiento'] == '1' )
-                    Ingreso
-                @else
-                    Egreso
-                @endif nro.: {{ $notification->data['correlativo']}}
-                <span class="float-right text-muted text-sm">{{ $notification->created_at->diffForHumans()}}</span>
-            </a>
+        <a href="#" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
+            realizó la solicitud nro.: {{ $notification->data['id']}}
+            <span class="float-right text-muted text-sm">{{ $notification->updated_at}}</span>
+        </a>
         @empty
         <span class="text-muted text-sm text-center p-3 ml-3">*******</span> 
             
@@ -46,8 +41,8 @@
         @forelse (auth()->user()->readNotifications as $notification)
         <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> El usuario {{ $notification->data['user_id']}}
-            registró el documento nro.: {{ $notification->data['correlativo']}}
-            <span class="float-right text-muted text-sm">{{ $notification->updated_at->diffForHumans()}}</span>
+            realizó la solicitud nro.: {{ $notification->data['id']}}
+            <span class="float-right text-muted text-sm">{{ $notification->updated_at}}</span>
         </a>
         @empty
             <span class="text-muted text-sm text-center p-3 ml-3">*******</span> 

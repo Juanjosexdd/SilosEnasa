@@ -2,14 +2,15 @@
 
 namespace App\Notifications;
 
-use App\Models\Ingreso;
+use App\Models\Solicitud;
+use App\Events\SolicitudEvent;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class IngresoNotification extends Notification
+class SolicitudNotification extends Notification
 {
     use Queueable;
 
@@ -18,9 +19,9 @@ class IngresoNotification extends Notification
      *
      * @return void
      */
-    public function __construct(Ingreso $ingreso)
+    public function __construct(Solicitud $solicitud)
     {
-        $this->ingreso = $ingreso;
+        $this->solicitud = $solicitud;
     }
 
     /**
@@ -57,11 +58,9 @@ class IngresoNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'ingreso' => $this->ingreso->id,
-            'tipomovimiento' => $this->ingreso->tipomovimiento_id,
-            'proveedor_id' => $this->ingreso->proveedor->nombre,
-            'user_id' => $this->ingreso->user->display_user,
-            'correlativo' => $this->ingreso->correlativo,
+            'id' => $this->solicitud->estatus,
+            'user_id' => $this->solicitud->user->display_user,
+            'departamento_id' => $this->solicitud->departamento->nombre,
             'created_at' => Carbon::now()->diffForHumans(),
         ];
     }

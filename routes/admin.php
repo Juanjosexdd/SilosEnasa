@@ -67,7 +67,7 @@ Route::get('markAsRead', function(){
     return redirect()->back();
 })->name('markAsRead');
 
-Route::post('/mark-as-read',[IngresoController::class, 'markNotification'])->name('markNotification');
+Route::post('/mark-as-read',[SolicitudController::class, 'markNotification'])->name('markNotification');
 
 Route::resource('storeproductoingreso',   'ProductoController@storeproductoingreso');
 
